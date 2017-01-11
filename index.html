@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<meta name="description" content="Box">
-<html><body>
-<script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
-<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v0.3.0/dist/aframe-altspace-component.min.js"></script>
-<script src="https://unpkg.com/aframe-text-component@0.4.x/dist/aframe-text-component.min.js"></script>
- <script>
+<html><head>
+<script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
+<script>
 
 // an example custom component, that will change the color when clicked
 AFRAME.registerComponent('color-cycle', {
@@ -23,36 +21,12 @@ AFRAME.registerComponent('color-cycle', {
 });
 
 </script>
+</head>
+<body>
+
 <!-- set up the scene -->
 <a-scene altspace='vertical-align: bottom;'>
- 
-    <!-- preload all our textures -->
-    <a-assets>
-        <img id='moon' src='https://developer.altvr.com/wp-content/uploads/2016/10/moon.jpg'/>
-        <img id='stars' src='https://developer.altvr.com/wp-content/uploads/2016/10/stars.png'/>
-    </a-assets>
- 
-    <a-entity text="text:Hello World!" position='0 1.8 0' scale='.2 .2 .2' material="color: #FF0000">
-      <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/>
-    </a-entity>
-  
-    <!-- add the moon to the scene -->
-    <a-box position='0 1 0' color-cycle>
-        <!-- add an animation to make it rotate -->
-        <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/>  
-    </a-box>
- 
-   
-     
-  
-    <!-- add the backdrop of stars -->
-    
- 
-    <!-- add a view camera (2d only) -->
-    <a-entity position='0 0 2'>
-        <a-camera></a-camera>
-    </a-entity>
- 
+    <a-box position='0 1 0' color-cycle></a-box>
 </a-scene>
- 
+
 </body></html>
