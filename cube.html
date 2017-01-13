@@ -26,7 +26,7 @@ AFRAME.registerComponent('color-cycle', {
                 Math.floor(Math.random()*256)
             ];
             var newColor = rgb('+rgb.join(',')+');
-            self.el.setAttribute('color', newColor);
+            self.el.setAttribute('color', 'rgb('+rgb.join(',')+')');
         });
     }
 });
