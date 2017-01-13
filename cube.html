@@ -2,24 +2,10 @@
 <html><head>
 <script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
 <script src="https://altspacevr.github.io/aframe-altspace-component/dist/aframe-altspace-component.js"></script>
-<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 <script src="http://sdk.altvr.com/libs/altspace.js/0.19.2/altspace.js"></script>
 <script>
 // an example custom component, that will change the color when clicked
-AFRAME.registerComponent('color-cycle', {
-    schema: {},
-    init: function(){
-        var self = this;
-        self.el.object3D.addEventListener('cursorup', function(){
-            var rgb = [
-                Math.floor(Math.random()*256),
-                Math.floor(Math.random()*256),
-                Math.floor(Math.random()*256)
-            ];
-            self.el.setAttribute('color', 'rgb('+rgb.join(',')+')');
-        });
-    }
-});
+
 
 </script>
 </head>
