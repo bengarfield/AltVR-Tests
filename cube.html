@@ -26,12 +26,12 @@ AFRAME.registerComponent('color-cycle', {
 <body>
 
 <!-- set up the scene -->
-<a-scene altspace='vertical-align: bottom;'>
+<a-scene debug="" altspace="vertical-align: bottom;" sync-system="author: bengarfield; app: cube_sync" >
     <a-box position='0 1 0' color-cycle>
         <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
     </a-box>
     
-    <a-entity n-text="fontSize:5; width:4; text:This is my cube. I made it all by myself." position="0 2 0">
+    <a-entity n-text="fontSize:5; width:4; text:Hello World!" position="0 2 0">
         <a-animation to='0 -360 0' easing='linear' dur='5000' repeat='indefinite'/> 
     </a-entity>
 </a-scene>
