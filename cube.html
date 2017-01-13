@@ -5,31 +5,30 @@
 <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 <script src="http://sdk.altvr.com/libs/altspace.js/0.19.2/altspace.min.js"></script>
 <script>
-    // an example custom component, that will change the color when clicked
-    AFRAME.registerComponent('color-cycle', {
-        schema: {},
-        init: function(){
-            var self = this;
-            self.el.object3D.addEventListener('cursorup', function(){
-                var rgb = [
-                    Math.floor(Math.random()*256),
-                    Math.floor(Math.random()*256),
-                    Math.floor(Math.random()*256)
-                ];
-                self.el.setAttribute('color', 'rgb('+rgb.join(',')+')');
-            });
-        }
-    });
+// an example custom component, that will change the color when clicked
+AFRAME.registerComponent('color-cycle', {
+    schema: {},
+    init: function(){
+        var self = this;
+        self.el.object3D.addEventListener('cursorup', function(){
+            var rgb = [
+                Math.floor(Math.random()*256),
+                Math.floor(Math.random()*256),
+                Math.floor(Math.random()*256)
+            ];
+            self.el.setAttribute('color', 'rgb('+rgb.join(',')+')');
+        });
+    }
+});
 
-    var syncInstance = altspace.utilities.sync.getInstance({
-        // All sync instances with the same instance id will share
-        // properties.
-        instanceId: "12345",
-        // This helps to prevent collisions.
-        authorId: "bengarfield"
-        appID: "cubeSync"
-    });
-    
+var syncInstance = altspace.utilities.sync.getInstance({
+    // All sync instances with the same instance id will share
+    // properties.
+    instanceId: "12345",
+    // This helps to prevent collisions.
+    authorId: "bengarfield"
+    appID: "cubeSync"
+});
 </script>
 </head>
 <body>
