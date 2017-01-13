@@ -5,17 +5,15 @@
 <script src="http://sdk.altvr.com/libs/altspace.js/0.19.2/altspace.js"></script>
 </head>
 <body>
-
-<!-- set up the scene -->
-<a-scene debug altspace="vertical-align: bottom;">
-    <a-box id="cube" position='0 1 0' sync="onwOn: mousedown" sync-color>
-        <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
-    </a-box>
+    <a-scene debug altspace="vertical-align: bottom;">
+        <a-box id="cube" position='0 1 0' sync="onwOn: mousedown" sync-color>
+            <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
+        </a-box>
     
-    <a-entity n-text="fontSize:5; width:4; text:Hello World!" position="0 2 0">
-        <a-animation to='0 -360 0' easing='linear' dur='5000' repeat='indefinite'/> 
-    </a-entity>
-</a-scene>
+        <a-entity n-text="fontSize:5; width:4; text:Hello World!" position="0 2 0">
+            <a-animation to='0 -360 0' easing='linear' dur='5000' repeat='indefinite'/> 
+        </a-entity>
+    </a-scene>
 <script>
     var randColor = function (el) {
         var rand = function () { return Math.floor(Math.random() * 255) };
@@ -23,9 +21,7 @@
     }
     
     var cubeEl = document.querySelector('#cube');
-    cubeEl.addEventListener('mouseup', function (event) {
-        randColor(event.target);
-    });
+    cubeEl.addEventListener('mousedown', function (event) { randColor(event.target); });
 </script>
 </body>
 </html>
