@@ -13,7 +13,7 @@
 
 <!-- set up the scene -->
 <a-scene debug altspace="vertical-align: bottom;" sync-system="author: bengarfield; app: sync-test">
-    <a-box position='0 1 0' color-cycle>
+    <a-box position='0 1 0' sync="onwOn: mousedown" sync-color>
         <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
     </a-box>
     
