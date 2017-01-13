@@ -5,7 +5,7 @@
 <script src="http://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
 </head>
 <body>
-    <a-scene debug altspace="vertical-align: bottom;">
+    <a-scene sync-system='app: example sync; author: altspacevr'>
         <a-box id="cube" position='0 1 0' sync="onwOn: mousedown" sync-color>
             <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
         </a-box>
