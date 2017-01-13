@@ -5,29 +5,37 @@
 <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 <script src="http://sdk.altvr.com/libs/altspace.js/0.19.2/altspace.min.js"></script>
 <script>
+    // an example custom component, that will change the color when clicked
+    AFRAME.registerComponent('color-cycle', {
+        schema: {},
+        init: function(){
+            var self = this;
+            self.el.object3D.addEventListener('cursorup', function(){
+                var rgb = [
+                    Math.floor(Math.random()*256),
+                    Math.floor(Math.random()*256),
+                    Math.floor(Math.random()*256)
+                ];
+                self.el.setAttribute('color', 'rgb('+rgb.join(',')+')');
+            });
+        }
+    });
 
-// an example custom component, that will change the color when clicked
-AFRAME.registerComponent('color-cycle', {
-    schema: {},
-    init: function(){
-        var self = this;
-        self.el.object3D.addEventListener('cursorup', function(){
-            var rgb = [
-                Math.floor(Math.random()*256),
-                Math.floor(Math.random()*256),
-                Math.floor(Math.random()*256)
-            ];
-            self.el.setAttribute('color', 'rgb('+rgb.join(',')+')');
-        });
-    }
-});
-
+    var syncInstance = altspace.utilities.sync.getInstance({
+        // All sync instances with the same instance id will share
+        // properties.
+        instanceId: "12345",
+        // This helps to prevent collisions.
+        authorId: "bengarfield"
+        appID: "cubeSync"
+    });
+    
 </script>
 </head>
 <body>
 
 <!-- set up the scene -->
-<a-scene debug="" altspace="vertical-align: bottom;" sync-system="author: bengarfield; app: cube_sync" >
+<a-scene altspace="vertical-align: bottom;">
     <a-box position='0 1 0' color-cycle>
         <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
     </a-box>
