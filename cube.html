@@ -5,7 +5,7 @@
 <script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
 </head>
 <body>
-    <a-scene altspace="verticalAlign: bottom">
+    <a-scene altspace="verticalAlign: bottom" sync-system='app: CubeSync; author: bengarfield'>
         <a-box id="cube" position='0 1 0' sync="onwOn: mousedown" sync-color>
             <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
         </a-box>
@@ -15,14 +15,14 @@
         </a-entity>
     </a-scene>
 <script>
-    var syncInstance;
-    altspace.utilities.sync.connect({
-       authorId: "bengarfield",
-       appId: "CubeSync",
-       baseRefUrl: "https://cubesync-f70b7.firebaseio.com/"
-    }).then(function(connection) {
-        syncInstance = connection.instance;
-    });
+//    var syncInstance;
+//    altspace.utilities.sync.connect({
+//       authorId: "bengarfield",
+//       appId: "CubeSync",
+//       baseRefUrl: "https://cubesync-f70b7.firebaseio.com/"
+//    }).then(function(connection) {
+//        syncInstance = connection.instance;
+//    });
     var randColor = function (el) {
         var rand = function () { return Math.floor(Math.random() * 255) };
         el.setAttribute('material', 'color', 'rgb(' + rand() + ',' + rand() + ',' + rand() + ')');
