@@ -15,6 +15,11 @@
         </a-entity>
     </a-scene>
 <script>
+    var sync = altspace.utilities.sync.connect({
+       authorId: "bengarfield",
+       appId: "CubeSync",
+       baseRefUrl: "https://cubesync-f70b7.firebaseio.com/"
+    });
     var randColor = function (el) {
         var rand = function () { return Math.floor(Math.random() * 255) };
         el.setAttribute('material', 'color', 'rgb(' + rand() + ',' + rand() + ',' + rand() + ')');
