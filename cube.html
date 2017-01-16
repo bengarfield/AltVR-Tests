@@ -10,15 +10,18 @@
             <a-animation to='0 360 0' easing='linear' dur='5000' repeat='indefinite'/> 
         </a-box>
     
-        <a-entity n-text="fontSize:5; width:4; text:This is not a cube." position="0 2 0">
+        <a-entity n-text="fontSize:5; width:4; text:Testing" position="0 2 0">
             <a-animation to='0 -360 0' easing='linear' dur='5000' repeat='indefinite'/> 
         </a-entity>
     </a-scene>
 <script>
-    var sync = altspace.utilities.sync.connect({
+    var syncInstance;
+    altspace.utilities.sync.connect({
        authorId: "bengarfield",
        appId: "CubeSync",
        baseRefUrl: "https://cubesync-f70b7.firebaseio.com/"
+    }).then(function(connection) {
+        syncInstance = connection.instance;
     });
     var randColor = function (el) {
         var rand = function () { return Math.floor(Math.random() * 255) };
