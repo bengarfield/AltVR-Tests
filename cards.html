@@ -43,7 +43,7 @@ function shuffleArray(array) {
     return array;
 }
 function shuffle() {
-    syncedCards = shuffleArray(cards);
+    syncedCards.set(shuffleArray(cards));
 }
 function showCards() {
     document.getElementById("cards1").innerHTML = cards.slice(0, 13);
