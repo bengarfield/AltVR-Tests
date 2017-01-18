@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<title>Poker</title>
+<script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
+<style>
+p, button {font-family: Courier New;font-size: 40px}
+img {width:7%;height:7%;}
+</style>
+</head>
+
+<body>
+<p id="img1"></p>
+<p id="img2"></p>
+<p id="img3"></p>
+<p id="img4"></p>
+<p id="cards1"></p>
+<p id="cards2"></p>
+<p id="cards3"></p>
+<p id="cards4"></p>
+<button type="button" id="shuffleButton">Shuffle</button><button type="button" id="resetButton">Reset</button>
+<script>
+var cards =[];
+function resetCards() {
+    cards = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "CJ", "CQ", "CK", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "DJ", "DQ", "DK", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "HJ", "HQ", "HK", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "SJ", "SQ", "SK"];
+    showCards();
+}
+resetCards();
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+function shuffle() {
+    cards = shuffleArray(cards);
+    showCards();
+}
+function showCards() {
+    document.getElementById("cards1").innerHTML = cards.slice(0, 13);
+    document.getElementById("cards2").innerHTML = cards.slice(13, 26);
+    document.getElementById("cards3").innerHTML = cards.slice(26, 39);
+    document.getElementById("cards4").innerHTML = cards.slice(39, 52);
+document.getElementById("img1").innerHTML = "";
+document.getElementById("img2").innerHTML = "";
+document.getElementById("img3").innerHTML = "";
+document.getElementById("img4").innerHTML = "";
+//for (var i = 0; i < 13; i++) {
+//    document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+//}
+//for (var i = 13; i < 26; i++) {
+//    document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+//}
+//for (var i = 26; i < 39; i++) {
+//    document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+//}
+//for (var i = 39; i < 52; i++) {
+//    document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+//}
+}
+document.getElementById("shuffleButton").addEventListener("click", shuffle);
+document.getElementById("resetButton").addEventListener("click", resetCards);
+</script>
+</body>
+</html>
