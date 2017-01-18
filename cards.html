@@ -43,8 +43,7 @@ function shuffleArray(array) {
     return array;
 }
 function shuffle() {
-    cards = shuffleArray(cards);
-    showCards();
+    syncedCards = shuffleArray(cards);
 }
 function showCards() {
     document.getElementById("cards1").innerHTML = cards.slice(0, 13);
@@ -70,6 +69,13 @@ document.getElementById("img4").innerHTML = "";
 }
 document.getElementById("shuffleButton").addEventListener("click", shuffle);
 document.getElementById("resetButton").addEventListener("click", resetCards);
+syncedCards.on('value', function(snapshot){
+    var val = snapshot.val();
+    if ( val ) {
+        cards = syncedCards;
+        showCards();
+    }
+});
 </script>
 </body>
 </html>
