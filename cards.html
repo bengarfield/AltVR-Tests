@@ -50,7 +50,9 @@ var onComplete = function(error) {
     }
 }
 function shuffle() {
-    syncedCards.set(shuffleArray(cards), onComplete);
+    //syncedCards.set(shuffleArray(cards), onComplete);
+    cards = shuffleArray(cards);
+    showCards();
 }
 function showCards() {
 //    document.getElementById("cards1").innerHTML = cards.slice(0, 13);
