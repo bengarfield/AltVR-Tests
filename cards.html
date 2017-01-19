@@ -20,7 +20,7 @@ img {width:7%;height:7%;}
 <p id="cards4"></p>
 <button type="button" id="shuffleButton">Shuffle</button><button type="button" id="resetButton">Reset</button>
 <script>
-var sync = altspace.utilities.sync.getInstance({
+var sync = altspace.utilities.sync.connect({
     baseRefUrl: "https://cubesync-f70b7.firebaseio.com/",
     appId: "shuffleSync",
     authorId: "BenG"
@@ -59,20 +59,20 @@ function showCards() {
 //    document.getElementById("cards4").innerHTML = cards.slice(39, 52);
     document.getElementById("img1").innerHTML = "";
     document.getElementById("img2").innerHTML = "";
-	document.getElementById("img3").innerHTML = "";
-	document.getElementById("img4").innerHTML = "";
-	for (var i = 0; i < 13; i++) {
-    	document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-	}
-	for (var i = 13; i < 26; i++) {
-    	document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-	}
-	for (var i = 26; i < 39; i++) {
-		document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-	}
-	for (var i = 39; i < 52; i++) {
-		document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-	}
+    document.getElementById("img3").innerHTML = "";
+    document.getElementById("img4").innerHTML = "";
+    for (var i = 0; i < 13; i++) {
+        document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='cards/poker" + cards[i] + ".png'>");
+    }
+    for (var i = 13; i < 26; i++) {
+        document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='cards/poker/" + cards[i] + ".png'>");
+    }
+    for (var i = 26; i < 39; i++) {
+        document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='cards/poker/" + cards[i] + ".png'>");
+    }
+    for (var i = 39; i < 52; i++) {
+        document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='cards/poker/" + cards[i] + ".png'>");
+    }
 }
 document.getElementById("shuffleButton").addEventListener("click", shuffle);
 document.getElementById("resetButton").addEventListener("click", resetCards);
