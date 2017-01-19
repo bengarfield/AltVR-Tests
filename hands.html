@@ -8,7 +8,7 @@
 <body>
     <a-scene altspace="verticalAlign: bottom">
         <a-entity id='row1'>
-            <a-box width='0.1' height='0.1' depth='0.1' color='#FF0000' position='0 1 0'></a-box>
+            <a-box width='0.1' height='0.1' depth='0.1' color='#00FF00' position='0 1 0'></a-box>
         </a-entity>
         
         <a-entity position='0 0 2'>
@@ -16,8 +16,9 @@
         </a-entity>
     </a-scene>
 <script>
+    document.write("<a-scene altspace='verticalAlign: bottom'><a-entity id='row1'><a-box width='0.1' height='0.1' depth='0.1' color='#FF0000' position='0 1 0'></a-box></a-entity><a-entity position='0 0 2'><a-camera></a-camera></a-entity></a-scene>");
     for (var i = 0; i < 10; i++) {
-        document.getElementById('row1').insertAdjacentHTML("beforeend", "<a-box width='0.1' height='0.1' depth='0.1' color='#FF0000' position='" + (i / 0.5).toString + " 1 0'></a-box>");                                                       
+       // document.getElementById('row1').insertAdjacentHTML("beforeend", "<a-box width='0.1' height='0.1' depth='0.1' color='#FF0000' position='" + (i / 0.5).toString + " 1 0'></a-box>");                                                       
     }
 </script>
 </body>
