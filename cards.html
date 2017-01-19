@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Poker</title>
+<title>Shuffle</title>
 <script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
 <style>
 p, button {font-family: Courier New;font-size: 40px}
@@ -53,26 +53,26 @@ function shuffle() {
     syncedCards.set(shuffleArray(cards), onComplete);
 }
 function showCards() {
-    document.getElementById("cards1").innerHTML = cards.slice(0, 13);
-    document.getElementById("cards2").innerHTML = cards.slice(13, 26);
-    document.getElementById("cards3").innerHTML = cards.slice(26, 39);
-    document.getElementById("cards4").innerHTML = cards.slice(39, 52);
-document.getElementById("img1").innerHTML = "";
-document.getElementById("img2").innerHTML = "";
-document.getElementById("img3").innerHTML = "";
-document.getElementById("img4").innerHTML = "";
-//for (var i = 0; i < 13; i++) {
-//    document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-//}
-//for (var i = 13; i < 26; i++) {
-//    document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-//}
-//for (var i = 26; i < 39; i++) {
-//    document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-//}
-//for (var i = 39; i < 52; i++) {
-//    document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
-//}
+//    document.getElementById("cards1").innerHTML = cards.slice(0, 13);
+//    document.getElementById("cards2").innerHTML = cards.slice(13, 26);
+//    document.getElementById("cards3").innerHTML = cards.slice(26, 39);
+//    document.getElementById("cards4").innerHTML = cards.slice(39, 52);
+    document.getElementById("img1").innerHTML = "";
+    document.getElementById("img2").innerHTML = "";
+	document.getElementById("img3").innerHTML = "";
+	document.getElementById("img4").innerHTML = "";
+	for (var i = 0; i < 13; i++) {
+    	document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+	}
+	for (var i = 13; i < 26; i++) {
+    	document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+	}
+	for (var i = 26; i < 39; i++) {
+		document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+	}
+	for (var i = 39; i < 52; i++) {
+		document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='cards/" + cards[i] + ".png'>");
+	}
 }
 document.getElementById("shuffleButton").addEventListener("click", shuffle);
 document.getElementById("resetButton").addEventListener("click", resetCards);
