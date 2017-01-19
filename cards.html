@@ -64,7 +64,7 @@ function showCards() {
     document.getElementById("img3").innerHTML = "";
     document.getElementById("img4").innerHTML = "";
     for (var i = 0; i < 13; i++) {
-        document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='poker" + cards[i] + ".png'>");
+        document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='poker/" + cards[i] + ".png'>");
     }
     for (var i = 13; i < 26; i++) {
         document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='poker/" + cards[i] + ".png'>");
