@@ -20,11 +20,14 @@ img {width:7%;height:7%;}
 <p id="cards4"></p>
 <button type="button" id="shuffleButton">Shuffle</button><button type="button" id="resetButton">Reset</button>
 <script>
-//var sync = altspace.utilities.sync.connect({
-//    baseRefUrl: "https://cubesync-f70b7.firebaseio.com/",
-//    appId: "shuffleSync",
-//    authorId: "BenG"
-//});
+    var syncInstance;
+    altspace.utilities.sync.connect({
+       authorId: "bengarfield",
+       appId: "Shuffle",
+       baseRefUrl: "https://cubesync-f70b7.firebaseio.com/"
+    }).then(function(connection) {
+        syncInstance = connection.instance;
+    });
 var cards =[];
 //var syncedCards = sync.child("cardOrder");
 function resetCards() {
