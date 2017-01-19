@@ -78,13 +78,13 @@ function showCards() {
 }
 document.getElementById("shuffleButton").addEventListener("click", shuffle);
 document.getElementById("resetButton").addEventListener("click", resetCards);
-syncedCards.on('value', function(snapshot){
-    var val = snapshot.val();
-    if ( val ) {
-        cards = syncedCards;
-        showCards();
-    }
-});
+//syncedCards.on('value', function(snapshot){
+//    var val = snapshot.val();
+//    if ( val ) {
+//        cards = syncedCards;
+//        showCards();
+//    }
+//});
 </script>
 </body>
 </html>
