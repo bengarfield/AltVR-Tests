@@ -16,6 +16,11 @@
         </a-entity>
     </a-scene>
 <script>
+    var box = document.createElement('a-box');
+    box.addAttribute('color', '#FF0000');
+    document.querySelector('#row1').appendChild(box);
+    
+    
     for (var i = 0; i < 10; i++) {
        // document.getElementById('row1').insertAdjacentHTML("beforeend", "<a-box width='0.1' height='0.1' depth='0.1' color='#FF0000' position='" + (i / 0.5).toString + " 1 0'></a-box>");                                                       
     }
