@@ -62,16 +62,16 @@ function showCards() {
     document.getElementById("img3").innerHTML = "";
     document.getElementById("img4").innerHTML = "";
     for (var i = 0; i < 13; i++) {
-        document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='cards/poker" + cards[i] + ".png'>");
+        document.getElementById("img1").insertAdjacentHTML("beforeend", "<img src='poker" + cards[i] + ".png'>");
     }
     for (var i = 13; i < 26; i++) {
-        document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='cards/poker/" + cards[i] + ".png'>");
+        document.getElementById("img2").insertAdjacentHTML("beforeend", "<img src='poker/" + cards[i] + ".png'>");
     }
     for (var i = 26; i < 39; i++) {
-        document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='cards/poker/" + cards[i] + ".png'>");
+        document.getElementById("img3").insertAdjacentHTML("beforeend", "<img src='poker/" + cards[i] + ".png'>");
     }
     for (var i = 39; i < 52; i++) {
-        document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='cards/poker/" + cards[i] + ".png'>");
+        document.getElementById("img4").insertAdjacentHTML("beforeend", "<img src='poker/" + cards[i] + ".png'>");
     }
 }
 document.getElementById("shuffleButton").addEventListener("click", shuffle);
