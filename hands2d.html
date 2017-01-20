@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="card1" value="S10">
+    <input type="text" id="card2" value="S11">
+    <input type="text" id="card3" value="S12">
+    <input type="text" id="card4" value="S13">
+    <input type="text" id="card5" value="S14">
+    <button type="button" id="goButton">Go</button>
+    
+    <p id="text"></p>
+<script>
+document.getElementById("goButton").addEventListener("click", go);
+function go() {
+    var cards = [];
+    var suits = [];
+    var values = [];
+    var numOfSuits = 0;
+    var isStreak = false;
+    var streakVal = 0;
+    var match1Num = 0;
+    var match1Val = 0;
+    var match2Num = 0;
+    var match2Val = 0;
+    var hand;
+    var score;
+
+    // Separate suits from values
+    for (var i = 0; i < 5; i++) {
+        cards.push(document.getElementById("card" + (i+1)).value);
+        suits.push(cards[i].slice(0, 1));
+        values.push(Number(cards[i].slice(1, cards[i].length)));
+    }
+
+    // Count suits
+    if (suits.indexOf("C") >= 0) {numOfSuits++;}
+    if (suits.indexOf("D") >= 0) {numOfSuits++;}
+    if (suits.indexOf("H") >= 0) {numOfSuits++;}
+    if (suits.indexOf("S") >= 0) {numOfSuits++;}
+    values.sort(function(a, b){return a-b});
+
+    // Check for ace to five streak
+    if (JSON.stringify(values) == JSON.stringify([2,3,4,5,14])) {values = [1,2,3,4,5];}
+
+    // Check for streak
+    if (values[0] == values[1] - 1 && values[1] == values[2] - 1 && values[2] == values[3] - 1 && values[3] == values[4] - 1) {
+        isStreak = true;
+        streakVal = values[4];
+    }
+
+    // Check for matching values
+    for (var i = 0; i < 1; i++) {
+        var reg = new RegExp(i + ", | " + i + "]", "g");
+        alert(i + ": " + JSON.stringify(values).match(reg));
+    }
+
+    // Asign hand type
+    if (numOfSuits == 1 && streakVal == 14) {
+        hand = "Royal Flush";
+        score = 10;
+    } else if (numOfSuits == 1 && streakVal > 0) {
+        hand = "Straight Flush";
+        score = 9 + (values[4] / 100);
+    } else if (numOfSuits == 1) {
+        hand = "Flush";
+        score = 6 + (values[4] / 100);
+    } else if (numOfSuits > 0 && streakVal > 0) {
+        hand = "Straight";
+        score = 5 + (values[4] / 100);
+    }
+
+    document.getElementById("text").innerHTML = "Cards: " + cards + "<br>Suits: " + suits + "<br>Number of suits: " + numOfSuits + "<br>Values: " + values + "<br>Streak: " + isStreak + "<br>Streak value: " + streakVal + "<br>Match 1: num:" + match1Num + " val:" + match1Val + "<br>Match 2: num:" + match2Num + " val:" + match2Val + "<br>Hand: " + hand + "<br>Score: " + score + "<br> Number of aces: " + JSON.stringify(values).match(/14/g).length;
+}
+</script>
+</body>
+</html>
