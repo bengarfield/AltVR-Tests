@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Poker Hands VR</title>
 <script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 <script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
 </head>
 <body>
     <a-scene altspace="verticalAlign: bottom">
-        <a-entity id='row1' position='0 1.1 0'></a-entity>
-        <a-entity id='row2' position='0 0.9 0'></a-entity>
-        <a-entity id='row3' position='0 1.8 0'></a-entity>
-
-        <a-entity id='text' n-text="fontSize:3; width:4; text:" position="0 2.5 0"></a-entity>
+        <a-entity id='row1' position='0 1.1 -2.5'></a-entity>
+        <a-entity id='row2' position='0 0.9 -2.5'></a-entity>
+        <a-entity id='row3' position='0 1.8 -2.5'></a-entity>
+        
+        <a-box id="randomHand" position='-0.5 0.6 -2.5' width='0.8' height='0.25' depth='0.01' color='#000000'></a-box>
+        <a-entity n-text="fontSize:1; width:4; text:Random" position="-0.5 0.6 -2.49"></a-entity>
+        <a-box id="clear" position='0.5 0.6 -2.5' width='0.8' height='0.25' depth='0.01' color='#000000'></a-box>
+        <a-entity n-text="fontSize:1; width:4; text:Clear" position="0.5 0.6 -2.49"></a-entity>
+        
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S14.png' position='0 1.5 2' width='.72' height='1.02' transparent='true'></a-plane>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/back.png' position='0 1.5 2' width='.72' height='1.02' rotation='0 180 0' transparent='true'></a-plane>
+        
+        <a-entity id='text' n-text="fontSize:3; width:4; text:" position="0 2.5 -2.5"></a-entity>
+        
+        <a-box position='0 0.4 0' width='.3' height='1' depth='.3' color='#281b08'></a-box>
+        <a-box position='0 1 0' width='2' height='0.2' depth='2' color='#1f6322'></a-box>
+        <a-box position='1 1 0' width='0.2' height='0.3' depth='2.2' color='#281b08'></a-box>
+        <a-box position='-1 1 0' width='0.2' height='0.3' depth='2.2' color='#281b08'></a-box>
+        <a-box position='0 1 1' width='2.2' height='0.3' depth='0.2' color='#281b08'></a-box>
+        <a-box position='0 1 -1' width='2.2' height='0.3' depth='0.2' color='#281b08'></a-box>
+        
         <a-entity position='0 0 4'>
             <a-camera></a-camera>
         </a-entity>
@@ -20,42 +37,41 @@
     var cards = ["C14", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "D14", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "H14", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "S14", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12", "S13"];
     
     var selectedCards = [];
-    reset();
-    function reset() {
-        for (var i = 0; i < 52; i++) {
-            var box = document.createElement('a-box');
-            box.setAttribute('id', cards[i]);
-            box.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/' + cards[i] + '.png');
-            box.setAttribute('width', '0.12');
-            box.setAttribute('height', '0.17');
-            box.setAttribute('depth', '0.01');
-            box.addEventListener('mousedown', function (event) { cardClick(event.target); });
-            if (i < 26) {
-                box.setAttribute('position', -1.875+(i*.15) + ' 0 0');
-                console.log(i + ': ' + (-1.875+(i*.15)) + ' 0 0');
-                document.querySelector('#row1').appendChild(box);
-            } else {
-                box.setAttribute('position', -1.875+((i-26)*.15) + ' 0 0');
-                document.querySelector('#row2').appendChild(box);
-            }
-        }
-        for (var i = 1; i<6; i++) {
-            var box = document.createElement('a-box');
-            box.setAttribute('id', 'sel' + i);
-            box.setAttribute('width', '0.72');
-            box.setAttribute('height', '1.02');
-            box.setAttribute('depth', '0.01');
-            box.setAttribute('position', (i-3)*.8 + ' 0 0');
-            document.querySelector('#row3').appendChild(box);
-            box.addEventListener('mousedown', function (event) { selCardClick(event.target); });
+
+    for (var i = 0; i < 52; i++) {
+        var box = document.createElement('a-plane');
+        box.setAttribute('id', cards[i]);
+        box.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/' + cards[i] + '.png');
+        box.setAttribute('width', '0.12');
+        box.setAttribute('height', '0.17');
+        box.setAttribute('transparent', 'true');
+        box.addEventListener('mousedown', function (event) { cardClick(event.target); });
+        if (i < 26) {
+            box.setAttribute('position', -1.875+(i*.15) + ' 0 0');
+            console.log(i + ': ' + (-1.875+(i*.15)) + ' 0 0');
+            document.querySelector('#row1').appendChild(box);
+        } else {
+            box.setAttribute('position', -1.875+((i-26)*.15) + ' 0 0');
+            document.querySelector('#row2').appendChild(box);
         }
     }
+    for (var i = 1; i<6; i++) {
+        var box = document.createElement('a-plane');
+        box.setAttribute('id', 'sel' + i);
+        box.setAttribute('width', '0.72');
+        box.setAttribute('height', '1.02');
+        box.setAttribute('position', (i-3)*.8 + ' 0 0');
+        box.setAttribute('transparent', 'true');
+        document.querySelector('#row3').appendChild(box);
+        box.addEventListener('mousedown', function (event) { selCardClick(event.target); });
+    }
+  
+    document.querySelector('#randomHand').addEventListener('mousedown', function (event) { randomise(); });
+    document.querySelector('#clear').addEventListener('mousedown', function (event) { clear(); });
+
     function cardClick(el) {
-        console.log(el.id + ' clicked');
         if (selectedCards.indexOf(el.id) < 0  && selectedCards.length < 5) {
             selectedCards.push(el.id);
-            console.log(selectedCards);
-            console.log(selectedCards.length);
             el.setAttribute('color', '#555555');
             document.querySelector('#sel' + selectedCards.length).setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/' + el.id + '.png');
         }
@@ -64,7 +80,6 @@
         }
     }
     function selCardClick(el) {
-        console.log(el.id);
         if (el.id == 'sel1' && selectedCards.length > 0) {
             removeCard(1);
         } else if (el.id == 'sel2' && selectedCards.length > 1) {
@@ -81,7 +96,6 @@
     function removeCard(i) {
         document.querySelector('#' + selectedCards[i-1]).setAttribute('color', '#FFFFFF');
         selectedCards.splice(i-1, 1);
-        console.log(selectedCards);
         updateSelCards();
     }
     function updateSelCards() {
@@ -89,7 +103,6 @@
         if (selectedCards.length < 5) {
             var cardsToClear = 5 - selectedCards.length;
             for (var i = 0; i < cardsToClear; i++) {
-                console.log(i);
                 document.querySelector('#sel' + (5 - i)).setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/blank.png');
             }
         }
@@ -97,8 +110,128 @@
     function updateSelCards2(value, index) {
         document.querySelector('#sel' + (index + 1)).setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/' + value + '.png');
     }
+    function randomise() {
+        clear();
+        var shuffledCards = cards;
+        shuffleArray(shuffledCards);
+        for (var i = 0; i < 5; i++) {
+            cardClick(document.querySelector('#' + shuffledCards[i]));
+        }
+    }
+    function clear() {
+        for (var i = 0; i < 5; i++) {
+            selCardClick(document.querySelector('#sel1'))
+        }
+    }
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
     function checkHand() {
-        document.querySelector('#text').setAttribute('n-text', {fontSize:3, text:'Royal Flush'});
+        var suits = [];
+        var values = [];
+        var numOfSuits = 0;
+        var isStreak = false;
+        var streakVal = 0;
+        var match1Num = 0;
+        var match1Val = 0;
+        var match2Num = 0;
+        var match2Val = 0;
+        var hand;
+        var score;
+        
+        // Separate suits from values
+        for (var i = 0; i < 5; i++) {
+            suits.push(selectedCards[i].slice(0, 1));
+            values.push(Number(selectedCards[i].slice(1, selectedCards[i].length)));
+        }
+
+        // Count suits
+        if (suits.indexOf("C") >= 0) {numOfSuits++;}
+        if (suits.indexOf("D") >= 0) {numOfSuits++;}
+        if (suits.indexOf("H") >= 0) {numOfSuits++;}
+        if (suits.indexOf("S") >= 0) {numOfSuits++;}
+        values.sort(function(a, b){return a-b});
+
+        // Check for ace to five streak
+        if (JSON.stringify(values) == JSON.stringify([2,3,4,5,14])) {values = [1,2,3,4,5];}
+
+        // Check for streak
+        if (values[0] == values[1] - 1 && values[1] == values[2] - 1 && values[2] == values[3] - 1 && values[3] == values[4] - 1) {
+            isStreak = true;
+            streakVal = values[4];
+        }
+
+        // Check for matching values
+        for (var i = 1; i < 15; i++) {
+            var count = 0;
+            for (var j = 0; j < 5; j++) {
+                if (values[j] == i) {count++;}
+            }
+            if (count > 1 && match1Num == 0) {
+                match1Num = count;
+                match1Val = i;
+            } else if (count > 1) {
+                match2Num = count;
+                match2Val = i;
+            }
+        }
+
+        // Asign hand type
+        if (numOfSuits == 1 && streakVal == 14) {
+            hand = "Royal Flush";
+            score = 10;
+        } else if (numOfSuits == 1 && streakVal > 0) {
+            hand = "Straight Flush";
+            score = 9 + (values[4] / 100);
+        } else if (numOfSuits == 1) {
+            hand = "Flush";
+            score = 6 + (values[4] / 100);
+        } else if (numOfSuits > 0 && streakVal > 0) {
+            hand = "Straight";
+            score = 5 + (values[4] / 100);
+        } else if (match1Num == 4) {
+            hand = "Four of a Kind"
+            score = 8 + (match1Val / 100);
+            // Add kicker
+        } else if (match1Num == 2 && match2Num == 3) {
+            hand = "Full House";
+            score = 7 + (match2Val / 100) + (match1Val / 10000);
+        } else if (match1Num == 3 && match2Num == 2) {
+            hand = "Full House";
+            score = 7 + (match1Val / 100) + (match2Val / 10000);
+        } else if (match1Num == 3) {
+            hand = "Three of a Kind";
+            score = 4 + (match1Val / 100);
+            // Add best side card
+        } else if (match2Num == 3) {
+            hand = "Three of a Kind";
+            score = 4 + (match2Val / 100);
+            // Add best side card
+        } else if (match1Num == 2 && match2Num == 2) {
+            hand = "Two Pair";
+            if (match1Val > match2Val) {
+                score = 3 + (match1Val / 100) + (match2Val / 10000);
+            } else {
+                score = 3 + (match2Val / 100) + (match1Val / 10000);
+            }
+        } else if (match1Num == 2) {
+            hand = "One Pair";
+            score = 2 + (match1Val / 100);
+        } else if (match2Num == 2) {
+            hand = "One Pair";
+            score = 2 + (match2Val / 100);
+        } else {
+            hand = "High Card";
+            score = 1 + (values[4] / 100);
+        }
+        
+        document.querySelector('#text').setAttribute('n-text', {fontSize:3, text:hand + ": " + score});
     }
 </script>
 </body>
