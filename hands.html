@@ -75,11 +75,34 @@
         </a-entity>
     </a-scene>
 <script>
+  var config = {
+    baseRefUrl: "https://cubesync-f70b7.firebaseio.com",
+    authorId: "BenG",
+    appId: "PokerTest1"
+  };
+  Promise.all([
+    altspace.utilities.sync.connect(config)
+  ]).then(function(results) {
+    connection = results[0];
+    var syncedCards = connection.instance.child('syncedCards');
     var cards = ["C14", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "D14", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "H14", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "S14", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12", "S13"];
     
     var selectedCards = [];
     var allHands = [];
-
+    
+    syncedCards.on('value', function(data) {
+      if (data.val() == null) {
+        selectedCards = [];
+      } else if (selectedCards != data.val()) {
+        selectedCards = data.val();
+        updateSelCards();
+        syncedCards.set(selectedCards);
+        if (selectedCards.length == 7) {
+            findHands();
+        }
+      }
+    });
+    
     for (var i = 0; i < 52; i++) {
         var box = document.createElement('a-plane');
         box.setAttribute('id', cards[i]);
@@ -183,7 +206,7 @@
             
             var textA = document.createElement('a-entity');
             textA.setAttribute('n-text', 'fontSize:2; width:4; text:' + i)
-            playerSpot.appendChild(textA);
+            //playerSpot.appendChild(textA);
             
             
             
@@ -209,6 +232,7 @@
             el.setAttribute('color', '#555555');
             document.querySelector('#sel' + selectedCards.length).setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/' + el.id + '.png');
         }
+        syncedCards.set(selectedCards);
         if (selectedCards.length == 7) {
             //checkHand();
             findHands();
@@ -231,6 +255,7 @@
             removeCard(7);
         }
         document.querySelector('#text').setAttribute('n-text', {fontSize:3, text:''});
+        syncedCards.set(selectedCards);
     }
     function removeCard(i) {
         document.querySelector('#' + selectedCards[i-1]).setAttribute('color', '#FFFFFF');
@@ -443,6 +468,10 @@
         allHands.push({number: allHands.length, hand: hand, score: score});
         //document.querySelector('#text').setAttribute('n-text', {fontSize:3, text:hand + ": " + score});
     }
+    
+      }).catch(function (err) {
+    console.error(err.toString(), err);
+  });
 </script>
 </body>
 </html>
