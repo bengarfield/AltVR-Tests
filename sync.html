@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>syncTest</title>
+  <script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
+</head>
+<body>
+    <button type='button' id='button'>Click</button>
+    <input type='text' id='textField'></input>
+<script>
+   // Initialize Firebase
+   var config = {
+    baseRefUrl: "https://cubesync-f70b7.firebaseio.com",
+    authorId: "BenG",
+    appId: "SyncTest1"
+  };
+  Promise.all([
+    altspace.utilities.sync.connect(config)
+  ]).then(function(results) {
+    connection = results[0];
+    console.log(connection);
+    document.getElementById('button').addEventListener('click', go);
+  
+    function go() {
+      var message = connection.instance.child('message');
+      message.set('It fucking works!');
+    }
+
+    var syncText = connection.instance.child('text');
+    document.getElementById('textField').addEventListener('input', updateText);
+    function updateText() {  
+      syncText.set(document.getElementById('textField').value);
+    }
+    syncText.on('value', function(data) {
+      console.log(data.val());
+      document.getElementById('textField').value = data.val();
+    });
+
+
+  }).catch(function (err) {
+    console.error(err.toString(), err);
+  });
+
+  
+
+</script>
+</body>
+</html>
