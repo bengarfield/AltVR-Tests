@@ -5,9 +5,48 @@
 <script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 <script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
+<script src="https://unpkg.com/aframe-text-component@^0.4.1/dist/aframe-text-component.min.js"></script>
 </head>
 <body>
     <a-scene altspace="verticalAlign: bottom">
+      
+      <a-entity text="text: What's up" position='0 1.5 0'></a-entity>
+      
+      <a-entity id='deck' position='0.3 0.91 0.7' position='0 1.5 0'>
+        <a-cylinder color="white" height="0.02" radius="0.007" position='-0.053 0 -0.078'></a-cylinder>
+        <a-cylinder color="white" height="0.02" radius="0.007" position='0.053 0 -0.078'></a-cylinder>
+        <a-cylinder color="white" height="0.02" radius="0.007" position='-0.053 0 0.078'></a-cylinder>
+        <a-cylinder color="white" height="0.02" radius="0.007" position='0.053 0 0.078'></a-cylinder>
+        <a-box color='white' scale='0.12 0.02 0.16' position='0 0 0'></a-box>
+        <a-box color='white' scale='0.11 0.02 0.17' position='0 0 0'></a-box>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/back.png' position='0 0.0101 0' rotation='270 0 0' width='.12' height='0.17' transparent='true'></a-plane>
+      </a-entity>
+      
+      <a-cylinder color="white" height="0.005" radius="0.03" position='0 0.905 0.3'>
+        <a-animation attribute='position' to='0.3 0.905 0.9' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="red" height="0.005" radius="0.03" position='0 0.91 0.3'>
+        <a-animation attribute='position' to='-0.42426406871192851464050661726291 0.905 0.84852813742385702928101323452581' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="blue" height="0.005" radius="0.03" position='0 0.915 0.3'>
+        <a-animation attribute='position' to='-0.9 0.905 0.3' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="green" height="0.005" radius="0.03" position='0 0.92 0.3'>
+        <a-animation attribute='position' to='-0.84852813742385702928101323452581 0.905 -0.42426406871192851464050661726291' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="white" height="0.005" radius="0.03" position='0 0.925 0.3'>
+        <a-animation attribute='position' to='-0.3 0.905 -0.9' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="red" height="0.005" radius="0.03" position='0 0.93 0.3'>
+        <a-animation attribute='position' to='0.42426406871192851464050661726291 0.905 -0.84852813742385702928101323452581' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="blue" height="0.005" radius="0.03" position='0 0.935 0.3'>
+        <a-animation attribute='position' to='0.9 0.905 -0.3' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      <a-cylinder color="green" height="0.005" radius="0.03" position='0 0.94 0.3'>
+        <a-animation attribute='position' to='0.84852813742385702928101323452581 0.905 0.42426406871192851464050661726291' delay='2000' repeat='indefinite' direction='alternate'/>
+      </a-cylinder>
+      
         <a-entity id='row1' position='0 1.1 -2.5'></a-entity>
         <a-entity id='row2' position='0 0.9 -2.5'></a-entity>
         <a-entity id='row3' position='0 1.8 -2.5'></a-entity>
@@ -23,15 +62,6 @@
         <a-animation to='0 360 0' easing='linear' dur='15000' repeat='indefinite'/>
         </a-entity>
       
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S11.png' position='-0.27 0.902 0' width='.12' height='0.17' transparent='true' rotation='-90 0 0'></a-plane>
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S12.png' position='-0.135 0.902 0' width='.12' height='0.17' transparent='true' rotation='-90 0 0'></a-plane>
-      <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S13.png' position='0 0.902 0' width='.12' height='0.17' transparent='true' rotation='-90 0 0'></a-plane>
-      
-      
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S10.png' position='-0.7 1.1 -0.58' width='.12' height='0.17' transparent='true' rotation='200 90 0'></a-plane>
-      <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S14.png' position='-0.7 1.1 -0.45' width='.12' height='0.17' transparent='true' rotation='200 90 180'></a-plane>
-      <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/back.png' position='-0.7 1.1 -0.58' width='.12' height='0.17' transparent='true' rotation='160 -90 0'></a-plane>
-      <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/back.png' position='-0.7 1.1 -0.45' width='.12' height='0.17' transparent='true' rotation='160 -90 0'></a-plane>
       
       <a-entity id='tableSurface' position='0 0.901 0' rotation='-90 0 0'>
         <a-entity n-text="fontSize:1; width:4; text:" position="-0.6 0.4 0" rotation='0 0 -90'></a-entity>
@@ -42,15 +72,9 @@
         <a-entity n-text="fontSize:1; width:4; text:" position="-0.4 -0.6 0" rotation='0 0 0'></a-entity>
         <a-entity n-text="fontSize:1; width:4; text:" position="0.4 0.6 0" rotation='0 0 180'></a-entity>
         <a-entity n-text="fontSize:1; width:4; text:" position="-0.4 0.6 0" rotation='0 0 180'></a-entity>
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='-0.27 0 0' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='-0.135 0 0' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='0 0 0' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='0.135 0 0' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
-        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='0.27 0 0' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
-      
-      
         
-        <a-entity id='gridLines' position='0 0 -0.1'>
+        
+        <a-entity id='gridLines' position='10 0 -0.1'>
           <a-plane position='0 -0.6 0' width='2.5' height='0.01' rotation='0 0 0' color='#FFFFFF'></a-plane>
           <a-plane position='0 0.6 0' width='2.5' height='0.01' rotation='0 0 0' color='#FFFFFF'></a-plane>
           <a-plane position='0 0 0' width='2.5' height='0.01' rotation='0 0 0' color='#FFFFFF'></a-plane>
@@ -63,13 +87,23 @@
         
         <a-entity id='text' n-text="fontSize:3; width:4; text:" position="0 2.5 -2.5"></a-entity>
         
-        <a-box position='0 0.3 0' width='.3' height='1' depth='.3' color='#281b08'></a-box>
-        <a-box position='0 0.85 0' width='2.5' height='0.1' depth='2.5' color='#1f6322'></a-box>
-        <a-box position='1.25 0.85 0' width='0.1' height='0.2' depth='2.6' color='#281b08'></a-box>
-        <a-box position='-1.25 0.85 0' width='0.1' height='0.2' depth='2.6' color='#281b08'></a-box>
-        <a-box position='0 0.85 1.25' width='2.6' height='0.2' depth='0.1' color='#281b08'></a-box>
-        <a-box position='0 0.85 -1.25' width='2.6' height='0.2' depth='0.1' color='#281b08'></a-box>
+      
+        <a-cylinder position='0 0.875 0' radius='1.25' height='0.05' color='#1f6322'></a-cylinder>
+        <a-torus position='0 0.875 0' rotation='90 0 0' radius='1.25' radius-tubular='0.03' segments-tubular='100' color='#281b08'></a-torus>
+      <a-cylinder position='0 0.3 0' radius='0.15' height='1' depth='.3' color='#281b08'></a-cylinder>
         
+      
+        <a-entity rotation='-60 0 0' position='0 0.9 0'>  
+          <a-box position='0 0 0' width='0.7' height='0.2' depth='0.12' color='#1f6322'></a-box>
+          <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='-0.27 0 0.061' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='-0.135 0 0.061' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='0 0 0.061' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='0.135 0 0.061' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/OL.png' position='0.27 0 0.061' width='.13' height='0.18' transparent='true' rotation='0 0 0' color='#FFFF00'></a-plane>
+          <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S11.png' position='-0.27 0 0.062' width='.12' height='0.17' transparent='true'></a-plane>
+        <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S12.png' position='-0.135 0 0.062' width='.12' height='0.17' transparent='true'></a-plane>
+      <a-plane src='https://bengarfield.github.io/AltVR-Tests/poker/S13.png' position='0 0 0.062' width='.12' height='0.17' transparent='true'></a-plane>
+        </a-entity>
         <a-entity position='0 0 4'>
             <a-camera></a-camera>
         </a-entity>
@@ -90,6 +124,9 @@
     var selectedCards = [];
     var allHands = [];
     
+    var playerPotX = [0.9, 0.84852813742385702928101323452581, 0.3, -0.42426406871192851464050661726291, -0.9, -0.84852813742385702928101323452581, -0.3, 0.42426406871192851464050661726291];
+    var playerPotY = [0.3, -0.42426406871192851464050661726291, -0.9, -0.84852813742385702928101323452581, -0.3, 0.42426406871192851464050661726291, 0.9, 0.84852813742385702928101323452581];
+    
     syncedCards.on('value', function(data) {
       if (data.val() == null) {
         selectedCards = [];
@@ -99,6 +136,8 @@
         syncedCards.set(selectedCards);
         if (selectedCards.length == 7) {
             findHands();
+        } else {
+          document.querySelector('#text').setAttribute('n-text', {fontSize:3, text:" "});
         }
         for (var i = 0; i < cards.length; i++) {
             document.querySelector('#' + cards[i]).setAttribute('color', '#FFFFFF');
@@ -119,7 +158,7 @@
         box.addEventListener('mousedown', function (event) { cardClick(event.target); });
         if (i < 26) {
             box.setAttribute('position', -1.875+(i*.15) + ' 0 0');
-            console.log(i + ': ' + (-1.875+(i*.15)) + ' 0 0');
+            //console.log(i + ': ' + (-1.875+(i*.15)) + ' 0 0');
             document.querySelector('#row1').appendChild(box);
         } else {
             box.setAttribute('position', -1.875+((i-26)*.15) + ' 0 0');
@@ -156,80 +195,156 @@
     function createTable() {
         for (var i = 0; i < 8; i++) {
             var playerSpot = document.createElement('a-entity');
+          
+            // Center marker
+            var marker = document.createElement('a-sphere');
+            marker.setAttribute('scale', '.01 .01 .01');
+            marker.setAttribute('position', '0 0 0');
+            playerSpot.appendChild(marker);
+          
             var outline = document.createElement('a-plane');
             outline.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
             outline.setAttribute('scale', '0.13 0.18 0');
             outline.setAttribute('transparent', 'true');
             outline.setAttribute('color', '#FFFF00');
-            outline.setAttribute('position', '-0.07 0 0');
+            outline.setAttribute('position', '-0.07 .6 0');
             playerSpot.appendChild(outline);
             var outline2 = document.createElement('a-plane');
             outline2.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
             outline2.setAttribute('scale', '0.13 0.18 0');
             outline2.setAttribute('transparent', 'true');
             outline2.setAttribute('color', '#FFFF00');
-            outline2.setAttribute('position', '0.07 0 0');
+            outline2.setAttribute('position', '0.07 0.6 0');
             playerSpot.appendChild(outline2);
             
-            //Add stuff here
+            var cardHolder = document.createElement('a-entity');
+            var card1Front = document.createElement('a-plane');
+            var card1Back = document.createElement('a-plane');
+            var card2Front = document.createElement('a-plane');
+            var card2Back = document.createElement('a-plane');
+            cardHolder.setAttribute('rotation', '70 0 0');
+            card1Back.setAttribute('rotation', '180 0 0');
+            card2Back.setAttribute('rotation', '180 0 0');
+            cardHolder.setAttribute('position', '0 -0.92 0.2');
+            card1Front.setAttribute('position', '-0.07 0 0');
+            card1Back.setAttribute('position', '-0.07 0 0');
+            card2Front.setAttribute('position', '0.07 0 0');
+            card2Back.setAttribute('position', '0.07 0 0');
+            card1Front.setAttribute('scale', '0.12 0.17 0');
+            card1Back.setAttribute('scale', '0.12 0.17 0');
+            card2Front.setAttribute('scale', '0.12 0.17 0');
+            card2Back.setAttribute('scale', '0.12 0.17 0');
+            card1Front.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/S14.png');
+            card1Back.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/back.png');
+            card2Front.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/S10.png');
+            card2Back.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/back.png');
+            card1Front.setAttribute('transparent', 'true');
+            card1Back.setAttribute('transparent', 'true');
+            card2Front.setAttribute('transparent', 'true');
+            card2Back.setAttribute('transparent', 'true');
             
+            var cardAnim = document.createElement('a-animation');
+            var cardAnim2 = document.createElement('a-animation');
+            cardAnim.setAttribute('to', '0 0 0');
+            cardAnim.setAttribute('direction', 'alternate');
+            cardAnim.setAttribute('repeat', 'indefinite');
+            cardAnim2.setAttribute('attribute', 'position');
+            cardAnim2.setAttribute('to', '0 -0.6 0.001');
+            cardAnim2.setAttribute('direction', 'alternate');
+            cardAnim2.setAttribute('repeat', 'indefinite');
+            cardAnim.setAttribute('delay', '2000');
+            cardAnim2.setAttribute('delay', '2000');
+            
+            cardHolder.appendChild(card1Front);
+            cardHolder.appendChild(card1Back);
+            cardHolder.appendChild(card2Front);
+            cardHolder.appendChild(card2Back);
+            cardHolder.appendChild(cardAnim);
+            cardHolder.appendChild(cardAnim2);
+            playerSpot.appendChild(cardHolder);
+          
+            
+            //Add stuff here
+            var buttonHolder = document.createElement('a-entity');
+            buttonHolder.setAttribute('position', '0 -1.0 0.05');
+            buttonHolder.setAttribute('rotation', '30 0 0');
+          
             var foldButton = document.createElement('a-plane');
             foldButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
-            foldButton.setAttribute('scale', '0.1 0.1 0');
-            foldButton.setAttribute('transparent', 'true');
+            foldButton.setAttribute('scale', '0.1 0.07 0');
+            foldButton.setAttribute('transparent', 'false');
             foldButton.setAttribute('color', '#FFFF00');
-            foldButton.setAttribute('position', '-0.1 -0.4 0');
-            playerSpot.appendChild(foldButton);
+            foldButton.setAttribute('position', '-0.1 0 0');
+            buttonHolder.appendChild(foldButton);
             
             var checkButton = document.createElement('a-plane');
             checkButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
-            checkButton.setAttribute('scale', '0.1 0.1 0');
-            checkButton.setAttribute('transparent', 'true');
+            checkButton.setAttribute('scale', '0.1 0.07 0');
+            checkButton.setAttribute('transparent', 'false');
             checkButton.setAttribute('color', '#FFFF00');
-            checkButton.setAttribute('position', '0 -0.4 0');
-            playerSpot.appendChild(checkButton);
+            checkButton.setAttribute('position', '0 0 0');
+            buttonHolder.appendChild(checkButton);
             
             var raiseButton = document.createElement('a-plane');
             raiseButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
-            raiseButton.setAttribute('scale', '0.1 0.1 0');
-            raiseButton.setAttribute('transparent', 'true');
+            raiseButton.setAttribute('scale', '0.1 0.07 0');
+            raiseButton.setAttribute('transparent', 'false');
             raiseButton.setAttribute('color', '#FFFF00');
-            raiseButton.setAttribute('position', '0.1 -0.4 0');
-            playerSpot.appendChild(raiseButton);
+            raiseButton.setAttribute('position', '0.1 0 0');
+            buttonHolder.appendChild(raiseButton);
+            playerSpot.appendChild(buttonHolder);
             
             var playerPot = document.createElement('a-plane');
             playerPot.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
             playerPot.setAttribute('scale', '0.2 0.2 0');
             playerPot.setAttribute('transparent', 'true');
             playerPot.setAttribute('color', '#FFFF00');
-            var potX = -1.05;
-            if (i % 2) {
-                console.log(i + ': odd');
-                potX *= -1;
-            }
-            playerPot.setAttribute('position', potX + ' -0.4 0');
+            playerPot.setAttribute('position', '0.9 0.3 0');
             playerSpot.appendChild(playerPot);
             
             var textA = document.createElement('a-entity');
-            textA.setAttribute('n-text', 'fontSize:2; width:4; text:' + i)
+            textA.setAttribute('n-text', 'fontSize:1; width:4; text:' + i);
+            textA.setAttribute('position', '0 -0.2 0');
             //playerSpot.appendChild(textA);
             
+            var potText = document.createElement('a-entity');
+            potText.setAttribute('n-text', 'fontSize: 1; width:4; text:$' + i);
+            potText.setAttribute('position', '0.3 -1.095 0.03');
+            potText.setAttribute('rotation', '60 0 0');
+            potText.setAttribute('fontSize', '0.6');
+            playerSpot.appendChild(potText);
+          
+            var potText2 = document.createElement('a-entity');
+            potText2.setAttribute('n-text', 'fontSize: 1; width:4; text:$' + i);
+            potText2.setAttribute('position', '0.3 -1.045 0.03');
+            potText2.setAttribute('rotation', '-60 0 180');
+            potText2.setAttribute('fontSize', '0.6');
+            playerSpot.appendChild(potText2);
+            
+            var nameTag = document.createElement('a-cylinder');
+            nameTag.setAttribute('position', '1.07 0 0.021');
+            nameTag.setAttribute('rotation', '0 0 0');
+            nameTag.setAttribute('radius', '0.05');
+            nameTag.setAttribute('height', '0.4');
+            nameTag.setAttribute('color', '#300');
+            nameTag.setAttribute('segments-radial', '3');
+            playerSpot.appendChild(nameTag);
+            
+            var potTag = document.createElement('a-cylinder');
+            potTag.setAttribute('position', '1.07 0.3 0.021');
+            potTag.setAttribute('rotation', '0 0 0');
+            potTag.setAttribute('radius', '0.05');
+            potTag.setAttribute('height', '0.2');
+            potTag.setAttribute('color', '#200');
+            potTag.setAttribute('segments-radial', '3');
+            playerSpot.appendChild(potTag);
             
             
-            
-            
-            var x = 0.3;
-            var y = 0.6;
-            var x2;
-            var y2;
             playerSpot.setAttribute('id', 'player' + i + 1);
-            if (i==0||i==3||i==5||i==6) {x2 = x;} else {x2 = x * -1;}
-            if (i==4||i==5||i==6||i==7) {y2 = y;} else {y2 = y * -1;}
-            if (i==2||i==3||i==6||i==7) {var tempI = y2; y2 = x2; x2 = tempI;}
-            playerSpot.setAttribute('position', x2 + ' ' + y2 + ' 0');
-            playerSpot.setAttribute('rotation', '0 0 ' + Math.floor(i/2) * -90);
+            playerSpot.setAttribute('position', '');
+            playerSpot.setAttribute('rotation', '0 0 ' + i * -45);
             document.querySelector('#tableSurface').appendChild(playerSpot);
-            console.log(i + ':  x: ' + x2 + '  y: ' + y2);
+            //console.log(i + ':  x: ' + x2 + '  y: ' + y2);
         }
     }
     function cardClick(el) {
@@ -282,17 +397,22 @@
         document.querySelector('#sel' + (index + 1)).setAttribute('color', '#FFFFFF');
     }
     function randomise() {
-        clear();
+        selectedCards = [];
         var shuffledCards = cards;
         shuffleArray(shuffledCards);
         for (var i = 0; i < 7; i++) {
-            cardClick(document.querySelector('#' + shuffledCards[i]));
+            selectedCards.push(shuffledCards[i]);
         }
+        updateSelCards();
+        syncedCards.set(selectedCards);
     }
     function clear() {
-        for (var i = 0; i < 7; i++) {
-            selCardClick(document.querySelector('#sel1'))
-        }
+    selectedCards = [];
+    updateSelCards();
+    syncedCards.set(selectedCards);
+    //    for (var i = 0; i < 7; i++) {
+    //        selCardClick(document.querySelector('#sel1'))
+    //    }
     }
     function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {
@@ -305,7 +425,7 @@
     }
     function findHands() {
         allHands = new Array;
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 21; i++) {
       var cards1 = JSON.parse(JSON.stringify(selectedCards))
       console.log(cards1);
       console.log(selectedCards);
@@ -336,6 +456,38 @@
           cards1.splice(2, 1);
       } else if (i == 9) {
           cards1.splice(3, 2);
+      } else if (i == 10) {
+          cards1.splice(5, 1);
+          cards1.splice(0, 1);
+      } else if (i == 11) {
+          cards1.splice(5, 1);
+          cards1.splice(1, 1);
+      } else if (i == 12) {
+          cards1.splice(5, 1);
+          cards1.splice(2, 1);
+      } else if (i == 13) {
+          cards1.splice(5, 1);
+          cards1.splice(3, 1);
+      } else if (i == 14) {
+          cards1.splice(5, 1);
+          cards1.splice(4, 1);
+      } else if (i == 15) {
+          cards1.splice(6, 1);
+          cards1.splice(0, 1);
+      } else if (i == 16) {
+          cards1.splice(6, 1);
+          cards1.splice(1, 1);
+      } else if (i == 17) {
+          cards1.splice(6, 1);
+          cards1.splice(2, 1);
+      } else if (i == 18) {
+          cards1.splice(6, 1);
+          cards1.splice(3, 1);
+      } else if (i == 19) {
+          cards1.splice(6, 1);
+          cards1.splice(4, 1);
+      } else if (i == 20) {
+          cards1.splice(5, 2);
       }
       console.log(i + ': ' + cards1);
       checkHand(cards1);
@@ -354,20 +506,26 @@
     
     //Fade unused cards
     var bestHand = allHands[0].number;
-    if (bestHand == 0 || bestHand == 1 || bestHand == 2 || bestHand == 3) {
+    if (bestHand == 0 || bestHand == 1 || bestHand == 2 || bestHand == 3 || bestHand == 10 || bestHand == 15) {
         document.querySelector('#sel1').setAttribute('color', '#555555');
     }
-    if (bestHand == 0 || bestHand == 4 || bestHand == 5 || bestHand == 6) {
+    if (bestHand == 0 || bestHand == 4 || bestHand == 5 || bestHand == 6 || bestHand == 11 || bestHand == 16) {
         document.querySelector('#sel2').setAttribute('color', '#555555');
     }
-    if (bestHand == 1 || bestHand == 4 || bestHand == 7 || bestHand == 8) {
+    if (bestHand == 1 || bestHand == 4 || bestHand == 7 || bestHand == 8 || bestHand == 12 || bestHand == 17) {
         document.querySelector('#sel3').setAttribute('color', '#555555');
     }
-    if (bestHand == 2 || bestHand == 5 || bestHand == 7 || bestHand == 9) {
+    if (bestHand == 2 || bestHand == 5 || bestHand == 7 || bestHand == 9 || bestHand == 13 || bestHand == 18) {
         document.querySelector('#sel4').setAttribute('color', '#555555');
     }
-    if (bestHand == 3 || bestHand == 6 || bestHand == 8 || bestHand == 9) {
+    if (bestHand == 3 || bestHand == 6 || bestHand == 8 || bestHand == 9 || bestHand == 14 || bestHand == 19) {
         document.querySelector('#sel5').setAttribute('color', '#555555');
+    }
+    if (bestHand == 10 || bestHand == 11 || bestHand == 12 || bestHand == 13 || bestHand == 14 || bestHand == 20) {
+        document.querySelector('#sel6').setAttribute('color', '#555555');
+    }
+    if (bestHand == 15 || bestHand == 16 || bestHand == 17 || bestHand == 18 || bestHand == 19 || bestHand == 20) {
+        document.querySelector('#sel7').setAttribute('color', '#555555');
     }
     }
     function checkHand(selectedHand) {
@@ -423,6 +581,7 @@
         }
 
         // Asign hand type
+        var kicker = 0;
         if (numOfSuits == 1 && streakVal == 14) {
             hand = "Royal Flush";
             score = 10;
@@ -432,13 +591,17 @@
         } else if (numOfSuits == 1) {
             hand = "Flush";
             score = 6 + (values[4] / 100);
-        } else if (numOfSuits > 0 && streakVal > 0) {
+        } else if (streakVal > 0) {
             hand = "Straight";
             score = 5 + (values[4] / 100);
         } else if (match1Num == 4) {
             hand = "Four of a Kind"
-            score = 8 + (match1Val / 100);
-            // Add kicker
+            for (var i = 0; i < 5; i++) {
+                if (values[i] != match1Val) {
+                    kicker = values[i];
+                }
+            }
+            score = 8 + (match1Val / 100) + (kicker / 10000);
         } else if (match1Num == 2 && match2Num == 3) {
             hand = "Full House";
             score = 7 + (match2Val / 100) + (match1Val / 10000);
@@ -447,28 +610,30 @@
             score = 7 + (match1Val / 100) + (match2Val / 10000);
         } else if (match1Num == 3) {
             hand = "Three of a Kind";
-            score = 4 + (match1Val / 100);
-            // Add best side card
-        } else if (match2Num == 3) {
-            hand = "Three of a Kind";
-            score = 4 + (match2Val / 100);
-            // Add best side card
+            for (var i = 0; i < 5; i++) {
+                if (values[i] != match1Val && kicker == 0) {
+                    values.splice(i, 1);
+                }
+                kicker = values[values.length - 1];
+            }
+            score = 4 + (match1Val / 100) + (kicker / 10000);
         } else if (match1Num == 2 && match2Num == 2) {
             hand = "Two Pair";
+            for (var i = 0; i < 5; i++) {
+                if (values[i] != match1Val && values[i] != match2Val)
+                kicker = values[i];
+            }
             if (match1Val > match2Val) {
-                score = 3 + (match1Val / 100) + (match2Val / 10000);
+                score = 3 + (match1Val / 100) + (match2Val / 10000) + (kicker / 1000000);
             } else {
-                score = 3 + (match2Val / 100) + (match1Val / 10000);
+                score = 3 + (match2Val / 100) + (match1Val / 10000) + (kicker / 1000000);
             }
         } else if (match1Num == 2) {
             hand = "One Pair";
             score = 2 + (match1Val / 100);
-        } else if (match2Num == 2) {
-            hand = "One Pair";
-            score = 2 + (match2Val / 100);
         } else {
             hand = "High Card";
-            score = 1 + (values[4] / 100);
+            score = 1 + (values[4] / 100) + (values[3] / 10000) + (values[2] / 1000000);
         }
         
         allHands.push({number: allHands.length, hand: hand, score: score});
