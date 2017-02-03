@@ -12,5 +12,5 @@ newmtl Material__25
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka chipTemplate.png
-	map_Kd chipTemplate.png
+	map_Ka chip10.png
+	map_Kd chip10.png
