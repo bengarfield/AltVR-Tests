@@ -12,5 +12,5 @@ newmtl Material__25
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka https://bengarfield.github.io/AltVR-Tests/poker/chipTemplate.png
-	map_Kd https://bengarfield.github.io/AltVR-Tests/poker/chipTemplate.png
+	map_Ka chipTemplate.png
+	map_Kd chipTemplate.png
