@@ -8,6 +8,5 @@ newmtl Material__25
 	Tr 0.0000
 	Tf 1.0000 1.0000 1.0000 
 	illum 0
-	Kd 0.5880 0.5880 0.5880
-	map_Ka chip1.png
+	Kd 1.0000 1.0000 1.0000
 	map_Kd chip1.png
