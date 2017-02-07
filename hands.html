@@ -6,11 +6,12 @@
 <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 <script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
 <script src="https://unpkg.com/aframe-text-component@^0.4.1/dist/aframe-text-component.min.js"></script>
+<script src="https://rawgit.com/mayognaise/aframe-html-shader/master/dist/aframe-html-shader.min.js"></script>
 </head>
 <body>
     <a-scene altspace="verticalAlign: bottom">
       
-      <a-entity text="text: What's up" position='0 1.5 0'></a-entity>
+      
       
       <a-entity id='deck' position='0.3 0.91 0.7' position='0 1.5 0'>
         <a-cylinder color="white" height="0.02" radius="0.007" position='-0.053 0 -0.078'></a-cylinder>
@@ -265,34 +266,7 @@
           
             
             //Add stuff here
-            var buttonHolder = document.createElement('a-entity');
-            buttonHolder.setAttribute('position', '0 -1.0 0.05');
-            buttonHolder.setAttribute('rotation', '30 0 0');
-          
-            var foldButton = document.createElement('a-plane');
-            foldButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
-            foldButton.setAttribute('scale', '0.1 0.07 0');
-            foldButton.setAttribute('transparent', 'false');
-            foldButton.setAttribute('color', '#FFFF00');
-            foldButton.setAttribute('position', '-0.1 0 0');
-            buttonHolder.appendChild(foldButton);
-            
-            var checkButton = document.createElement('a-plane');
-            checkButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
-            checkButton.setAttribute('scale', '0.1 0.07 0');
-            checkButton.setAttribute('transparent', 'false');
-            checkButton.setAttribute('color', '#FFFF00');
-            checkButton.setAttribute('position', '0 0 0');
-            buttonHolder.appendChild(checkButton);
-            
-            var raiseButton = document.createElement('a-plane');
-            raiseButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
-            raiseButton.setAttribute('scale', '0.1 0.07 0');
-            raiseButton.setAttribute('transparent', 'false');
-            raiseButton.setAttribute('color', '#FFFF00');
-            raiseButton.setAttribute('position', '0.1 0 0');
-            buttonHolder.appendChild(raiseButton);
-            playerSpot.appendChild(buttonHolder);
+
             
             var playerPot = document.createElement('a-plane');
             playerPot.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/OL.png');
@@ -302,20 +276,27 @@
             playerPot.setAttribute('position', '0.9 0.3 0');
             playerSpot.appendChild(playerPot);
             
-            var textA = document.createElement('a-entity');
-            textA.setAttribute('n-text', 'fontSize:1; width:4; text:' + i);
-            textA.setAttribute('position', '0 -0.2 0');
-            //playerSpot.appendChild(textA);
+            var playerName1 = document.createElement('a-entity');
+            playerName1.setAttribute('n-text', 'fontSize:1; width:4; text:Player'+ (i+1));
+            playerName1.setAttribute('position', '0 -1.095 0.03');
+            playerName1.setAttribute('rotation', '60 0 0');
+            playerSpot.appendChild(playerName1);
             
+            var playerName2 = document.createElement('a-entity');
+            playerName2.setAttribute('n-text', 'fontSize:1; width:4; text:Player'+ (i+1));
+            playerName2.setAttribute('position', '0 -1.045 0.03');
+            playerName2.setAttribute('rotation', '-60 0 180');
+            playerSpot.appendChild(playerName2);
+          
             var potText = document.createElement('a-entity');
-            potText.setAttribute('n-text', 'fontSize: 1; width:4; text:$' + i);
+            potText.setAttribute('n-text', 'fontSize: 1; width:4; text:$' + (i + 1));
             potText.setAttribute('position', '0.3 -1.095 0.03');
             potText.setAttribute('rotation', '60 0 0');
             potText.setAttribute('fontSize', '0.6');
             playerSpot.appendChild(potText);
           
             var potText2 = document.createElement('a-entity');
-            potText2.setAttribute('n-text', 'fontSize: 1; width:4; text:$' + i);
+            potText2.setAttribute('n-text', 'fontSize: 1; width:4; text:$' + (i + 1));
             potText2.setAttribute('position', '0.3 -1.045 0.03');
             potText2.setAttribute('rotation', '-60 0 180');
             potText2.setAttribute('fontSize', '0.6');
@@ -339,13 +320,50 @@
             potTag.setAttribute('segments-radial', '3');
             playerSpot.appendChild(potTag);
             
-            
             playerSpot.setAttribute('id', 'player' + i + 1);
             playerSpot.setAttribute('position', '');
             playerSpot.setAttribute('rotation', '0 0 ' + i * -45);
             document.querySelector('#tableSurface').appendChild(playerSpot);
-            //console.log(i + ':  x: ' + x2 + '  y: ' + y2);
         }
+        var buttonHolder = document.createElement('a-entity');
+        buttonHolder.setAttribute('position', '0 -1 0.05');
+        buttonHolder.setAttribute('rotation', '30 0 0');
+        
+        var foldButton = document.createElement('a-plane');
+        foldButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/Fold.png');
+        foldButton.setAttribute('scale', '0.1 0.07 0');
+        foldButton.setAttribute('transparent', 'false');
+        //foldButton.setAttribute('color', '#FFFF00');
+        foldButton.setAttribute('position', '-0.1 0 0');
+        buttonHolder.appendChild(foldButton);
+            
+        var checkButton = document.createElement('a-plane');
+        checkButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/Check.png');
+        checkButton.setAttribute('scale', '0.1 0.07 0');
+        checkButton.setAttribute('transparent', 'false');
+        //checkButton.setAttribute('color', '#FFFF00');
+        checkButton.setAttribute('position', '0 0 0');
+        buttonHolder.appendChild(checkButton);
+            
+        var raiseButton = document.createElement('a-plane');
+        raiseButton.setAttribute('src', 'https://bengarfield.github.io/AltVR-Tests/poker/Raise.png');
+        raiseButton.setAttribute('scale', '0.1 0.07 0');
+        raiseButton.setAttribute('transparent', 'false');
+        //raiseButton.setAttribute('color', '#FFFF00');
+        raiseButton.setAttribute('position', '0.1 0 0');
+        buttonHolder.appendChild(raiseButton);
+      
+        var buttonAnim = document.createElement('a-animation');
+        buttonAnim.setAttribute('to', '0 0 -45');
+        buttonAnim.setAttribute('direction', 'alternate');
+        buttonAnim.setAttribute('repeat', 'indefinite');
+      buttonAnim.setAttribute('delay', '2000');
+      var buttonHolder2 = document.createElement('a-entity');
+        buttonHolder2.setAttribute('position', '0  0.05');
+      buttonHolder2.appendChild(buttonHolder);  
+      buttonHolder2.appendChild(buttonAnim);
+        document.querySelector('#tableSurface').appendChild(buttonHolder2);
+      
     }
     function cardClick(el) {
         if (selectedCards.indexOf(el.id) < 0  && selectedCards.length < 7) {
@@ -610,9 +628,9 @@
             score = 7 + (match1Val / 100) + (match2Val / 10000);
         } else if (match1Num == 3) {
             hand = "Three of a Kind";
-            for (var i = 0; i < 5; i++) {
-                if (values[i] != match1Val && kicker == 0) {
-                    values.splice(i, 1);
+            for (var i = 0; i < 3; i++) {
+                if (values[i] == match1Val) {
+                    values.splice(i, 3);
                 }
                 kicker = values[values.length - 1];
             }
@@ -630,14 +648,20 @@
             }
         } else if (match1Num == 2) {
             hand = "One Pair";
-            score = 2 + (match1Val / 100);
+          for (var i = 0; i < 4; i++) {
+                if (values[i] == match1Val) {
+                    values.splice(i, 2);
+                }
+            }
+            kicker = values[values.length - 1];
+            
+            score = 2 + (match1Val / 100) + (kicker / 10000);
         } else {
             hand = "High Card";
-            score = 1 + (values[4] / 100) + (values[3] / 10000) + (values[2] / 1000000);
+            score = 1 + (values[4] / 100) + (values[3] / 10000);
         }
         
         allHands.push({number: allHands.length, hand: hand, score: score});
-        //document.querySelector('#text').setAttribute('n-text', {fontSize:3, text:hand + ": " + score});
     }
     
       }).catch(function (err) {

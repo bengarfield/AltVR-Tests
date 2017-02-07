@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Poker Chips</title>
+<script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
+<script src="https://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
+</head>
+<body>
+    <a-scene altspace="verticalAlign: bottom">
+        
+        <a-assets>
+            <a-asset-item id="chip-obj" src="assets/chip.obj"></a-asset-item>
+            <a-asset-item id="chip1" src="https://bengarfield.github.io/AltVR-Tests/poker/chip1.mtl"></a-asset-item>
+            <a-asset-item id="chip10" src="https://bengarfield.github.io/AltVR-Tests/poker/chip10.mtl"></a-asset-item>
+            <a-asset-item id="chip100" src="https://bengarfield.github.io/AltVR-Tests/poker/chip100.mtl"></a-asset-item>
+            <a-asset-item id="chip500" src="https://bengarfield.github.io/AltVR-Tests/poker/chip500.mtl"></a-asset-item>
+            <a-asset-item id="chip1000" src="https://bengarfield.github.io/AltVR-Tests/poker/chip1000.mtl"></a-asset-item>
+        </a-assets>
+        <a-entity id='chips' position='0 1.2 0'></a-entity>
+      <a-entity position='0 1.2 0'>
+            <a-box scale='.4 .1 .15' position='0 -0.05125 0' color='#1f6322'></a-box>
+          <a-entity id='potText' n-text="fontSize:1; width:4; text:$0" position="0 -0.06 0.076"></a-entity>
+        </a-entity>
+        <a-entity position='0 1.15 -.15'>
+          <a-entity id='text' n-text="fontSize:1; width:4; text:-    $1    +" position="0.45 0.2 0.2"></a-entity>
+          <a-entity id='text' n-text="fontSize:1; width:4; text:-   $10   +" position="0.45 0.1 0.2"></a-entity>
+          <a-entity id='text' n-text="fontSize:1; width:4; text:-  $100  +" position="0.45 0 0.2"></a-entity>
+          <a-entity id='text' n-text="fontSize:1; width:4; text:- $1000 +" position="0.45 -0.1 0.2"></a-entity>
+          <a-box id='minus1' scale='.1 .1 .05' position='0.275 0.2 .17' color='black'></a-box>
+          <a-box id='add1' scale='.1 .1 .05' position='0.61 0.2 .17' color='black'></a-box>
+          <a-box id='minus10' scale='.1 .1 .05' position='0.275 0.1 .17' color='black'></a-box>
+          <a-box id='add10' scale='.1 .1 .05' position='0.61 0.1 .17' color='black'></a-box>
+          <a-box id='minus100' scale='.1 .1 .05' position='0.275 0 .17' color='black'></a-box>
+          <a-box id='add100' scale='.1 .1 .05' position='0.61 0 .17' color='black'></a-box>
+          <a-box id='minus1000' scale='.1 .1 .05' position='0.275 -0.1 .17' color='black'></a-box>
+          <a-box id='add1000' scale='.1 .1 .05' position='0.61 -0.1 .17' color='black'></a-box>
+        </a-entity>
+        
+        <a-obj-model src="#chip-obj" mtl="#chip1" position='-.1 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip10" position='-.05 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip100" position='0 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip500" position='.05 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip1000" position='.1 1.2 0.05' scale='.05 .1 .05' color='yellow'></a-obj-model>
+        
+        <a-entity position='0 -.3 .2'>
+            <a-camera rotation='90 0 0'></a-camera>
+        </a-entity>
+    </a-scene>
+<script>
+    var config = {baseRefUrl: "https://cubesync-f70b7.firebaseio.com", authorId: "BenG", appId: "PokerChips"};
+  Promise.all([
+    altspace.utilities.sync.connect(config)
+  ]).then(function(results) {
+    connection = results[0];
+    var syncPot = connection.instance.child('pot');
+  
+  document.querySelector('#minus1').addEventListener('mousedown', function (event) { minus1(); });
+  document.querySelector('#add1').addEventListener('mousedown', function (event) { add1(); });
+  document.querySelector('#minus10').addEventListener('mousedown', function (event) { minus10(); });
+  document.querySelector('#add10').addEventListener('mousedown', function (event) { add10(); });
+  document.querySelector('#minus100').addEventListener('mousedown', function (event) { minus100(); });
+  document.querySelector('#add100').addEventListener('mousedown', function (event) { add100(); });
+  document.querySelector('#minus1000').addEventListener('mousedown', function (event) { minus1000(); });
+  document.querySelector('#add1000').addEventListener('mousedown', function (event) { add1000(); });
+  
+  var pot = 0;
+    
+  syncPot.on('value', function(data) {
+      console.log(data.val());
+      if (data.val() != pot) {
+        pot = data.val();
+        updatePot();
+      }
+  });
+    
+  
+  function minus1() {
+    if (pot > 0) {
+      pot--;
+      updatePot();
+    }
+  }
+  function add1() {
+    pot++;
+    updatePot();
+  }
+  function minus10() {
+    if (pot > 9) {
+      pot -= 10;
+    } else {
+      pot = 0;
+    }
+    updatePot();
+  }
+  function add10() {
+    pot += 10;
+    updatePot();
+  }
+  function minus100() {
+    if (pot > 99) {
+      pot -= 100;
+    } else {
+      pot = 0;
+    }
+    updatePot();
+  }
+  function add100() {
+    pot += 100;
+    updatePot();
+  }
+  function minus1000() {
+    if (pot > 999) {
+      pot -= 1000;
+    } else {
+      pot = 0;
+    }
+    updatePot();
+  }
+  function add1000() {
+    pot += 1000;
+    updatePot();
+  }
+  
+  function updatePot() {
+    syncPot.set(pot);
+    document.querySelector('#potText').setAttribute('n-text', 'fontSize:1; width:4; text:$' + pot);
+    var tempPot = pot;
+    var chips1000 = 0;
+    var chips500 = 0;
+    var chips100 = 0;
+    var chips10 = 0;
+    var chips1 = 0;
+    
+    //1000
+    while (tempPot > 4999) {
+      tempPot -= 1000;
+      chips1000++;
+    }
+    //500
+    while (tempPot > 499) {
+      tempPot -= 500;
+      chips500++;
+    }
+    //100
+    while (tempPot > 99) {
+      tempPot -= 100;
+      chips100++;
+    }
+    //10
+    while (tempPot > 9) {
+      tempPot -= 10;
+      chips10++;
+    }
+    //1
+    while (tempPot > 0) {
+      tempPot -= 1;
+      chips1++;
+    }
+  document.querySelector('#chips').innerHTML = '';
+  var offset = 300;
+  for (var i = 0; i < chips1; i++) {
+        var chip = document.createElement('a-obj-model');
+        chip.setAttribute('src', '#chip-obj');
+        chip.setAttribute('position', (Math.random() / offset) - 0.1 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
+        chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
+        chip.setAttribute('mtl', '#chip1');
+        chip.setAttribute('scale', '.05 .1 .05');
+        document.querySelector('#chips').appendChild(chip);
+    }
+    for (var i = 0; i < chips10; i++) {
+        var chip = document.createElement('a-obj-model');
+        chip.setAttribute('src', '#chip-obj');
+        chip.setAttribute('position', (Math.random() / offset) - 0.05 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
+        chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
+        chip.setAttribute('mtl', '#chip10');
+        chip.setAttribute('scale', '.05 .1 .05');
+        document.querySelector('#chips').appendChild(chip);
+    }
+  for (var i = 0; i < chips100; i++) {
+        var chip = document.createElement('a-obj-model');
+        chip.setAttribute('src', '#chip-obj');
+        chip.setAttribute('position', (Math.random() / offset) + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
+        chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30)+ ' 0');
+        chip.setAttribute('mtl', '#chip100');
+        chip.setAttribute('scale', '.05 .1 .05');
+        document.querySelector('#chips').appendChild(chip);
+    }
+  for (var i = 0; i < chips500; i++) {
+        var chip = document.createElement('a-obj-model');
+        chip.setAttribute('src', '#chip-obj');
+        chip.setAttribute('position', (Math.random() / offset) + 0.05 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
+        chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
+        chip.setAttribute('mtl', '#chip500');
+        chip.setAttribute('scale', '.05 .1 .05');
+        document.querySelector('#chips').appendChild(chip);
+    }
+  for (var i = 0; i < chips1000; i++) {
+        var chip = document.createElement('a-obj-model');
+        chip.setAttribute('src', '#chip-obj');
+        chip.setAttribute('position', (Math.random() / offset) + 0.1 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
+        chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
+        chip.setAttribute('mtl', '#chip1000');
+        chip.setAttribute('scale', '.05 .1 .05');
+        document.querySelector('#chips').appendChild(chip);
+    }
+  }
+  }).catch(function (err) {
+    console.error(err.toString(), err);
+  });
+</script>
+</body>
+</html>
