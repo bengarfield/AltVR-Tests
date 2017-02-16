@@ -37,11 +37,11 @@
           <a-box id='add1000' scale='.1 .1 .05' position='0.61 -0.1 .17' color='black'></a-box>
         </a-entity>
         
-        <a-obj-model src="#chip-obj" mtl="#chip1" position='-.1 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
-        <a-obj-model src="#chip-obj" mtl="#chip10" position='-.05 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
-        <a-obj-model src="#chip-obj" mtl="#chip100" position='0 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
-        <a-obj-model src="#chip-obj" mtl="#chip500" position='.05 1.2 0.05' scale='.05 .1 .05'></a-obj-model>
-        <a-obj-model src="#chip-obj" mtl="#chip1000" position='.1 1.2 0.05' scale='.05 .1 .05' color='yellow'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip1" position='-.1 1.2 0.05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip10" position='-.05 1.2 0.05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip100" position='0 1.2 0.05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip500" position='.05 1.2 0.05'></a-obj-model>
+        <a-obj-model src="#chip-obj" mtl="#chip1000" position='.1 1.2 0.05'></a-obj-model>
         
         <a-entity position='0 -.3 .2'>
             <a-camera rotation='90 0 0'></a-camera>
@@ -165,7 +165,6 @@
         chip.setAttribute('position', (Math.random() / offset) - 0.1 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
         chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
         chip.setAttribute('mtl', '#chip1');
-        chip.setAttribute('scale', '.05 .1 .05');
         document.querySelector('#chips').appendChild(chip);
     }
     for (var i = 0; i < chips10; i++) {
@@ -174,7 +173,6 @@
         chip.setAttribute('position', (Math.random() / offset) - 0.05 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
         chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
         chip.setAttribute('mtl', '#chip10');
-        chip.setAttribute('scale', '.05 .1 .05');
         document.querySelector('#chips').appendChild(chip);
     }
   for (var i = 0; i < chips100; i++) {
@@ -183,7 +181,6 @@
         chip.setAttribute('position', (Math.random() / offset) + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
         chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30)+ ' 0');
         chip.setAttribute('mtl', '#chip100');
-        chip.setAttribute('scale', '.05 .1 .05');
         document.querySelector('#chips').appendChild(chip);
     }
   for (var i = 0; i < chips500; i++) {
@@ -192,7 +189,6 @@
         chip.setAttribute('position', (Math.random() / offset) + 0.05 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
         chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
         chip.setAttribute('mtl', '#chip500');
-        chip.setAttribute('scale', '.05 .1 .05');
         document.querySelector('#chips').appendChild(chip);
     }
   for (var i = 0; i < chips1000; i++) {
@@ -201,7 +197,6 @@
         chip.setAttribute('position', (Math.random() / offset) + 0.1 + ' ' + (i * 0.0035) + ' ' + (Math.random() / offset));
         chip.setAttribute('rotation', '0 ' + ((Math.random() * 60) - 30) + ' 0');
         chip.setAttribute('mtl', '#chip1000');
-        chip.setAttribute('scale', '.05 .1 .05');
         document.querySelector('#chips').appendChild(chip);
     }
   }
