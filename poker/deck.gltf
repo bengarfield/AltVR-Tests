@@ -128,9 +128,7 @@
         ],
         "shininess": 96.078431,
         "transparency": 1
-      },
-      "technique": "technique0"
-    }
+      }    }
   },
   "meshes": {
     "mesh_deck": {
@@ -289,11 +287,11 @@
   "shaders": {
     "vertexShader0": {
       "type": 35633,
-      "uri": "vertexShader0.glsl"
+      "uri": "vertexShader.glsl"
     },
     "fragmentShader0": {
       "type": 35632,
-      "uri": "fragmentShader0.glsl"
+      "uri": "fragmentShader.glsl"
     }
   },
   "skins": {},
