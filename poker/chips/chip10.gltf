@@ -5,13 +5,13 @@
       "byteOffset": 0,
       "byteStride": 0,
       "componentType": 5123,
-      "count": 84,
+      "count": 432,
       "type": "SCALAR",
       "min": [
         0
       ],
       "max": [
-        43
+        153
       ]
     },
     "accessor_position": {
@@ -19,51 +19,51 @@
       "byteOffset": 0,
       "byteStride": 0,
       "componentType": 5126,
-      "count": 44,
+      "count": 154,
       "min": [
-        -0.0031999999191612005,
+        -0.019500000402331352,
         0,
-        -0.3499999940395355
+        -0.019500000402331352
       ],
       "max": [
-        0.17000000178813934,
-        0.09989999979734421,
-        0.3499999940395355
+        0.019500000402331352,
+        0.0035000001080334187,
+        0.019500000402331352
       ],
       "type": "VEC3"
     },
     "accessor_normal": {
       "bufferView": "bufferView_0",
-      "byteOffset": 528,
+      "byteOffset": 1848,
       "byteStride": 0,
       "componentType": 5126,
-      "count": 44,
+      "count": 154,
       "type": "VEC3",
       "min": [
-        -0.9994878768920898,
+        -1,
         -1,
         -1
       ],
       "max": [
-        0.8661988973617554,
-        0.8661988973617554,
+        1,
+        1,
         1
       ]
     },
     "accessor_uv": {
       "bufferView": "bufferView_0",
-      "byteOffset": 1056,
+      "byteOffset": 3696,
       "byteStride": 0,
       "componentType": 5126,
-      "count": 44,
+      "count": 154,
       "type": "VEC2",
       "min": [
-        0.019999999552965164,
-        0.03750000149011612
+        0.03959999978542328,
+        0.027499999850988388
       ],
       "max": [
-        0.9800000190734863,
-        0.9800000190734863
+        0.9830999970436096,
+        0.984499990940094
       ]
     }
   },
@@ -79,32 +79,32 @@
   "buffers": {
     "buffer_0": {
       "type": "arraybuffer",
-      "byteLength": 1576,
+      "byteLength": 5792,
       "uri": "buffer_0.bin"
     }
   },
   "bufferViews": {
     "bufferView_0": {
       "buffer": "buffer_0",
-      "byteLength": 1408,
+      "byteLength": 4928,
       "byteOffset": 0,
       "target": 34962
     },
     "bufferView_1": {
       "buffer": "buffer_0",
-      "byteLength": 168,
-      "byteOffset": 1408,
+      "byteLength": 864,
+      "byteOffset": 4928,
       "target": 34963
     }
   },
   "images": {
-    "centerpieceTexture": {
-      "uri": "centerpieceTexture.png"
+    "chip10": {
+      "uri": "chip10.png"
     }
   },
   "materials": {
-    "material_Unwrap_Texture_Checker_Material": {
-      "name": "Unwrap_Texture_Checker_Material",
+    "material_Material__25": {
+      "name": "Material__25",
       "extensions": {},
       "values": {
         "ambient": [
@@ -113,7 +113,7 @@
           0,
           1
         ],
-        "diffuse": "texture_centerpieceTexture",
+        "diffuse": "texture_chip10",
         "emission": [
           0,
           0,
@@ -121,18 +121,19 @@
           1
         ],
         "specular": [
-          0,
-          0,
-          0,
+          0.012549,
+          0.012549,
+          0.012549,
           1
         ],
         "shininess": 96.078431,
         "transparency": 1
-      }    }
+      }
+    }
   },
   "meshes": {
-    "mesh_centerpiece2": {
-      "name": "centerpiece2",
+    "mesh_chip": {
+      "name": "chip",
       "primitives": [
         {
           "attributes": {
@@ -141,7 +142,7 @@
             "TEXCOORD_0": "accessor_uv"
           },
           "indices": "accessor_index_0",
-          "material": "material_Unwrap_Texture_Checker_Material",
+          "material": "material_Material__25",
           "mode": 4
         }
       ]
@@ -151,7 +152,7 @@
     "rootNode": {
       "children": [],
       "meshes": [
-        "mesh_centerpiece2"
+        "mesh_chip"
       ],
       "matrix": [
         1,
@@ -181,20 +182,20 @@
       "wrapT": 10497
     }
   },
-  "scene": "scene_centerpiece2",
+  "scene": "scene_chip",
   "scenes": {
-    "scene_centerpiece2": {
+    "scene_chip": {
       "nodes": [
         "rootNode"
       ]
     }
   },
   "textures": {
-    "texture_centerpieceTexture": {
+    "texture_chip10": {
       "format": 6407,
       "internalFormat": 6407,
       "sampler": "sampler_0",
-      "source": "centerpieceTexture",
+      "source": "chip10",
       "target": 3553,
       "type": 5121
     }
@@ -287,11 +288,11 @@
   "shaders": {
     "vertexShader0": {
       "type": 35633,
-      "uri": "vertexShader.glsl"
+      "uri": "vertexShader0.glsl"
     },
     "fragmentShader0": {
       "type": 35632,
-      "uri": "fragmentShader.glsl"
+      "uri": "fragmentShader0.glsl"
     }
   },
   "skins": {},
