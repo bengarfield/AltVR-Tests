@@ -287,11 +287,11 @@
   "shaders": {
     "vertexShader0": {
       "type": 35633,
-      "uri": "vertexShader.glsl"
+      "uri": "vertexShader0.glsl"
     },
     "fragmentShader0": {
       "type": 35632,
-      "uri": "fragmentShader.glsl"
+      "uri": "fragmentShader0.glsl"
     }
   },
   "skins": {},
