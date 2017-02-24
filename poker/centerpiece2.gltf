@@ -128,9 +128,7 @@
         ],
         "shininess": 96.078431,
         "transparency": 1
-      },
-      "technique": "technique0"
-    }
+      }    }
   },
   "meshes": {
     "mesh_centerpiece2": {
