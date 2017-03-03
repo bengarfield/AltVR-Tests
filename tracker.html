@@ -342,6 +342,8 @@
               high.setAttribute('color', 'rgb(' + players[pId].color.high.r + ',' + players[pId].color.high.g + ',' + players[pId].color.high.b + ')');
               player.appendChild(prim);
               player.appendChild(high);
+		rHand.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+		lHand.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
               
             } else if (players[pId].class == 'robothead') {
               var high = document.createElement('a-box');
