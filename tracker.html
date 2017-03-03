@@ -305,7 +305,11 @@
                   var didAdd = false
                   for (var p = 0; p < players.length; p++) {
                     if (players[p].id == data.val()[i].id) {
-                      players[p] = data.val()[i];
+                      if(players[p] == data.val[i]) {
+		      	players[p].position.y = -1000
+		      } else {
+			    players[p] = data.val()[i];
+		      }
                       didAdd = true
                     }
                   }
