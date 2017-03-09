@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Poker three.js</title>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/r74/examples/js/loaders/MTLLoader.js"></script>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/r74/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/r84/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://sdk.altvr.com/libs/altspace.js/1.0.0/altspace.min.js"></script>
+<script src="https://jeromeetienne.github.io/threex.dynamictexture/threex.dynamictexture.js"></script>
+<script src="https://cdn.rawgit.com/norybiak/UltimateLoader/v0.3.0/dist/UltimateLoader.min.js"></script>
+<script src="https://tweenjs.github.io/tween.js/src/Tween.js"></script>
+</head>
+<body>
+<script>
+var sim = altspace.utilities.Simulation({auto: false});
+
+var deckPromise = new Promise(function (resolve, reject) {
+  var loader = new altspace.utilities.shims.OBJMTLLoader();
+  loader.load('https://bengarfield.github.io/AltVR-Tests/poker/deck.obj', 'https://bengarfield.github.io/AltVR-Tests/poker/deck.mtl', resolve);
+});
+  
+var modelPromise = new Promise(function (resolve, reject) {
+  var url = 'https://bengarfield.github.io/AltVR-Tests/poker/';
+  var objectUrls = [url + 'chips/chip1.gltf', url + 'chips/chip10.gltf', url + 'chips/chip100.gltf', url + 'chips/chip500.gltf', url + 'chips/chip1000.gltf', url + 'centerpiece.gltf', url + 'deck/deck.gltf'];
+  UltimateLoader.multiload(objectUrls, resolve);
+});
+  
+  
+var container = new THREE.Group();
+var user;
+var playerSpot0;
+var nameTagText0;
+var chip1, chip10, chip100, chip500, chip1000, centerpiece, deck;
+var playerArray = [];
+var nameTextArray = [];
+var potTextArray = [];
+var indicatorArray = [];
+var joinedPlayers = [];
+var centerPot = 0;
+var smallBlind = 50;
+var bigBlind = 100;
+var previousBet = 0;
+var isRaising;
+var dealer;
+var isDealer;
+var raiseAmmount;
+var started;
+var currentPlayer = 0;
+var currentRound;
+var winningHands = [];
+var connection;
+var ppm;
+var encHeight;
+var cards = ["C14", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "D14", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "H14", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "S14", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12", "S13"];
+var shuffledCards = [];
+var cardTextures = [];
+var config = {
+  baseRefUrl: "https://cubesync-f70b7.firebaseio.com",
+  authorId: "BenG",
+  appId: "Poker"
+}
+Promise.all([
+  altspace.utilities.sync.connect(config),
+  altspace.getUser(),
+  altspace.getEnclosure(),
+  modelPromise,
+  deckPromise
+]).then(function(results) {
+  connection = results[0];
+  user = results[1];
+  ppm = results[2].pixelsPerMeter;
+  encHeight = results[2].innerHeight;
+  console.log(ppm);
+  console.log(encHeight);
+  container.scale.multiplyScalar(ppm);
+  container.position.y = -(encHeight / 2);
+  var models = results[3];
+  chip1 = models[0];
+  chip1.rotation.x = THREE.Math.degToRad(90);
+  chip1.position.set(-.04, 0.04, 0);
+  chip10 = models[1];
+  chip10.rotation.x = THREE.Math.degToRad(90);
+  chip10.position.set(.04, 0.04, 0);
+  chip100 = models[2];
+  chip100.rotation.x = THREE.Math.degToRad(90);
+  chip500 = models[3];
+  chip500.rotation.x = THREE.Math.degToRad(90);
+  chip500.position.set(-.04, -.04, 0);
+  chip1000 = models[4];
+  chip1000.rotation.x = THREE.Math.degToRad(90);
+  chip1000.position.set(.04, -.04, 0);
+  centerpiece = models[5];
+  deck = results[4];
+  createTable();
+});
+  
+function createTable() {
+  loop(0);
+  var t = new THREE.TextureLoader();
+  for (var i = 0; i < 52; i++) {
+    var tex = t.load('https://bengarfield.github.io/AltVR-Tests/poker/' + cards[i] + '.png');
+    var card = new THREE.Mesh(new THREE.PlaneGeometry(.12,.17), new THREE.MeshBasicMaterial({map: tex, transparent: true}));
+    cardTextures.push(card);
+  }
+  console.log(cardTextures);
+  var game = connection.instance;
+  var syncPlayers = connection.instance.child('players');
+  var syncPot = connection.instance.child('pot');
+  var syncCards = connection.instance.child('shuffledCards');
+  var syncStarted = connection.instance.child('started');
+  var syncCurrentP = connection.instance.child('currentPlayer');
+  var syncRaising = connection.instance.child('isRaising');
+  var syncDealer = connection.instance.child('dealer');
+  var syncRaiseAmmount = connection.instance.child('raiseAmmount');
+  var syncPreviousBet = connection.instance.child('previousBet');
+  var syncCurrentRound = connection.instance.child('currentRound');
+  
+  var outlineTexture = new THREE.TextureLoader().load( "https://bengarfield.github.io/AltVR-Tests/poker/OL.png" );
+  var woodMaterial = new THREE.MeshBasicMaterial( { color: 0x281b08 } );
+  var green = new THREE.MeshBasicMaterial( { color: 0x1f6322 } );
+  var outline = new THREE.MeshBasicMaterial( { color: 0xffff00, map: outlineTexture } );
+  outline.transparent = true;
+  var tableLeg = new THREE.Mesh( new THREE.CylinderGeometry( .15, .15, 1, 32 ), woodMaterial );
+  var tableTop = new THREE.Mesh( new THREE.CylinderGeometry( 1.25, 1.25, .05, 32 ), green );
+  var tableEdge = new THREE.Mesh( new THREE.TorusGeometry( 1.25, .06, 32, 100 ), woodMaterial );
+  tableTop.position.y = .8;
+  tableLeg.position.y = tableTop.position.y - .5;
+  tableEdge.position.y = tableTop.position.y;
+  tableEdge.rotation.x = THREE.Math.degToRad(90);
+  centerpiece.position.y = tableTop.position.y +.025;
+  centerpiece.position.z = -.1;
+  centerpiece.rotation.y = THREE.Math.degToRad(-90);
+  var tableSurface = new THREE.Group();
+  tableSurface.position.y = tableTop.position.y + 0.026;
+  tableSurface.rotation.x = THREE.Math.degToRad(-90);
+
+  
+  playerSpot0 = new THREE.Group();
+  var outline1 = new THREE.Mesh(new THREE.PlaneGeometry(.13,.18), outline);
+  outline1.position.set(-0.07,-0.6,0);
+  var outline2 = outline1.clone();
+  outline2.position.x = 0.07;
+  var pot = new THREE.Mesh(new THREE.PlaneGeometry(.2,.2), outline);
+  pot.position.set(0.3,-0.9,0);
+  pot.name = 'pot';
+  var nametag = new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.4,3), woodMaterial);
+  nametag.addBehavior(altspace.utilities.behaviors.Spin);
+  nametag.position.set(0,-1.07,.021);
+  nametag.rotation.z = THREE.Math.degToRad(90);
+  
+  var yellow = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+  
+  var greenTween = new TWEEN.Tween(yellow.color).to({ r: 0, g: 1, b:0 }, 2000);
+  var redTween = new TWEEN.Tween(yellow.color).to({ r: 1, g: 0, b:0 }, 2000);
+  var yellowTween = new TWEEN.Tween(yellow.color).to({ r: 1, g: 1, b:0 }, 2000);
+  greenTween.chain(redTween);
+  redTween.chain(yellowTween);
+  yellowTween.chain(greenTween);
+  
+  var tagSep = new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.005,3), yellow);
+  tagSep.name = 'indicator';
+  tagSep.position.set(0.2025,-1.07,.021);
+  tagSep.rotation.z = THREE.Math.degToRad(90);
+  
+  var potTag = new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.2,3), woodMaterial);
+  potTag.position.set(0.305,-1.07,.021);
+  potTag.rotation.z = THREE.Math.degToRad(90);
+
+ 
+  
+  var nameTagText0 = new THREEx.DynamicTexture(2048, 512);
+  var textGeo = new THREE.PlaneGeometry(.4,.1);
+  var textMat = new THREE.MeshBasicMaterial({ map: nameTagText0.texture });
+  textMat.transparent = true;
+  var textMesh = new THREE.Mesh(textGeo, textMat);
+  textMesh.position.set(0,-1.095,0.03);
+  textMesh.rotation.x = THREE.Math.degToRad(60);
+  nameTagText0.context.font	= "bolder 200px Verdana";
+  var counter = 0;
+  nameTagText0.drawText('Click to join', 340, 300, 'white');
+  
+  var blanckCard = new THREE.TextureLoader().load( "https://bengarfield.github.io/AltVR-Tests/poker/blankCard.png" );
+  var cardFront = new THREE.Mesh(new THREE.PlaneGeometry(.12,.17), new THREE.MeshBasicMaterial({map: blanckCard, transparent: true}));
+  var back = new THREE.TextureLoader().load( "https://bengarfield.github.io/AltVR-Tests/poker/back.png" );
+  var cardBack = new THREE.Mesh(new THREE.PlaneGeometry(.12,.17), new THREE.MeshBasicMaterial({map: back, transparent: true}));
+  cardBack.rotation.y = THREE.Math.degToRad(180);
+  var card = new THREE.Group();
+  card.position.x = -0.07;
+  card.add(cardFront, cardBack);
+  var card2 = card.clone();
+  card2.position.x = 0.07;
+  var cardHolder = new THREE.Group();
+  cardHolder.name = 'cardHolder';
+  cardHolder.position.set(0, -0.9, 0.2);
+  cardHolder.rotation.x = THREE.Math.degToRad(70);
+  
+  playerSpot0.add(nametag, tagSep, potTag, outline1, outline2, pot, cardHolder);
+  
+
+  var testCard1 = card.clone();
+  testCard1.position.y = tableTop.position.y + .0785;
+  testCard1.position.z = -.0165;
+  testCard1.rotation.x = THREE.Math.degToRad(-60);
+  var testCard2 = testCard1.clone();
+  var testCard3 = testCard1.clone();
+  var testCard4 = testCard1.clone();
+  var testCard5 = testCard1.clone();
+  testCard1.position.x = -0.27;
+  testCard2.position.x = -0.135;
+  testCard3.position.x = 0;
+  testCard4.position.x = 0.135;
+  testCard5.position.x = 0.27;
+  var centerCards = new THREE.Group();
+  
+  var centerChip1 = chip1.clone();
+  var centerChip10 = chip10.clone();
+  var centerChip100 = chip100.clone();
+  var centerChip500 = chip500.clone();
+  var centerChip1000 = chip1000.clone();
+  centerChip1.position.set(-0.2,.825,.2);
+  centerChip10.position.set(-0.1,.825,.23);
+  centerChip100.position.set(0,.825,.24);
+  centerChip500.position.set(0.1,.825,.23);
+  centerChip1000.position.set(0.2,.825,.2);
+  centerChip1.rotation.x = THREE.Math.degToRad(0);
+  centerChip10.rotation.x = THREE.Math.degToRad(0);
+  centerChip100.rotation.x = THREE.Math.degToRad(0);
+  centerChip500.rotation.x = THREE.Math.degToRad(0);
+  centerChip1000.rotation.x = THREE.Math.degToRad(0);
+  
+  var centerPotText = new THREEx.DynamicTexture(1024, 512);
+  centerPotText.context.font	= "bolder 200px Verdana";
+  centerPotText.drawText('$0', 100, 300, 'white');
+  var ctextMat = new THREE.MeshBasicMaterial({ map: centerPotText.texture });
+  ctextMat.transparent = true;
+  var ctextMesh = new THREE.Mesh(new THREE.PlaneGeometry(.2,.1), ctextMat);
+  ctextMesh.position.set(0,0.826,0.15);
+  ctextMesh.rotation.x = THREE.Math.degToRad(-90);
+  
+  var centerGroup = new THREE.Group();
+  var centerChips = new THREE.Group();
+  centerChips.add(centerChip1, centerChip10, centerChip100, centerChip500, centerChip1000);
+  centerGroup.add(centerChips, centerpiece, ctextMesh, centerCards);
+  
+  function joinTable(player, clicked){
+    if (playerArray.length < 8 && !started) {
+    console.log('joined');
+    var p = playerSpot0.clone();
+    p.name = 'playerSpot' + playerArray.length;
+    p.rotation.z = THREE.Math.degToRad(-(360 / (playerArray.length + 1)) * playerArray.length);
+    p.children[0].name = 'nameTag' + playerArray.length;
+    
+    // Color
+    var indMat = yellow.clone()
+    p.getObjectByName('indicator').material = indMat;
+    indicatorArray.push(indMat);
+      
+    // Text
+    var t = new THREEx.DynamicTexture(2048, 410);
+    var textGeo = new THREE.PlaneGeometry(.4,.08);
+    var textMat = new THREE.MeshBasicMaterial({ map: t.texture });
+    textMat.transparent = true;
+    var textMesh = new THREE.Mesh(textGeo, textMat);
+    textMesh.position.set(0,-1.091,0.035);
+    textMesh.rotation.x = THREE.Math.degToRad(60);
+    t.context.font	= "bolder 200px Verdana";
+    t.drawText('Click to join', 340, 300, 'white');
+    var t2 = textMesh.clone();
+    t2.position.y = -1.049;
+    t2.rotation.x = THREE.Math.degToRad(-60);
+    t2.rotation.z = THREE.Math.degToRad(180);
+
+    var potT = new THREEx.DynamicTexture(1024, 410);
+    var textGeo = new THREE.PlaneGeometry(.2,.08);
+    var textMat = new THREE.MeshBasicMaterial({ map: potT.texture });
+    textMat.transparent = true;
+    var potText = new THREE.Mesh(textGeo, textMat);
+    potText.position.set(0.305,-1.091,0.035);
+    potText.rotation.x = THREE.Math.degToRad(60);
+    potT.context.font	= "bolder 200px Verdana";
+    var pot = 2000;
+    potT.drawText('$' + pot, 100, 290, 'white');
+    var potText2 = potText.clone();
+    potText2.position.y = -1.049;
+    potText2.rotation.x = THREE.Math.degToRad(-60);
+    potText2.rotation.z = THREE.Math.degToRad(180);
+    p.add(textMesh, t2, potText, potText2);
+    playerArray.push(p);
+    nameTextArray.push(t);
+    potTextArray.push(potT);
+    tableSurface.add(p);
+    console.log(playerArray);
+      
+    updateText(nameTextArray[playerArray.length - 1], player.displayName)
+      
+    joinedPlayers.push({player: player, pot: pot, folded: false, playedThisRound: false, isOut: false});
+      
+    if (clicked) {
+      syncPlayers.set(joinedPlayers);
+      console.log('sync');
+    }
+      
+      
+    for (var i = 0; i < playerArray.length; i++) {
+      var tween = new TWEEN.Tween(playerArray[i].rotation).to({z: THREE.Math.degToRad(-(360 / playerArray.length) * i)}, 500).start();
+      if (joinedPlayers[i].player.userId == user.userId) {
+        centerGroup.rotation.y = THREE.Math.degToRad(-(360 / playerArray.length) * i);
+        console.log('rotate: ' + -(360 / playerArray.length) * i);
+      }
+    }
+    updatePot('player', playerArray.length - 1, pot);
+    }
+  }
+  
+  game.on('value', function(data) {
+    console.log('GAME ON BITCHES!', data.val());
+    //Players
+    var players = data.val().players;
+    if (players != joinedPlayers) {
+      if (players.length != joinedPlayers.length) {
+        for (var i = joinedPlayers.length; i < players.length; i++) {
+          joinTable(players[i].player, false);
+        }
+      }
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].folded == true && joinedPlayers[i].folded == false) {
+          fold(i);
+        }
+        if (players[i].playedThisRound) {
+          joinedPlayers[i].playedThisRound = true;
+          updatePlayerColor(i, 'green');
+        }
+        if (players[i].isOut) {
+          joinedPlayers[i].isOut = true;
+          updatePlayerColor(i, 'red');
+        }
+        joinedPlayers[i].pot = players[i].pot;
+        updatePot('player', i, joinedPlayers[i].pot)
+        console.log('pot');
+      }
+    }
+    //Started
+    console.log(data.val().started);
+    
+    //ShuffledCards
+    var cards = data.val().shuffledCards;
+    if(cards != shuffledCards) {
+      shuffledCards = cards;
+      if (shuffledCards != null) {
+        startGame();
+      }
+    }
+
+    //RaiseAmmount
+    if (raiseAmmount != data.val().raiseAmmount) {
+      raiseAmmount = data.val().raiseAmmount;
+      updateRaiseText(raiseAmmount);
+    }
+    
+    //Current Player
+    if (data.val().currentPlayer != currentPlayer) {
+      currentPlayer = data.val().currentPlayer;
+      var nextPos = playerArray[currentPlayer].rotation.z;
+      if (nextPos > buttonGroup.rotation.y) {
+        buttonGroup.rotation.y += THREE.Math.degToRad(360);
+      }
+      new TWEEN.Tween(buttonGroup.rotation).to({y: nextPos}, 500).start();
+      //nextPlayer();
+    }
+
+    //Current Round
+    if (data.val().currentRound != currentRound) {
+      currentRound = data.val().currentRound;
+      beginRound(currentRound);
+    }
+
+    //Pot
+    if (data.val().pot != centerPot && data.val().pot != null) {
+      centerPot = data.val().pot;
+      updatePot('center', 0, centerPot);
+    }
+
+    //Raising
+    if (data.val().isRaising != isRaising) {
+      if (data.val().isRaising) {
+        isRaising = true;
+        raisePanel.scale.set(1,1,1);
+      } else {
+        isRaising = false;
+        raisePanel.scale.set(.001,.001,.001);
+      }
+    }
+
+    //Dealer
+    if (data.val().dealer != dealer) {
+      if (joinedPlayers[data.val().dealer].player.userId == user.userId) {
+        isDealer = true;
+      } else {
+        isDealer = false;
+      }
+      dealer = data.val().dealer;
+    }
+    
+    //PreviousBet
+    if (previousBet != data.val().previousBet) {
+      previousBet = data.val().previousBet
+      //update button text
+      updateCallText(previousBet);
+    }
+    
+  });
+  
+
+  
+  function startGame() {
+    if (playerArray.length > 2) {
+      if (shuffledCards == null) {
+        shuffledCards = cards.slice(0);
+        shuffleArray(shuffledCards);
+        syncCards.set(shuffledCards);
+        console.log(shuffledCards);
+      }
+      started = true;
+      syncStarted.set(started);
+      syncDealer.set(0);
+      currentPlayer = 0;
+      deckTop.removeEventListener('cursordown', function() {startGame();});
+      container.add(buttonGroup);
+      
+      testCard1.remove(testCard1.children[0]);
+      testCard1.add(cardTextures[cards.indexOf(shuffledCards[16])]);
+      testCard2.remove(testCard2.children[0]);
+      testCard2.add(cardTextures[cards.indexOf(shuffledCards[17])]);
+      testCard3.remove(testCard3.children[0]);
+      testCard3.add(cardTextures[cards.indexOf(shuffledCards[18])]);
+      testCard4.remove(testCard4.children[0]);
+      testCard4.add(cardTextures[cards.indexOf(shuffledCards[19])]);
+      testCard5.remove(testCard5.children[0]);
+      testCard5.add(cardTextures[cards.indexOf(shuffledCards[20])]);
+      
+      currentRound = 1;
+      beginRound(currentRound);
+      
+      //syncCurrentRound.set(currentRound);
+    }
+  }
+  
+  
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+  
+  deck.position.set(.3,tableTop.position.y + .025,.6);
+  var deckTop = cardBack.clone();
+  deckTop.rotation.x = THREE.Math.degToRad(-90);
+  deckTop.position.set(0.3,tableTop.position.y + .05,0.6);
+  
+  centerpiece.addEventListener('cursordown', function() {joinTable(user, true);});
+  deckTop.addEventListener('cursordown', function() {startGame();});
+  
+  var buttonAngle = new THREE.Group();
+  var buttonGroup = new THREE.Group();
+  buttonGroup.position.y = tableTop.position.y + .425
+  buttonAngle.rotation.x = THREE.Math.degToRad(-30);
+  buttonAngle.position.set(0,-.28,1);
+  var button = new THREE.Mesh(new THREE.BoxGeometry(.1,.1,.01), new THREE.MeshBasicMaterial({color: 0x0000cc}));
+  var button2 = new THREE.Mesh(new THREE.BoxGeometry(.1,.1,.01), new THREE.MeshBasicMaterial({color: 0xcc0000}));
+  var button3 = new THREE.Mesh(new THREE.BoxGeometry(.1,.1,.01), new THREE.MeshBasicMaterial({color: 0x00cc00}));
+  button.position.x = -.11;
+  button2.position.x = 0;
+  button3.position.x = .11;
+  var buttonT = new THREEx.DynamicTexture(1536, 512);
+  var textGeo = new THREE.PlaneGeometry(.3,.1);
+  var buttonMat = new THREE.MeshBasicMaterial({map: buttonT.texture, transparent: true});
+  var buttonText = new THREE.Mesh(textGeo, buttonMat);
+  buttonText.userData.altspace = {collider:{enabled: false}};
+  buttonText.position.z = .006;
+  buttonT.context.font	= "bolder 120px Verdana";
+  buttonT.drawText('Fold       Call       Raise', 50, 230, 'white');
+  buttonT.drawText('$' + previousBet, 600, 400, 'white');
+  buttonGroup.add(buttonAngle);
+  buttonAngle.add(button, button2, button3, buttonText);
+  button.addEventListener('cursordown', function() {fold(currentPlayer);});
+  button2.addEventListener('cursordown', function() {buttonClick();});
+  button3.addEventListener('cursordown', function() {raise();});
+
+  
+  var panelT = new THREEx.DynamicTexture(1024, 1356);
+  var raisePanel = new THREE.Mesh(new THREE.BoxGeometry(.2,.3,.01), new THREE.MeshBasicMaterial({color: 0x000000}));
+  raisePanel.position.set(0.3,-0.15,1);
+  raisePanel.rotation.set(THREE.Math.degToRad(-20),THREE.Math.degToRad(-20),0);
+  var sub1 = new THREE.Mesh(new THREE.BoxGeometry(.03,.03,.01), new THREE.MeshBasicMaterial());
+  
+  sub1.position.set(-.07,.06,0.005);
+  var add1 = sub1.clone()
+  var sub10 = sub1.clone()
+  var add10 = sub1.clone()
+  var sub100 = sub1.clone()
+  var add100 = sub1.clone()
+  var sub1000 = sub1.clone()
+  var add1000 = sub1.clone()
+  add1.position.x = .07;
+  sub10.position.y = .02;
+  add10.position.set(.07,.02,.005);
+  sub100.position.y = -.02;
+  add100.position.set(.07,-.02,.005);
+  sub1000.position.y = -.06;
+  add1000.position.set(.07,-.06,.005);
+  var allInButton = new THREE.Mesh(new THREE.BoxGeometry(.08,.03,.01), new THREE.MeshBasicMaterial());
+  allInButton.position.set(-.045,-.11,0.005);
+  var confirmButton = allInButton.clone();
+  confirmButton.position.x = .045;
+  var rButtonT = new THREEx.DynamicTexture(1024, 1356);
+  var textGeo = new THREE.PlaneGeometry(.2,.3);
+  var panelMat = new THREE.MeshBasicMaterial({map: panelT.texture, transparent: true});
+  var rButtonMat = new THREE.MeshBasicMaterial({map: rButtonT.texture, transparent: true});
+  var panelText = new THREE.Mesh(textGeo, panelMat);
+  var rButtonText = new THREE.Mesh(textGeo, rButtonMat);
+  rButtonText.userData.altspace = {collider:{enabled: false}};
+  panelText.position.set(0,0,.006);
+  rButtonText.position.set(0,0,.011);
+  panelT.context.font	= "bolder 120px Verdana";
+  panelT.drawText('$' + raiseAmmount, 250, 230, 'white');
+  panelT.drawText('$1', 426.687, 440, 'white');
+  panelT.drawText('$10', 384.031, 630, 'white');
+  panelT.drawText('$100', 341.375, 820, 'white');
+  panelT.drawText('$1000', 298.72, 1000, 'white');
+  rButtonT.context.font	= "bolder 120px Verdana";
+  rButtonT.drawText('-', 122, 440, 'black');
+  rButtonT.drawText('-', 122, 630, 'black');
+  rButtonT.drawText('-', 122, 820, 'black');
+  rButtonT.drawText('-', 122, 1000, 'black');
+  rButtonT.drawText('+', 820, 440, 'black');
+  rButtonT.drawText('+', 820, 630, 'black');
+  rButtonT.drawText('+', 820, 820, 'black');
+  rButtonT.drawText('+', 820, 1000, 'black');
+  rButtonT.drawText('All In', 100, 1210, 'black');
+  rButtonT.drawText('✓', 700, 1210, 'black');
+  raisePanel.add(panelText, rButtonText, sub1, add1, sub10, add10, sub100, add100, sub1000, add1000, allInButton, confirmButton)
+  sub1.addEventListener('cursordown', function() {panelButton('sub1');});
+  add1.addEventListener('cursordown', function() {panelButton('add1');});
+  sub10.addEventListener('cursordown', function() {panelButton('sub10');});
+  add10.addEventListener('cursordown', function() {panelButton('add10');});
+  sub100.addEventListener('cursordown', function() {panelButton('sub100');});
+  add100.addEventListener('cursordown', function() {panelButton('add100');});
+  sub1000.addEventListener('cursordown', function() {panelButton('sub1000');});
+  add1000.addEventListener('cursordown', function() {panelButton('add1000');});
+  allInButton.addEventListener('cursordown', function() {panelButton('allin');});
+  confirmButton.addEventListener('cursordown', function() {panelButton('confirm');});
+  buttonGroup.add(raisePanel);
+  raisePanel.scale.divideScalar(1000);
+  
+  
+	container.add(tableLeg, tableTop, tableEdge, tableSurface, centerGroup, deck, deckTop);
+  sim.scene.add(container);
+  var str = 'AA';
+  for (var i = 0; i < nameTextArray.length; i++) {
+    updateText(nameTextArray[i], 'Click to join');
+    str += 'AAAA';
+  }
+    
+
+  //console.log(playerArray[0].children[5].getWorldPosition().divideScalar(ppm));
+  function buttonClick() {
+    if (user.userId == joinedPlayers[currentPlayer].player.userId) {
+    bet(currentPlayer, previousBet);
+    nextPlayer();
+    }
+  }
+  
+  function fold(p) {
+    if (user.userId == joinedPlayers[currentPlayer].player.userId) {
+    if (p == null) {
+      p = 0;
+    }
+    console.log(p);
+    new TWEEN.Tween(playerArray[p].children[6].position).to({y: -.6, z: .001}, 500).start();
+    new TWEEN.Tween(playerArray[p].children[6].rotation).to({x: THREE.Math.degToRad(180)}, 500).start();
+    joinedPlayers[p].folded = true;
+    syncPlayers.set(joinedPlayers);
+    nextPlayer();
+    }
+  }
+  
+  function bet(player, ammount){
+    if (player == null) {player = 0;}
+    console.log(player, ammount, joinedPlayers[player]);
+    if (joinedPlayers[player].pot < ammount) {
+      ammount = joinedPlayers[player].pot;
+    }
+    joinedPlayers[player].playedThisRound = true;
+    updatePlayerColor(player, 'green');
+    joinedPlayers[player].pot -= ammount;
+    centerPot += ammount;
+    updatePot('player', player, joinedPlayers[player].pot)
+    updatePot('center', 0, centerPot);
+    previousBet = ammount;
+    syncPreviousBet.set(previousBet);
+    syncPlayers.set(joinedPlayers);
+    syncPot.set(centerPot);
+    console.log(joinedPlayers);
+  }
+  
+  function raise() {
+    if (user.userId == joinedPlayers[currentPlayer].player.userId) {
+    if (!isRaising) {
+      raiseAmmount = previousBet;
+      updateRaiseText(raiseAmmount);
+      //raisePanel.scale.multiplyScalar(1000);
+      raisePanel.scale.set(1,1,1);
+      isRaising = true
+      syncRaising.set(true);
+    } else {
+      //buttonGroup.remove(buttonGroup.children[1]);
+      //raisePanel.scale.divideScalar(1000);
+      raisePanel.scale.set(.001,.001,.001)
+      isRaising = false;
+      syncRaising.set(false);
+    }
+    }
+  }
+  
+  function panelButton(action) {
+    if (user.userId == joinedPlayers[currentPlayer].player.userId) {
+    if (action == 'sub1') {
+      raiseAmmount -= 1;
+    } else if (action == 'add1') {
+      raiseAmmount += 1;
+    } else if (action == 'sub10') {
+      raiseAmmount -= 10;
+    } else if (action == 'add10') {
+      raiseAmmount += 10;
+    } else if (action == 'sub100') {
+      raiseAmmount -= 100;
+    } else if (action == 'add100') {
+      raiseAmmount += 100;
+    } else if (action == 'sub1000') {
+      raiseAmmount -= 1000;
+    } else if (action == 'add1000') {
+      raiseAmmount += 1000;
+    } else if (action == 'allin') {
+      raiseAmmount = joinedPlayers[currentPlayer].pot;
+    }
+    if (raiseAmmount < previousBet) {
+      raiseAmmount = previousBet;
+    } else if (raiseAmmount > joinedPlayers[currentPlayer].pot) {
+      raiseAmmount = joinedPlayers[currentPlayer].pot;
+    }
+    syncRaiseAmmount.set(raiseAmmount);
+    updateRaiseText(raiseAmmount);
+    if (action == 'confirm') {
+      bet(currentPlayer, raiseAmmount)
+      previousBet = raiseAmmount;
+      nextPlayer();
+    }
+    }
+  }
+  
+  function updateRaiseText(ammount) {
+    panelT.clear();
+    panelT.drawText('$' + ammount, 250, 230, 'white');
+    panelT.drawText('$1', 426.687, 440, 'white');
+    panelT.drawText('$10', 384.031, 630, 'white');
+    panelT.drawText('$100', 341.375, 820, 'white');
+    panelT.drawText('$1000', 298.72, 1000, 'white');
+    panelT.texture.needsUpdate = true;
+  }
+  
+  function updateCallText(ammount) {
+    buttonT.clear();
+    buttonT.drawText('Fold       Call       Raise', 50, 230, 'white');
+    buttonT.drawText('$' + ammount, 600, 400, 'white');
+    buttonT.texture.needsUpdate = true;
+  }
+  
+  function nextPlayer() {
+    if(isRaising) {
+      raise();
+    }
+    if (allPlayersPlayed()) {
+      currentRound += 1;
+      beginRound(currentRound);
+      syncCurrentRound.set(currentRound);
+      nextPlayer();
+    } else {
+      if (currentPlayer == joinedPlayers.length - 1){
+        currentPlayer = 0;
+      } else {
+        currentPlayer += 1;
+      }
+      console.log(currentPlayer);
+      if (joinedPlayers[currentPlayer].folded == true || joinedPlayers[currentPlayer].isOut == true) {
+        nextPlayer();
+      } else {
+        var nextPos = playerArray[currentPlayer].rotation.z;
+        if (nextPos > buttonGroup.rotation.y) {
+          buttonGroup.rotation.y += THREE.Math.degToRad(360);
+        }
+        new TWEEN.Tween(buttonGroup.rotation).to({y: nextPos}, 500).start();
+        syncCurrentP.set(currentPlayer);
+      }
+    }
+  }
+  
+  function allPlayersPlayed() {
+    var result = true;
+    for (var i = 0; i < joinedPlayers.length; i++) {
+      if (!joinedPlayers[i].playedThisRound) {
+        result = false;
+      }
+    }
+    return result;
+  }
+  
+  var blindBetsDone = false;
+  function beginRound(round) {
+    for (var i = 0; i < playerArray.length; i ++) {
+      playerArray[i].getObjectByName('cardHolder').children =  [];
+      joinedPlayers[i].playedThisRound = false;
+      if (joinedPlayers[i].isOut == false || joinedPlayers[i].folded == false) {
+        updatePlayerColor(i, 'yellow');
+      }
+    }
+    centerCards.children = [];
+    if (round > 0) {
+      //hole cards
+      for (var i = 0; i < playerArray.length; i ++) {
+        var c1 = card.clone();
+        var c2 = card2.clone();
+        
+        if (joinedPlayers[i].player.userId == user.userId){
+        c1.remove(c1.children[0]);
+        c1.add(cardTextures[cards.indexOf(shuffledCards[i * 2])]);
+
+        c2.remove(c2.children[0]);
+        c2.add(cardTextures[cards.indexOf(shuffledCards[(i * 2) + 1])]);
+        }
+
+        console.log(shuffledCards[i * 2], shuffledCards[(i * 2) + 1]);
+        playerArray[i].getObjectByName('cardHolder').add(c1, c2);
+      }
+      //blind bets
+      if (round == 1 && isDealer && !blindBetsDone) {
+        nextPlayer();
+        bet(dealer + 1, 50);
+        nextPlayer();
+        bet(dealer + 2, 100);
+        nextPlayer();
+        blindBetsDone = true;
+      }
+    }
+    if (round > 1) {
+      //flop
+      centerCards.add(testCard1, testCard2, testCard3);
+    }
+    if (round > 2) {
+      //turn
+      centerCards.add(testCard4);
+    }
+    if (round > 3) {
+      //river
+      centerCards.add(testCard5);
+    }
+    if (round > 4) {
+      //showdown
+      buttonGroup.scale.set(.001,.001,.001);
+      for (var i = 0; i < playerArray.length; i++) {
+        if (joinedPlayers[i].folded == false && joinedPlayers[i].isOut == false) {
+          new TWEEN.Tween(playerArray[i].getObjectByName('cardHolder').position).to({y: -.6, z: .001}, 500).start();
+          new TWEEN.Tween(playerArray[i].getObjectByName('cardHolder').rotation).to({x: THREE.Math.degToRad(0)}, 500).start();
+          if (user.userId != joinedPlayers[i].player.userId) {
+            playerArray[i].getObjectByName('cardHolder').children[0].remove(playerArray[i].getObjectByName('cardHolder').children[0].children[0]);
+            playerArray[i].getObjectByName('cardHolder').children[0].add(cardTextures[cards.indexOf(shuffledCards[i * 2])]);
+            playerArray[i].getObjectByName('cardHolder').children[1].remove(playerArray[i].getObjectByName('cardHolder').children[1].children[0]);
+            playerArray[i].getObjectByName('cardHolder').children[1].add(cardTextures[cards.indexOf(shuffledCards[(i * 2) + 1])]);
+          }
+          //check hands
+          var c = [shuffledCards[16], shuffledCards[17], shuffledCards[18], shuffledCards[19], shuffledCards[20], shuffledCards[i * 2], shuffledCards[(i * 2) + 1]];
+          console.log(joinedPlayers[i].player.displayName)
+          checkHands(c, i, joinedPlayers[i].player.displayName);
+        }
+      }
+      console.log(winningHands[0]);
+      var t1 = new TWEEN.Tween(indicatorArray[winningHands[0].player].color).to({r: 1, g: 1, b: 1}, 200).start();
+      var t2 = new TWEEN.Tween(indicatorArray[winningHands[0].player].color).to({r: 0, g: 1, b: 0}, 500);
+      t1.chain(t2);
+      t2.chain(t1);
+    }
+    //syncCurrentRound.set(round);
+  }
+  
+  function checkHands(cards, player, name) {
+    allHands = new Array;
+    for (var i = 0; i < 21; i++) {
+      var cards1 = JSON.parse(JSON.stringify(cards))
+      //console.log(cards1);
+      //console.log(selectedCards);
+      
+      if (i == 0) {
+          cards1.splice(0, 2);
+      } else if (i == 1) {
+          cards1.splice(2, 1);
+          cards1.splice(0, 1);
+      } else if (i == 2) {
+          cards1.splice(3, 1);
+          cards1.splice(0, 1);
+      } else if (i == 3) {
+          cards1.splice(4, 1);
+          cards1.splice(0, 1);
+      } else if (i == 4) {
+          cards1.splice(1, 2);
+      } else if (i == 5) {
+          cards1.splice(3, 1);
+          cards1.splice(1, 1);
+      } else if (i == 6) {
+          cards1.splice(4, 1);
+          cards1.splice(1, 1);
+      } else if (i == 7) {
+          cards1.splice(2, 2);
+      } else if (i == 8) {
+          cards1.splice(4, 1);
+          cards1.splice(2, 1);
+      } else if (i == 9) {
+          cards1.splice(3, 2);
+      } else if (i == 10) {
+          cards1.splice(5, 1);
+          cards1.splice(0, 1);
+      } else if (i == 11) {
+          cards1.splice(5, 1);
+          cards1.splice(1, 1);
+      } else if (i == 12) {
+          cards1.splice(5, 1);
+          cards1.splice(2, 1);
+      } else if (i == 13) {
+          cards1.splice(5, 1);
+          cards1.splice(3, 1);
+      } else if (i == 14) {
+          cards1.splice(5, 1);
+          cards1.splice(4, 1);
+      } else if (i == 15) {
+          cards1.splice(6, 1);
+          cards1.splice(0, 1);
+      } else if (i == 16) {
+          cards1.splice(6, 1);
+          cards1.splice(1, 1);
+      } else if (i == 17) {
+          cards1.splice(6, 1);
+          cards1.splice(2, 1);
+      } else if (i == 18) {
+          cards1.splice(6, 1);
+          cards1.splice(3, 1);
+      } else if (i == 19) {
+          cards1.splice(6, 1);
+          cards1.splice(4, 1);
+      } else if (i == 20) {
+          cards1.splice(5, 2);
+      }
+      //console.log(i + ': ' + cards1);
+      checkHand(cards1, player, name);
+    }
+    function compare(a,b) {
+        if (a.score > b.score)
+        return -1;
+    if (a.score < b.score)
+        return 1;
+        return 0;
+    }
+    allHands.sort(compare);
+    winningHands.push(allHands[0]);
+    winningHands.sort(compare);
+  }
+  
+  function checkHand(selectedHand, player, name) {
+        var suits = [];
+        var values = [];
+        var numOfSuits = 0;
+        var isStreak = false;
+        var streakVal = 0;
+        var match1Num = 0;
+        var match1Val = 0;
+        var match2Num = 0;
+        var match2Val = 0;
+        var hand;
+        var score;
+        
+        // Separate suits from values
+        for (var i = 0; i < 5; i++) {
+            //selectedHand.push(document.getElementById("card" + (i+1)).value);
+            suits.push(selectedHand[i].slice(0, 1));
+            values.push(Number(selectedHand[i].slice(1, selectedHand[i].length)));
+        }
+
+        // Count suits
+        if (suits.indexOf("C") >= 0) {numOfSuits++;}
+        if (suits.indexOf("D") >= 0) {numOfSuits++;}
+        if (suits.indexOf("H") >= 0) {numOfSuits++;}
+        if (suits.indexOf("S") >= 0) {numOfSuits++;}
+        values.sort(function(a, b){return a-b});
+
+        // Check for ace to five streak
+        if (JSON.stringify(values) == JSON.stringify([2,3,4,5,14])) {values = [1,2,3,4,5];}
+
+        // Check for streak
+        if (values[0] == values[1] - 1 && values[1] == values[2] - 1 && values[2] == values[3] - 1 && values[3] == values[4] - 1) {
+            isStreak = true;
+            streakVal = values[4];
+        }
+
+        // Check for matching values
+        for (var i = 1; i < 15; i++) {
+            var count = 0;
+            for (var j = 0; j < 5; j++) {
+                if (values[j] == i) {count++;}
+            }
+            //alert(count);
+            if (count > 1 && match1Num == 0) {
+                match1Num = count;
+                match1Val = i;
+            } else if (count > 1) {
+                match2Num = count;
+                match2Val = i;
+            }
+        }
+
+        // Asign hand type
+        var kicker = 0;
+        if (numOfSuits == 1 && streakVal == 14) {
+            hand = "Royal Flush";
+            score = 10;
+        } else if (numOfSuits == 1 && streakVal > 0) {
+            hand = "Straight Flush";
+            score = 9 + (values[4] / 100);
+        } else if (numOfSuits == 1) {
+            hand = "Flush";
+            score = 6 + (values[4] / 100);
+        } else if (streakVal > 0) {
+            hand = "Straight";
+            score = 5 + (values[4] / 100);
+        } else if (match1Num == 4) {
+            hand = "Four of a Kind"
+            for (var i = 0; i < 5; i++) {
+                if (values[i] != match1Val) {
+                    kicker = values[i];
+                }
+            }
+            score = 8 + (match1Val / 100) + (kicker / 10000);
+        } else if (match1Num == 2 && match2Num == 3) {
+            hand = "Full House";
+            score = 7 + (match2Val / 100) + (match1Val / 10000);
+        } else if (match1Num == 3 && match2Num == 2) {
+            hand = "Full House";
+            score = 7 + (match1Val / 100) + (match2Val / 10000);
+        } else if (match1Num == 3) {
+            hand = "Three of a Kind";
+            for (var i = 0; i < 3; i++) {
+                if (values[i] == match1Val) {
+                    values.splice(i, 3);
+                }
+                kicker = values[values.length - 1];
+            }
+            score = 4 + (match1Val / 100) + (kicker / 10000);
+        } else if (match1Num == 2 && match2Num == 2) {
+            hand = "Two Pair";
+            for (var i = 0; i < 5; i++) {
+                if (values[i] != match1Val && values[i] != match2Val)
+                kicker = values[i];
+            }
+            if (match1Val > match2Val) {
+                score = 3 + (match1Val / 100) + (match2Val / 10000) + (kicker / 1000000);
+            } else {
+                score = 3 + (match2Val / 100) + (match1Val / 10000) + (kicker / 1000000);
+            }
+        } else if (match1Num == 2) {
+            hand = "One Pair";
+          for (var i = 0; i < 4; i++) {
+                if (values[i] == match1Val) {
+                    values.splice(i, 2);
+                }
+            }
+            kicker = values[values.length - 1];
+            
+            score = 2 + (match1Val / 100) + (kicker / 10000);
+        } else {
+            hand = "High Card";
+            score = 1 + (values[4] / 100) + (values[3] / 10000);
+        }
+        
+        allHands.push({player: player, name: name, number: allHands.length, hand: hand, score: score});
+    }
+  
+  function updatePlayerColor(player, color) {
+    var r, g, b;
+    if (color == 'green') {
+      r = 0;
+      g = 1;
+      b = 0;
+    } else if (color == 'yellow') {
+      r = 1;
+      g = 1;
+      b = 0;
+    } else if (color == 'red') {
+      r = 1;
+      g = 0;
+    }
+    new TWEEN.Tween(indicatorArray[player].color).to({r: r, g: g, b: 0}, 1000).start();
+  }
+  
+function updatePot(type, p, ammount) {
+  var text;
+  if (type == 'player') {
+    text = potTextArray[p];
+  } else {
+    text = centerPotText;
+  }
+  
+  text.clear();
+  text.drawText('$' + ammount, 100, 290, 'white');
+  text.texture.needsUpdate = true;
+
+  var tempPot = ammount;
+  var chips1000 = 0;
+  var chips500 = 0;
+  var chips100 = 0;
+  var chips10 = 0;
+  var chips1 = 0;
+  
+  //1000
+  while (tempPot > 4999) {
+    tempPot -= 1000;
+    chips1000++;
+  }
+  //500
+  while (tempPot > 499) {
+    tempPot -= 500;
+    chips500++;
+  }
+  //100
+  while (tempPot > 99) {
+    tempPot -= 100;
+    chips100++;
+  }
+  //10
+  while (tempPot > 9) {
+    tempPot -= 10;
+    chips10++;
+  }
+  //1
+  while (tempPot > 0) {
+    tempPot -= 1;
+    chips1++;
+  }
+  console.log(chips1, chips10, chips100, chips500, chips1000);
+
+  if (type == 'player') {  
+     playerArray[p].children[5].children = [];
+  } else {
+    centerChips.children = [];
+  }
+  
+  for (var i = 0; i < chips1; i++) {
+    if (type == 'player') {  
+      var chip = chip1.clone()
+      chip.position.z = 0.0035 * i;
+      chip.rotation.y = i * 10;
+      playerArray[p].children[5].add(chip);
+    } else {
+      var chip = centerChip1.clone()
+      chip.position.y = 0.825 + (.0035 * i)
+      chip.rotation.y = i * 10;
+      centerChips.add(chip);
+    }
+  }
+  for (var i = 0; i < chips10; i++) {
+    if (type == 'player') {  
+      var chip = chip10.clone()
+      chip.position.z = 0.0035 * i;
+      chip.rotation.y = i * 10;
+      playerArray[p].children[5].add(chip);
+    } else {
+      var chip = centerChip10.clone()
+      chip.position.y = 0.825 + (.0035 * i)
+      chip.rotation.y = i * 10;
+      centerChips.add(chip);
+    }
+  }
+  for (var i = 0; i < chips100; i++) {
+    if (type == 'player') {  
+      var chip = chip100.clone()
+      chip.position.z = 0.0035 * i;
+      chip.rotation.y = i * 10;
+      playerArray[p].children[5].add(chip);
+    } else {
+      var chip = centerChip100.clone()
+      chip.position.y = 0.825 + (.0035 * i)
+      chip.rotation.y = i * 10;
+      centerChips.add(chip);
+    }
+  }
+  for (var i = 0; i < chips500; i++) {
+    if (type == 'player') {  
+      var chip = chip500.clone()
+      chip.position.z = 0.0035 * i;
+      chip.rotation.y = i * 10;
+      playerArray[p].children[5].add(chip);
+    } else {
+      var chip = centerChip500.clone()
+      chip.position.y = 0.825 + (.0035 * i)
+      chip.rotation.y = i * 10;
+      centerChips.add(chip);
+    } 
+  }
+  for (var i = 0; i < chips1000; i++) {
+    if (type == 'player') {  
+      var chip = chip1000.clone()
+      chip.position.z = 0.0035 * i;
+      chip.rotation.y = i * 10;
+      playerArray[p].children[5].add(chip);
+    } else {
+      var chip = centerChip1000.clone()
+      chip.position.y = 0.825 + (.0035 * i)
+      chip.rotation.y = i * 10;
+      centerChips.add(chip);
+    }
+  }
+}
+  var lastFrame = 0;
+  function loop(elapsed) {
+		var deltaTime = elapsed - lastFrame;
+    lastFrame = elapsed;
+		//console.log(deltaTime);
+    sim.renderer.render(sim.scene, sim.camera);
+    TWEEN.update();
+		requestAnimationFrame(loop);
+	}
+  
+function updateText(t, string) {
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var fSize = 250;
+  ctx.font = 'bolder ' + fSize + 'px Verdana';
+  console.log(ctx.measureText(string).width);
+  var w = ctx.measureText(string).width;
+  while (w > 1900) {
+    fSize -= 1;
+    ctx.font = 'bolder ' + fSize + 'px Verdana';
+    w = ctx.measureText(string).width;
+  }
+  console.log(fSize);
+  t.clear();
+  t.context.font	= 'bolder ' + fSize + 'px Verdana';
+  t.drawText(string, 1024 - (w / 2), 290 - ((200 - fSize) / 3), 'white');
+  t.texture.needsUpdate = true;
+}
+}
+</script>
+</body>
+</html>

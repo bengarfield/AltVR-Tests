@@ -1,0 +1,14 @@
+newmtl Base
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd RobotHead-RoundGuy-01Texture.jpg
+illum 7
+
+newmtl LeftHand
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd RobotHead-RoundGuy-01Texture.jpg
+illum 7
+
+newmtl RightHand
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd RobotHead-RoundGuy-01Texture.jpg
+illum 7

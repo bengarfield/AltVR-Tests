@@ -1,0 +1,15 @@
+newmtl BaseRArm
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd RobotHead_PropellerHead_01Texture.jpg
+illum 7
+
+newmtl BaseLArm
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd RobotHead_PropellerHead_01Texture.jpg
+illum 7
+
+newmtl Head
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd RobotHead_PropellerHead_01Texture.jpg
+illum 7
+

@@ -1,0 +1,10 @@
+newmtl Head
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd S-Series-M01Texture.jpg
+illum 7
+
+newmtl Base
+Kd 1.00000000000000 1.00000000000000 1.00000000000000
+map_Kd S-Series-M01Texture.jpg
+illum 7
+
