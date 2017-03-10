@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdn.rawgit.com/mrdoob/three.js/r84/build/three.min.js"></script>
+  <script src="https://sdk.altvr.com/libs/altspace.js/1.0.0/altspace.min.js"></script>
+  <script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
+</head>
+<body>
+  <a-scene altspace='verticalAlign: bottom'>
+    
+    <a-entity scale='.0003 .0003 .0003' position='0 1 0' rotation='0 0 0'>
+      <a-entity id='container' position='-1060 0 -1035'></a-entity>
+      <a-cylinder radius='500' height='.1' position='-1060 -169 -1035' color='#444'></a-cylinder>
+      <a-cylinder radius='715' height='.1' position='-1060 -170 -1035' color='#9e815b'></a-cylinder>
+      <a-cylinder radius='740' height='.1' position='-1035 -225 -1010' color='#6b573d'></a-cylinder>
+      <a-cylinder radius='715' height='.1' position='-1060 -280 -1035' color='#9e815b'></a-cylinder>
+
+      <a-box scale='1150 .1 1970' position='-1130 -58 695' color='#9e815b'></a-box>
+      <a-box scale='1180 .1 2000' position='-1130 -59 695' color='#222'></a-box>
+
+      <a-box scale='1330 .1 2150' position='-1110 -60 675' color='#9e815b'></a-box>
+      <a-box scale='1380 .1 2200' position='-1085 -115 650' color='#6b573d'></a-box>
+      <a-box scale='1430 .1 2785' position='-1060 -170 357.5' color='#9e815b'></a-box>
+      <a-box scale='1480 .1 2760' position='-1035 -225 370' color='#6b573d'></a-box>
+      <a-box scale='3550 .1 2785' position='0 -280 357.5' color='#9e815b'></a-box>
+      <a-box scale='2835 .1 3500' position='357.5 -280 0' color='#9e815b'></a-box>
+
+      <a-box scale='1600 .1 2000' position='750 -279 -360' color='#999'></a-box>
+      <a-box scale='1600 .1 500' position='750 -279 1110' color='#999'></a-box>
+
+      <!-- couch -->
+      <a-box scale='940 55 300' position='1225 -251 1600' color='#222'></a-box>
+      <a-box scale='915 55 275' position='1225 -231 1600' color='#999'></a-box>
+      <a-box scale='940 200 55' position='1225 -176 1722.5' color='#222'></a-box>
+      <a-box scale='915 200 55' position='1225 -166 1702.5' color='#999'></a-box>
+
+      <a-box scale='290 50 270' position='925 -181 1600' color='#888'></a-box>
+      <a-box scale='290 50 270' position='1225 -181 1600' color='#888'></a-box>
+      <a-box scale='290 50 270' position='1525 -181 1600' color='#888'></a-box>
+
+      <a-box scale='425 125 55' position='1440 -91 1652.5' color='#777'></a-box>
+      <a-box scale='425 125 55' position='1010 -91 1652.5' color='#777'></a-box>
+
+
+      <a-box scale='940 55 300' position='275 -251 1600' color='#222'></a-box>
+      <a-box scale='915 55 275' position='275 -231 1600' color='#999'></a-box>
+      <a-box scale='940 200 55' position='275 -176 1722.5' color='#222'></a-box>
+      <a-box scale='915 200 55' position='275 -166 1702.5' color='#999'></a-box>
+
+      <a-box scale='290 50 275' position='-25 -181 1600' color='#888'></a-box>
+      <a-box scale='290 50 275' position='275 -181 1600' color='#888'></a-box>
+      <a-box scale='290 50 275' position='575 -181 1600' color='#888'></a-box>
+
+      <a-box scale='425 125 55' position='490 -91 1652.5' color='#777'></a-box>
+      <a-box scale='425 125 55' position='60 -91 1652.5' color='#777'></a-box>
+      <a-entity scale='.05 .05 .05' position='-1060 0 -1035' rotation='0 0 0'>
+        <a-entity id='container2' position='-1060 0 -1035'></a-entity>
+        <a-cylinder radius='500' height='.1' position='-1060 -169 -1035' color='#444'></a-cylinder>
+        <a-cylinder radius='715' height='.1' position='-1060 -170 -1035' color='#9e815b'></a-cylinder>
+        <a-cylinder radius='740' height='.1' position='-1035 -225 -1010' color='#6b573d'></a-cylinder>
+        <a-cylinder radius='715' height='.1' position='-1060 -280 -1035' color='#9e815b'></a-cylinder>
+
+        <a-box scale='1150 .1 1970' position='-1130 -58 695' color='#9e815b'></a-box>
+        <a-box scale='1180 .1 2000' position='-1130 -59 695' color='#222'></a-box>
+
+        <a-box scale='1330 .1 2150' position='-1110 -60 675' color='#9e815b'></a-box>
+        <a-box scale='1380 .1 2200' position='-1085 -115 650' color='#6b573d'></a-box>
+        <a-box scale='1430 .1 2785' position='-1060 -170 357.5' color='#9e815b'></a-box>
+        <a-box scale='1480 .1 2760' position='-1035 -225 370' color='#6b573d'></a-box>
+        <a-box scale='3550 .1 2785' position='0 -280 357.5' color='#9e815b'></a-box>
+        <a-box scale='2835 .1 3500' position='357.5 -280 0' color='#9e815b'></a-box>
+
+        <a-box scale='1600 .1 2000' position='750 -279 -360' color='#999'></a-box>
+        <a-box scale='1600 .1 500' position='750 -279 1110' color='#999'></a-box>
+
+        <!-- couch -->
+        <a-box scale='940 55 300' position='1225 -251 1600' color='#222'></a-box>
+        <a-box scale='915 55 275' position='1225 -231 1600' color='#999'></a-box>
+        <a-box scale='940 200 55' position='1225 -176 1722.5' color='#222'></a-box>
+        <a-box scale='915 200 55' position='1225 -166 1702.5' color='#999'></a-box>
+
+        <a-box scale='290 50 270' position='925 -181 1600' color='#888'></a-box>
+        <a-box scale='290 50 270' position='1225 -181 1600' color='#888'></a-box>
+        <a-box scale='290 50 270' position='1525 -181 1600' color='#888'></a-box>
+
+        <a-box scale='425 125 55' position='1440 -91 1652.5' color='#777'></a-box>
+        <a-box scale='425 125 55' position='1010 -91 1652.5' color='#777'></a-box>
+
+
+        <a-box scale='940 55 300' position='275 -251 1600' color='#222'></a-box>
+        <a-box scale='915 55 275' position='275 -231 1600' color='#999'></a-box>
+        <a-box scale='940 200 55' position='275 -176 1722.5' color='#222'></a-box>
+        <a-box scale='915 200 55' position='275 -166 1702.5' color='#999'></a-box>
+
+        <a-box scale='290 50 275' position='-25 -181 1600' color='#888'></a-box>
+        <a-box scale='290 50 275' position='275 -181 1600' color='#888'></a-box>
+        <a-box scale='290 50 275' position='575 -181 1600' color='#888'></a-box>
+
+        <a-box scale='425 125 55' position='490 -91 1652.5' color='#777'></a-box>
+        <a-box scale='425 125 55' position='60 -91 1652.5' color='#777'></a-box>
+        <a-entity scale='.05 .05 .05' position='-1060 0 -1035' rotation='0 0 0'>
+          <a-cylinder radius='500' height='.1' position='-1060 -169 -1035' color='#444'></a-cylinder>
+          <a-cylinder radius='715' height='.1' position='-1060 -170 -1035' color='#9e815b'></a-cylinder>
+          <a-cylinder radius='740' height='.1' position='-1035 -225 -1010' color='#6b573d'></a-cylinder>
+          <a-cylinder radius='715' height='.1' position='-1060 -280 -1035' color='#9e815b'></a-cylinder>
+
+          <a-box scale='1150 .1 1970' position='-1130 -58 695' color='#9e815b'></a-box>
+          <a-box scale='1180 .1 2000' position='-1130 -59 695' color='#222'></a-box>
+
+          <a-box scale='1330 .1 2150' position='-1110 -60 675' color='#9e815b'></a-box>
+          <a-box scale='1380 .1 2200' position='-1085 -115 650' color='#6b573d'></a-box>
+          <a-box scale='1430 .1 2785' position='-1060 -170 357.5' color='#9e815b'></a-box>
+          <a-box scale='1480 .1 2760' position='-1035 -225 370' color='#6b573d'></a-box>
+          <a-box scale='3550 .1 2785' position='0 -280 357.5' color='#9e815b'></a-box>
+          <a-box scale='2835 .1 3500' position='357.5 -280 0' color='#9e815b'></a-box>
+
+          <a-box scale='1600 .1 2000' position='750 -279 -360' color='#999'></a-box>
+          <a-box scale='1600 .1 500' position='750 -279 1110' color='#999'></a-box>
+
+          <!-- couch -->
+          <a-box scale='940 55 300' position='1225 -251 1600' color='#222'></a-box>
+          <a-box scale='915 55 275' position='1225 -231 1600' color='#999'></a-box>
+          <a-box scale='940 200 55' position='1225 -176 1722.5' color='#222'></a-box>
+          <a-box scale='915 200 55' position='1225 -166 1702.5' color='#999'></a-box>
+
+          <a-box scale='290 50 270' position='925 -181 1600' color='#888'></a-box>
+          <a-box scale='290 50 270' position='1225 -181 1600' color='#888'></a-box>
+          <a-box scale='290 50 270' position='1525 -181 1600' color='#888'></a-box>
+
+          <a-box scale='425 125 55' position='1440 -91 1652.5' color='#777'></a-box>
+          <a-box scale='425 125 55' position='1010 -91 1652.5' color='#777'></a-box>
+
+
+          <a-box scale='940 55 300' position='275 -251 1600' color='#222'></a-box>
+          <a-box scale='915 55 275' position='275 -231 1600' color='#999'></a-box>
+          <a-box scale='940 200 55' position='275 -176 1722.5' color='#222'></a-box>
+          <a-box scale='915 200 55' position='275 -166 1702.5' color='#999'></a-box>
+
+          <a-box scale='290 50 275' position='-25 -181 1600' color='#888'></a-box>
+          <a-box scale='290 50 275' position='275 -181 1600' color='#888'></a-box>
+          <a-box scale='290 50 275' position='575 -181 1600' color='#888'></a-box>
+
+          <a-box scale='425 125 55' position='490 -91 1652.5' color='#777'></a-box>
+          <a-box scale='425 125 55' position='60 -91 1652.5' color='#777'></a-box>
+        </a-entity>
+      </a-entity>
+    </a-entity>
+  </a-scene>
+  <script>
+    var scene = document.querySelector('a-scene').object3D;
+    var config = {
+      baseRefUrl: "https://cubesync-f70b7.firebaseio.com",
+      authorId: "BenG",
+      appId: "PlayerTracker"
+    }
+  Promise.all([
+    altspace.utilities.sync.connect(config),
+    altspace.getUser(),
+    altspace.getEnclosure(),
+    altspace.getThreeJSTrackingSkeleton()
+    ]).then(function(results){
+    var sync = results[0];
+    var user = results[1];
+    var enc = results[2];
+    var s = results[3];
+    
+    scene.add(s);
+    
+    console.log(s);
+    var rightHand = s.trackingJoints.RightHand0;
+    var leftHand = s.trackingJoints.LeftHand0;
+    
+    var playerId = -1;
+    
+    var syncPlayers = sync.instance.child('players');
+    console.log(syncPlayers)
+    var syncYou;
+    var prevSync;
+    
+    var you = {name: user.displayName, id: user.userId, position: {x: 0, y: 0, z: 0}, rHand: {position: {x:0,y:0,z:0}, rotation: {x:0,y:0,z:0}}, lHand: {position: {x:0,y:0,z:0}, rotation: {x:0,y:0,z:0}}, class: '', sid: '', color: {}};
+    var players = [];
+    var playersInScene = [];
+    var rHands = [];
+    var lHands = [];
+    
+    var playersInScene2 = [];
+    var rHands2 = [];
+    var lHands2 = [];
+    
+    var hColors = ['rgb(196,151,94)', 'rgb(136,60,26)', 'rgb(79,48,43)', 'rgb(48,48,48)', 'rgb(153,148,144)'];
+    var sColors = ['rgb(225,165,141)', 'rgb(147,99,79)', 'rgb(98,58,48)', 'rgb(244,180,148)', 'rgb(200,132,105)'];
+    var mSColors = ['rgb(246,239,231)', 'rgb(101,160,178)', 'rgb(241,216,152)', 'rgb(158,187,204)'];
+    var fSColors = ['rgb(28,188,180)', 'rgb(119,17,54)', 'rgb(208,124,114)', 'rgb(60,61,78)'];
+    
+      var dataRequest = (THREE.FileLoader ? new THREE.FileLoader() : new THREE.XHRLoader(/* DEPRECATED: r83 */));
+		  dataRequest.setWithCredentials(true);
+      dataRequest.load('https://account.altvr.com/api/v1/users/' + user.userId, onLoaded, undefined, undefined);
+      
+      function onLoaded(obj) {
+        console.log(obj);
+        var avatar = JSON.parse(obj).users[0].user_avatar.config.avatar
+        var sid = avatar.avatar_sid;
+        var pColor = avatar['primary-color'];
+        var hColor = avatar['highlight-color'];
+        var rHColor = avatar['robothead-highlight-color'];
+        var mTex1 = avatar['rubenoid-male-texture-1'];
+        var mTex2 = avatar['rubenoid-male-texture-2'];
+        var mTex3 = avatar['rubenoid-male-texture-3'];
+        var fTex1 = avatar['rubenoid-female-texture-1'];
+        var fTex2 = avatar['rubenoid-female-texture-2'];
+        var fTex3 = avatar['rubenoid-female-texture-3'];
+        console.log(avatar);
+        console.log(sid);
+        console.log(pColor);
+        console.log(hColor);
+        console.log(rHColor);
+        console.log(mTex1);
+        console.log(mTex2);
+        console.log(mTex3);
+        console.log(fTex1);
+        console.log(fTex2);
+        console.log(fTex3);
+        
+        var player = document.createElement('a-entity');
+        var player2 = document.createElement('a-entity');
+        player.setAttribute('id', 'playerYou');
+        player2.setAttribute('id', 'playerYou2');
+        var rHand = document.createElement('a-box');
+        var lHand = document.createElement('a-box');
+        rHand.setAttribute('scale', '30 20 50');
+        lHand.setAttribute('scale', '30 20 50');
+        var rHand2 = document.createElement('a-box');
+        var lHand2 = document.createElement('a-box');
+        rHand2.setAttribute('scale', '30 20 50');
+        lHand2.setAttribute('scale', '30 20 50');
+        
+        if (sid == 'a-series-m01' || sid == 'pod-classic' || sid == 's-series-f01' || sid == 's-series-m01' || sid == 'x-series-m01' || sid == 'x-series-m02') {
+          var prim = document.createElement('a-box');
+          var high = document.createElement('a-box');
+          prim.setAttribute('scale', '50 250 50');
+          prim.setAttribute('position', '0 100 0');
+          var prim2 = document.createElement('a-box');
+          var high2 = document.createElement('a-box');
+          prim2.setAttribute('scale', '50 250 50');
+          prim2.setAttribute('position', '0 100 0');
+
+          if (pColor[0] == 'white') {
+            primC = {r:255,g:255,b:255};
+            prim.setAttribute('color', 'rgb(255,255,255)');
+            rHand.setAttribute('color', 'rgb(255,255,255)');
+            lHand.setAttribute('color', 'rgb(255,255,255)');
+            prim2.setAttribute('color', 'rgb(255,255,255)');
+            rHand2.setAttribute('color', 'rgb(255,255,255)');
+            lHand2.setAttribute('color', 'rgb(255,255,255)');
+          } else if (pColor[0] == 'lightgrey') {
+            primC = {r:165,g:165,b:165};
+            prim.setAttribute('color', 'rgb(165,165,165)');
+            rHand.setAttribute('color', 'rgb(165,165,165)');
+            lHand.setAttribute('color', 'rgb(165,165,165)');
+            prim2.setAttribute('color', 'rgb(165,165,165)');
+            rHand2.setAttribute('color', 'rgb(165,165,165)');
+            lHand2.setAttribute('color', 'rgb(165,165,165)');
+          } else if (pColor[0] == 'grey') {
+            primC = {r:81,g:81,b:81};
+            prim.setAttribute('color', 'rgb(81,81,81)');
+            rHand.setAttribute('color', 'rgb(81,81,81)');
+            lHand.setAttribute('color', 'rgb(81,81,81)');
+            prim2.setAttribute('color', 'rgb(81,81,81)');
+            rHand2.setAttribute('color', 'rgb(81,81,81)');
+            lHand2.setAttribute('color', 'rgb(81,81,81)');
+          } else if (pColor[0] == 'darkgrey') {
+            primC = {r:47,g:47,b:47};
+            prim.setAttribute('color', 'rgb(47,47,47)');
+            rHand.setAttribute('color', 'rgb(47,47,47)');
+            lHand.setAttribute('color', 'rgb(47,47,47)');
+            prim2.setAttribute('color', 'rgb(47,47,47)');
+            rHand2.setAttribute('color', 'rgb(47,47,47)');
+            lHand2.setAttribute('color', 'rgb(47,47,47)');
+          } else if (pColor[0] == 'black') {
+            primC = {r:0,g:0,b:0};
+            prim.setAttribute('color', 'rgb(0,0,0)');
+            rHand.setAttribute('color', 'rgb(0,0,0)');
+            lHand.setAttribute('color', 'rgb(0,0,0)');
+            prim2.setAttribute('color', 'rgb(0,0,0)');
+            rHand2.setAttribute('color', 'rgb(0,0,0)');
+            lHand2.setAttribute('color', 'rgb(0,0,0)');
+          } else { 
+            primC = {r:pColor[0],g:pColor[1],b:pColor[2]};
+            prim.setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')');
+            rHand.setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')');
+            lHand.setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')');
+            prim2.setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')');
+            rHand2.setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')');
+            lHand2.setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')');
+          }
+          high.setAttribute('scale', '50 50 50');
+          high.setAttribute('position', '0 300 0');
+          high.setAttribute('color', 'rgb(' + hColor[0] + ',' + hColor[1] + ',' + hColor[2] + ')');
+          
+          player.appendChild(prim);
+          player.appendChild(high);
+          
+          player2.appendChild(prim2);
+          player2.appendChild(high2);
+
+          you.class = 'pod';
+          you.color = {prim:primC, high:{r:hColor[0],g:hColor[1],b:hColor[2]}};
+        } else if (sid == 'robothead-roundguy-01' || sid == 'robothead-propellerhead-01') {
+          var high = document.createElement('a-box');
+          high.setAttribute('scale', '50 50 50');
+          high.setAttribute('position', '0 300 0');
+          var high2 = document.createElement('a-box');
+          high2.setAttribute('scale', '50 50 50');
+          high2.setAttribute('position', '0 300 0');
+          if (sid == 'robothead-roundguy-01') {
+            high.setAttribute('color', 'rgb(255,255,0)');
+            high2.setAttribute('color', 'rgb(255,255,0)');
+            rHand.setAttribute('scale', '25 25 25');
+            lHand.setAttribute('scale', '25 25 25');
+            rHand.setAttribute('color', '#888');
+            lHand.setAttribute('color', '#888');
+            you.color = {prim:{r:255,g:255,b:0}};
+            you.sid = 'roundguy';
+          } else {
+            high.setAttribute('color', 'rgb(255,102,51)');
+            high2.setAttribute('color', 'rgb(255,102,51)');
+            rHand.setAttribute('scale', '25 25 40');
+            lHand.setAttribute('scale', '25 25 40');
+            rHand.setAttribute('color', 'rgb(255,102,51)');
+            lHand.setAttribute('color', 'rgb(255,102,51)');
+            you.color = {prim:{r:255,g:102,b:51}};
+            you.sid = 'propellerhead';
+          }
+          
+          you.class = 'robothead';
+          
+          player.appendChild(high);
+          player2.appendChild(high2);
+        } else {
+          var hair = document.createElement('a-box');
+          var skin = document.createElement('a-box');
+          var shirt = document.createElement('a-box');
+          hair.setAttribute('scale', '50 20 50');
+          skin.setAttribute('scale', '50 30 50');
+          shirt.setAttribute('scale', '50 250 50');
+          hair.setAttribute('position', '0 300 0');
+          skin.setAttribute('position', '0 270 0');
+          shirt.setAttribute('position', '0 100 0');
+          
+          var hair2 = document.createElement('a-box');
+          var skin2 = document.createElement('a-box');
+          var shirt2 = document.createElement('a-box');
+          hair2.setAttribute('scale', '50 20 50');
+          skin2.setAttribute('scale', '50 30 50');
+          shirt2.setAttribute('scale', '50 250 50');
+          hair2.setAttribute('position', '0 300 0');
+          skin2.setAttribute('position', '0 270 0');
+          shirt2.setAttribute('position', '0 100 0');
+          
+          var hairColor;
+          var skinColor;
+          var shirtColor;
+          
+          if (sid == 'rubenoid-male-01') {
+            hairColor = hColors[mTex1[0] - 1];
+            skinColor = sColors[mTex2[0] - 1];
+            shirtColor = mSColors[mTex3[0] - 1];
+            you.sid = 'male';
+          } else {
+            hairColor = hColors[fTex1[0] - 1];
+            skinColor = sColors[fTex2[0] - 1];
+            shirtColor = fSColors[fTex3[0] - 1];
+            you.sid = 'female';
+          }
+          
+          you.class = 'rubenoid';
+          you.color.hair = hairColor;
+          you.color.skin = skinColor;
+          you.color.shirt = shirtColor;
+          hair.setAttribute('color', hairColor);
+          skin.setAttribute('color', skinColor);
+          shirt.setAttribute('color', shirtColor);
+          var rHand = document.createElement('a-box');
+          var lHand = document.createElement('a-box');
+          rHand.setAttribute('scale', '30 20 50');
+          lHand.setAttribute('scale', '30 20 50');
+          player.appendChild(hair);
+          player.appendChild(skin);
+          player.appendChild(shirt);
+          
+          var rHand2 = document.createElement('a-box');
+          var lHand2 = document.createElement('a-box');
+          rHand2.setAttribute('scale', '30 20 50');
+          lHand2.setAttribute('scale', '30 20 50');
+          player2.appendChild(hair2);
+          player2.appendChild(skin2);
+          player2.appendChild(shirt2);
+        }
+        
+        document.querySelector('#container').appendChild(player);
+        document.querySelector('#container').appendChild(rHand);
+        document.querySelector('#container').appendChild(lHand);
+
+        document.querySelector('#container2').appendChild(player2);
+        document.querySelector('#container2').appendChild(rHand2);
+        document.querySelector('#container2').appendChild(lHand2);
+        
+        var text = document.createElement('a-entity');
+        text.setAttribute('scale', '750 750 750');
+        text.setAttribute('position', '0 400 0');
+        text.setAttribute('n-billboard', true);
+        text.setAttribute('n-text', 'fontSize: 1; text:You\n|')
+        player.appendChild(text);
+
+        player.addEventListener('mouseenter', function (event) {
+          console.log('hi');
+          //event.target.parentEl.lastChild.setAttribute('n-text', 'fontSize: 1; text: <#ffff00>' + user.displayName + ' \n|\nV')
+        });
+
+        player.addEventListener('mouseleave', function (event) {
+          console.log(event.target.parentEl.lastChild);
+          //event.target.parentEl.lastChild.setAttribute('n-text', 'fontSize: 1; text: ')
+          //setTimeout(function() {event.target.parentEl.lastChild.setAttribute('n-text', 'fontSize: 1; text: ');}, 2000)
+        });
+        loop();
+        function loop() {
+          //add skeleton to scene
+          //get hand joints
+          //var rightHand = s.getJoint('Hand', 'Right');
+          //var leftHand = s.getJoint('Hand', 'Left');
+          var head = s.getJoint('Head').position;
+          var x = head.x;
+          var y = head.y;
+          var z = head.z;
+          you.position.x = x;
+          you.position.y = y;
+          you.position.z = z;
+          
+          
+          //console.log(document.querySelector('#playerYou').getAttribute('position'));
+          document.querySelector('#playerYou').setAttribute('position', {x: you.position.x, y: you.position.y, z: you.position.z});
+          document.querySelector('#playerYou2').setAttribute('position', {x: you.position.x, y: you.position.y, z: you.position.z});
+          //console.log(leftHand);
+          if(leftHand != undefined){
+            you.rHand.position = {x: rightHand.position.x, y: rightHand.position.y + 300, z: rightHand.position.z};
+            you.lHand.position = {x: leftHand.position.x, y: leftHand.position.y + 300, z: leftHand.position.z};
+            you.rHand.rotation = {x: rightHand.rotation.x * 180 / Math.PI, y: rightHand.rotation.y * 180 / Math.PI, z: rightHand.rotation.z * 180 / Math.PI};
+            you.lHand.rotation = {x: leftHand.rotation.x * 180 / Math.PI, y: leftHand.rotation.y * 180 / Math.PI, z: leftHand.rotation.z * 180 / Math.PI};
+            lHand.setAttribute('position', {x: leftHand.position.x, y: leftHand.position.y + 300, z: leftHand.position.z});
+            rHand.setAttribute('position', {x: rightHand.position.x, y: rightHand.position.y + 300, z: rightHand.position.z});
+            lHand.setAttribute('rotation', {x: leftHand.rotation.x * 180 / Math.PI, y: leftHand.rotation.y * 180 / Math.PI, z: leftHand.rotation.z * 180 / Math.PI});
+            rHand.setAttribute('rotation', {x: rightHand.rotation.x * 180 / Math.PI, y: rightHand.rotation.y * 180 / Math.PI, z: rightHand.rotation.z * 180 / Math.PI});
+
+            lHand2.setAttribute('position', {x: leftHand.position.x, y: leftHand.position.y + 300, z: leftHand.position.z});
+            rHand2.setAttribute('position', {x: rightHand.position.x, y: rightHand.position.y + 300, z: rightHand.position.z});
+            lHand2.setAttribute('rotation', {x: leftHand.rotation.x * 180 / Math.PI, y: leftHand.rotation.y * 180 / Math.PI, z: leftHand.rotation.z * 180 / Math.PI});
+            rHand2.setAttribute('rotation', {x: rightHand.rotation.x * 180 / Math.PI, y: rightHand.rotation.y * 180 / Math.PI, z: rightHand.rotation.z * 180 / Math.PI});
+          } else {
+            you.rHand.position = {x: 0, y: -10000, z: 0};
+            you.lHand.position = {x: 0, y: -10000, z: 0};
+            you.rHand.rotation = {x: 0, y: 0, z: 0};
+            you.lHand.rotation = {x: 0, y: 0, z: 0};
+          }
+          requestAnimationFrame(loop);
+        }
+        
+        function updateSync() {
+          //console.log('sync');
+          //console.log(you.position.x,you.position.y,you.position.z);
+          syncYou.set(you);
+
+        }
+
+        var run = setInterval(updateSync, 200);
+        
+        syncPlayers.on('value', function(data) {
+          if (playerId == -1) {
+            if (data.val() == null){
+              playerId = 0;
+              console.log(you)
+              console.log(0)
+            } else {
+              for (var i = 0; i < data.val().length; i++) {
+                if (data.val()[i].id == user.userId) {
+                  playerId = i;
+                }
+              }
+              if (playerId == -1) {
+                playerId = data.val().length;
+              }
+            }
+            syncYou = syncPlayers.child(playerId);
+          }
+          if (data.val() != null) {
+            for (var i = 0; i < data.val().length; i++) {
+              if (data.val()[i].id != user.userId) {
+                if (players.length == 0) {
+                  players.push(data.val()[i]);
+                } else {
+                  var didAdd = false
+                  for (var p = 0; p < players.length; p++) {
+                    if (players[p].id == data.val()[i].id) {
+                   if(players[p].position == data.val()[i].position) {
+                     players[p].position.y = -10000;
+                     console.log('yes');
+                   } else {
+                      //console.log('no');
+                      players[p] = data.val()[i];
+                   }
+                      didAdd = true
+                    }
+                  }
+                  if (!didAdd) {
+                      players.push(data.val()[i]);
+                  }
+                }
+              }
+            }
+            //console.log(players);
+            updatePositions();
+          }
+        });
+        function updatePositions() {
+          while (players.length > playersInScene.length) {
+            //Create new player object
+            
+            var pId = playersInScene.length;
+            
+            var player = document.createElement('a-entity');
+            player.setAttribute('id', pId);
+            
+            var player2 = document.createElement('a-entity');
+            player2.setAttribute('id', 'player2' + pId);
+            
+            var rHand = document.createElement('a-box');
+            var lHand = document.createElement('a-box');
+            rHand.setAttribute('scale', '30 20 50');
+            lHand.setAttribute('scale', '30 20 50');
+            
+            var rHand2 = document.createElement('a-box');
+            var lHand2 = document.createElement('a-box');
+            rHand2.setAttribute('scale', '30 20 50');
+            lHand2.setAttribute('scale', '30 20 50');
+            
+            if (players[pId].class == 'pod') {
+              var prim = document.createElement('a-box');
+              var high = document.createElement('a-box');
+              prim.setAttribute('scale', '50 250 50');
+              prim.setAttribute('position', '0 100 0');
+              prim.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+              high.setAttribute('scale', '50 50 50');
+              high.setAttribute('position', '0 300 0');
+              high.setAttribute('color', 'rgb(' + players[pId].color.high.r + ',' + players[pId].color.high.g + ',' + players[pId].color.high.b + ')');
+              player.appendChild(prim);
+              player.appendChild(high);
+              rHand.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+              lHand.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+              
+              var prim2 = document.createElement('a-box');
+              var high2 = document.createElement('a-box');
+              prim2.setAttribute('scale', '50 250 50');
+              prim2.setAttribute('position', '0 100 0');
+              prim2.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+              high2.setAttribute('scale', '50 50 50');
+              high2.setAttribute('position', '0 300 0');
+              high2.setAttribute('color', 'rgb(' + players[pId].color.high.r + ',' + players[pId].color.high.g + ',' + players[pId].color.high.b + ')');
+              player2.appendChild(prim2);
+              player2.appendChild(high2);
+              rHand2.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+              lHand2.setAttribute('color', 'rgb(' + players[pId].color.prim.r + ',' + players[pId].color.prim.g + ',' + players[pId].color.prim.b + ')');
+              
+            } else if (players[pId].class == 'robothead') {
+              var high = document.createElement('a-box');
+              high.setAttribute('scale', '50 50 50');
+              high.setAttribute('position', '0 300 0');
+              if (players[pId].sid == 'roundguy') {
+                high.setAttribute('color', 'rgb(255,255,0)');
+                rHand.setAttribute('scale', '25 25 25');
+                lHand.setAttribute('scale', '25 25 25');
+                rHand.setAttribute('color', '#888');
+                lHand.setAttribute('color', '#888');
+              } else {
+                high.setAttribute('color', 'rgb(255,102,51)');
+                rHand.setAttribute('scale', '25 25 40');
+                lHand.setAttribute('scale', '25 25 40');
+                rHand.setAttribute('color', 'rgb(255,102,51)');
+                lHand.setAttribute('color', 'rgb(255,102,51)');
+              }
+              player.appendChild(high);
+            } else {
+              var hair = document.createElement('a-box');
+              var skin = document.createElement('a-box');
+              var shirt = document.createElement('a-box');
+              hair.setAttribute('scale', '50 20 50');
+              hair.setAttribute('position', '0 300 0');
+              hair.setAttribute('color', players[pId].color.hair);
+              skin.setAttribute('scale', '50 30 50');
+              skin.setAttribute('position', '0 270 0');
+              skin.setAttribute('color', players[pId].color.skin);
+              shirt.setAttribute('scale', '50 250 50');
+              shirt.setAttribute('position', '0 100 0');
+              shirt.setAttribute('color', players[pId].color.shirt);
+                
+              player.appendChild(hair);
+              player.appendChild(skin);
+              player.appendChild(shirt);
+              rHand.setAttribute('color', players[pId].color.skin);
+              lHand.setAttribute('color', players[pId].color.skin);
+              
+              
+              var hair2 = document.createElement('a-box');
+              var skin2 = document.createElement('a-box');
+              var shirt2 = document.createElement('a-box');
+              hair2.setAttribute('scale', '50 20 50');
+              hair2.setAttribute('position', '0 300 0');
+              hair2.setAttribute('color', players[pId].color.hair);
+              skin2.setAttribute('scale', '50 30 50');
+              skin2.setAttribute('position', '0 270 0');
+              skin2.setAttribute('color', players[pId].color.skin);
+              shirt2.setAttribute('scale', '50 250 50');
+              shirt2.setAttribute('position', '0 100 0');
+              shirt2.setAttribute('color', players[pId].color.shirt);
+                
+              player2.appendChild(hair2);
+              player2.appendChild(skin2);
+              player2.appendChild(shirt2);
+              rHand2.setAttribute('color', players[pId].color.skin);
+              lHand2.setAttribute('color', players[pId].color.skin);
+            }
+            var text = document.createElement('a-entity');
+            text.setAttribute('scale', '750 750 750');
+            text.setAttribute('position', '0 400 0');
+            text.setAttribute('n-billboard', true);
+            player.appendChild(text);
+            
+            document.querySelector('#container').appendChild(player);
+            document.querySelector('#container').appendChild(rHand);
+            document.querySelector('#container').appendChild(lHand);
+            
+            player.addEventListener('mouseenter', function (event, pId) {
+              console.log(players[Number(event.target.parentEl.id)].name);
+              event.target.parentEl.lastChild.setAttribute('n-text', 'fontSize: 1; text: ' + players[Number(event.target.parentEl.id)].name)
+            });
+            
+            player.addEventListener('mouseleave', function (event, pId) {
+              console.log(event.target.parentEl.lastChild);
+              //event.target.parentEl.lastChild.setAttribute('n-text', 'fontSize: 1; text: ')
+              setTimeout(function() {event.target.parentEl.lastChild.setAttribute('n-text', 'fontSize: 1; text: ');}, 2000)
+            });
+            
+            document.querySelector('#container2').appendChild(player2);
+            document.querySelector('#container2').appendChild(rHand2);
+            document.querySelector('#container2').appendChild(lHand2);
+            //var pclone = player.clone();
+            //document.querySelector('#container').appendChild(player.clone());
+            
+            playersInScene.push(player);
+            rHands.push(rHand);
+            lHands.push(lHand);
+            
+            playersInScene2.push(player2);
+            rHands2.push(rHand2);
+            lHands2.push(lHand2);
+          }
+          for (var i = 0; i < players.length; i++){
+            //console.log(playersInScene[i].getAttribute('position'));
+            if (playersInScene[i].getAttribute('position') == players[i].position) {
+              //playersInScene[i].setAttribute('position', {x: players[i].position.x, y: -1000, z: players[i].position.z});
+              playersInScene[i].setAttribute('position', {x: players[i].position.x, y: players[i].position.y, z: players[i].position.z});
+            } else {
+              playersInScene[i].setAttribute('position', {x: players[i].position.x, y: players[i].position.y, z: players[i].position.z});
+              rHands[i].setAttribute('position', {x: players[i].rHand.position.x, y: players[i].rHand.position.y, z: players[i].rHand.position.z});
+              lHands[i].setAttribute('position', {x: players[i].lHand.position.x, y: players[i].lHand.position.y, z: players[i].lHand.position.z});
+              rHands[i].setAttribute('rotation', {x: players[i].rHand.rotation.x, y: players[i].rHand.rotation.y, z: players[i].rHand.rotation.z});
+              lHands[i].setAttribute('rotation', {x: players[i].lHand.rotation.x, y: players[i].lHand.rotation.y, z: players[i].lHand.rotation.z});
+              
+              playersInScene2[i].setAttribute('position', {x: players[i].position.x, y: players[i].position.y, z: players[i].position.z});
+              rHands2[i].setAttribute('position', {x: players[i].rHand.position.x, y: players[i].rHand.position.y, z: players[i].rHand.position.z});
+              lHands2[i].setAttribute('position', {x: players[i].lHand.position.x, y: players[i].lHand.position.y, z: players[i].lHand.position.z});
+              rHands2[i].setAttribute('rotation', {x: players[i].rHand.rotation.x, y: players[i].rHand.rotation.y, z: players[i].rHand.rotation.z});
+              lHands2[i].setAttribute('rotation', {x: players[i].lHand.rotation.x, y: players[i].lHand.rotation.y, z: players[i].lHand.rotation.z});
+            }
+            
+          }
+          //console.log(playersInScene);
+        }
+        //document.querySelector('#primary').setAttribute('color', 'rgb(' + pColor[0] + ',' + pColor[1] + ',' + pColor[2] + ')')
+        //document.querySelector('#highlight').setAttribute('color', 'rgb(' + hColor[0] + ',' + hColor[1] + ',' + hColor[2] + ')')
+      }
+    });
+  </script>
+</body>
+</html>
