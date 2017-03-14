@@ -1,9 +1,0 @@
-newmtl Base
-Kd 1.00000000000000 1.00000000000000 1.00000000000000
-map_Kd Rubenoid-Female-01Texture.jpg
-illum 7
-
-newmtl Hair
-Kd 1.00000000000000 1.00000000000000 1.00000000000000
-map_Kd Rubenoid-Female-01Texture.jpg
-illum 7

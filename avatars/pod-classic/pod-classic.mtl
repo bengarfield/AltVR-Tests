@@ -1,9 +1,0 @@
-newmtl Head
-Kd 1.00000000000000 1.00000000000000 1.00000000000000
-map_Kd Pod-ClassicTexture.jpg
-illum 7
-
-newmtl Body
-Kd 1.00000000000000 1.00000000000000 1.00000000000000
-map_Kd Pod-ClassicTexture.jpg
-illum 7
