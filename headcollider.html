@@ -1,0 +1,162 @@
+<html>
+<head>
+	<title>Native Parent</title>
+	<script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
+<!-- 	<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.4.0/dist/aframe-altspace-component.min.js"></script>
+	 -->	<script src="//sdk.altvr.com/libs/altspace.js/2.0.3/altspace.min.js"></script>
+</head>
+<body>
+<script>
+  // n-skeleton-parent only works with root meshes at the moment. Since most model loaders use a root
+  // container object, we need to collapse the model so that n-skeleton-parent can access the mesh directly.
+  AFRAME.registerComponent('collapse-model', {
+      init: function () {
+          this.el.addEventListener('model-loaded', function () {
+              this.el.object3DMap.mesh.updateMatrixWorld();
+              var mesh;
+              this.el.object3DMap.mesh.traverse(function (obj) {
+                  if (!mesh && obj instanceof THREE.Mesh) {
+                      mesh = obj;
+                  }
+              }.bind(this))
+              if (mesh) {
+                  mesh.scale.copy(mesh.getWorldScale());
+                  this.el.setObject3D('mesh', mesh);
+                  // setObject3D emits this event in a-frame 0.4.0
+                  this.el.emit('object3dset', {
+                      type: 'mesh'
+                  });
+              }
+          }.bind(this));
+      }
+  });
+</script>
+<a-scene debug altspace="fullspace: true" sync-system="author: altspacevr; app: native-parents; refUrl: https://cubesync-f70b7.firebaseio.com">
+	<a-assets>
+		<a-mixin id="left-box"
+			geometry="primitive: box"
+			material="color: red"
+			n-skeleton-parent="part: hand; side: left; index: 0;"
+			sync sync-n-skeleton-parent
+			position="0 0.1 0"
+			rotation="0 45 0"
+			scale="0.1 0.1 0.1">
+		</a-mixin>
+
+		<a-mixin id="body-ball"
+			position="0 0.25 -0.25"
+			n-spawner="res:interactables/basketball"
+			n-skeleton-parent="part: spine;"
+			sync sync-n-skeleton-parent>
+		</a-mixin>
+
+		<a-mixin id="spinal-tap"
+			n-sound="res: ui/error; volume: 0.5; loop: true; autoplay: true;"
+			n-skeleton-parent="part: spine;"
+			sync sync-n-skeleton-parent>
+		</a-mixin>
+
+		<a-mixin id="other-text"
+			position="0 1.5 0"
+			rotation="0 180 0"
+			scale="0.5 0.5 0.5"
+			n-text="fontSize: 2; text: text other people can read"
+			n-skeleton-parent="part: hips;"
+			sync sync-n-skeleton-parent>
+		</a-mixin>
+
+		<a-mixin id="head-text"
+			position="0.2 0.2 -0.5"
+			scale="0.1 0.1 0.1"
+			n-text="fontSize: 2; text: avoid text on the head \n annoying isn't it :-)"
+			n-skeleton-parent="part: head;"
+			sync sync-n-skeleton-parent>
+		</a-mixin>
+
+		<a-mixin id="headache"
+			n-object="res:effects/fire"
+			n-skeleton-parent="part: head;"
+			sync sync-n-skeleton-parent>
+		</a-mixin>
+
+		<a-mixin id="fire-fist"
+			n-object="res:effects/fire-trail"
+			n-skeleton-parent="part: hand; side: right"
+			sync sync-n-skeleton-parent>
+		</a-mixin>
+    <!-- <a-asset-item id="avatar-objs" src="https://bengarfield.github.io/AltVR-Tests/avatars/s-series-m01/S-Series-M01s.obj"></a-asset-item>
+    <a-asset-item id="avatar-mtls" src="https://bengarfield.github.io/AltVR-Tests/avatars/s-series-m01/S-Series-M01.mtl"></a-asset-item>
+    <a-asset-item id="body-obj" src="https://bengarfield.github.io/AltVR-Tests/avatars/s-series-m01/bodys.obj"></a-asset-item>
+    <a-asset-item id="body-mtl" src="https://bengarfield.github.io/AltVR-Tests/avatars/s-series-m01/bodys.mtl"></a-asset-item> -->
+    <!-- <a-mixin id="clone"
+      obj-model="obj: #avatar-objs; mtl: #avatar-mtls"
+      position='0 -1.6 .04'
+      rotation='0 180 0'
+          n-skeleton-parent="part: head"
+          collapse-model sync sync-n-skeleton-parent>
+        </a-mixin>
+    <a-mixin id="clone2"
+      obj-model="obj: #avatar-objs; mtl: #avatar-mtls"
+      position='0.6 -1.6 .04'
+      rotation='0 180 0'
+          n-skeleton-parent="part: head"
+          collapse-model sync sync-n-skeleton-parent>
+        </a-mixin>
+    <a-mixin id="clone3"
+      obj-model="obj: #avatar-objs; mtl: #avatar-mtls"
+      position='-0.6 -1.6 .04'
+      rotation='0 180 0'
+          n-skeleton-parent="part: head"
+          collapse-model sync sync-n-skeleton-parent>
+        </a-mixin>
+    <a-mixin id="body"
+      obj-model="obj: #body-obj; mtl: #body-mtl"
+      position='0.6 -1 0'
+      rotation='0 180 0'
+          n-skeleton-parent="part: hips"
+          collapse-model sync sync-n-skeleton-parent>
+        </a-mixin>
+    <a-mixin id="body2"
+      obj-model="obj: #body-obj; mtl: #body-mtl"
+      position='-0.6 -1 0'
+      rotation='0 180 0'
+          n-skeleton-parent="part: hips"
+          collapse-model sync sync-n-skeleton-parent>
+        </a-mixin> -->
+    
+    
+    <a-mixin id="headPlatform"
+			geometry="primitive: box"
+			material="color: red"
+			n-skeleton-parent="part: head;"
+			sync sync-n-skeleton-parent
+			position="0 0.2 0"
+			scale="1 0.1 1"
+      n-mesh-collider>
+		</a-mixin>
+	</a-assets>
+	<!-- <a-entity one-per-user="mixin: left-box"></a-entity>
+	
+	<a-entity one-per-user="mixin: body-ball"></a-entity>
+	
+	<a-entity one-per-user="mixin: spinal-tap"></a-entity> -->
+
+<!-- 	<a-entity one-per-user="mixin: other-text"></a-entity>
+	 -->
+	<!-- <a-entity
+	  position="0 0 -0.7"
+	  scale="0.2 0.2 0.2"
+	  rotation="-30 0 0"
+	  n-text="fontSize: 2; text: text you can read comfortably"
+	  n-cockpit-parent>
+	</a-entity> -->
+
+	<!-- <a-entity one-per-user="mixin: clone"></a-entity> -->
+	<!-- <a-entity one-per-user="mixin: clone2"></a-entity>
+	<a-entity one-per-user="mixin: clone3"></a-entity>
+	  <a-entity one-per-user="mixin: body"></a-entity>
+	  <a-entity one-per-user="mixin: body2"></a-entity> -->
+  <a-entity one-per-user="mixin: headPlatform"></a-entity>
+</a-scene>
+</body>
+</html>
