@@ -80,7 +80,7 @@
     "buffer_0": {
       "type": "arraybuffer",
       "byteLength": 106048,
-      "uri": "buffer_0.bin"
+      "uri": "body.bin"
     }
   },
   "bufferViews": {
@@ -99,7 +99,7 @@
   },
   "images": {
     "small": {
-      "uri": "../small.jpg"
+      "uri": "small.jpg"
     }
   },
   "materials": {
