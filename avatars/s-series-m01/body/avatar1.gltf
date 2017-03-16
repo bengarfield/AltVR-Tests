@@ -99,7 +99,7 @@
   },
   "images": {
     "small": {
-      "uri": "small.jpeg"
+      "uri": "../small.jpeg"
     }
   },
   "materials": {
