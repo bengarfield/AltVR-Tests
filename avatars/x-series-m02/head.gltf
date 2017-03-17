@@ -1,0 +1,300 @@
+{
+  "accessors": {
+    "accessor_index_0": {
+      "bufferView": "bufferView_1",
+      "byteOffset": 0,
+      "byteStride": 0,
+      "componentType": 5123,
+      "count": 5376,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        1714
+      ]
+    },
+    "accessor_position": {
+      "bufferView": "bufferView_0",
+      "byteOffset": 0,
+      "byteStride": 0,
+      "componentType": 5126,
+      "count": 1715,
+      "min": [
+        -0.08097399771213531,
+        1.5368269681930542,
+        -0.039420001208782196
+      ],
+      "max": [
+        0.08097399771213531,
+        1.8375749588012695,
+        0.1530349999666214
+      ],
+      "type": "VEC3"
+    },
+    "accessor_normal": {
+      "bufferView": "bufferView_0",
+      "byteOffset": 20580,
+      "byteStride": 0,
+      "componentType": 5126,
+      "count": 1715,
+      "type": "VEC3",
+      "min": [
+        -0.9983115792274475,
+        -0.9904013276100159,
+        -0.9969536662101746
+      ],
+      "max": [
+        0.9983115792274475,
+        0.9962721467018127,
+        0.988489031791687
+      ]
+    },
+    "accessor_uv": {
+      "bufferView": "bufferView_0",
+      "byteOffset": 41160,
+      "byteStride": 0,
+      "componentType": 5126,
+      "count": 1715,
+      "type": "VEC2",
+      "min": [
+        0.20340000092983246,
+        0.09049999713897705
+      ],
+      "max": [
+        0.9961000084877014,
+        0.3935999870300293
+      ]
+    }
+  },
+  "asset": {
+    "generator": "OBJ2GLTF",
+    "premultipliedAlpha": true,
+    "profile": {
+      "api": "WebGL",
+      "version": "1.0"
+    },
+    "version": "1.0"
+  },
+  "buffers": {
+    "buffer_0": {
+      "type": "arraybuffer",
+      "byteLength": 65632,
+      "uri": "head.bin"
+    }
+  },
+  "bufferViews": {
+    "bufferView_0": {
+      "buffer": "buffer_0",
+      "byteLength": 54880,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    "bufferView_1": {
+      "buffer": "buffer_0",
+      "byteLength": 10752,
+      "byteOffset": 54880,
+      "target": 34963
+    }
+  },
+  "images": {
+    "small": {
+      "uri": "small.jpg"
+    }
+  },
+  "materials": {
+    "material_Head": {
+      "name": "Head",
+      "extensions": {},
+      "values": {
+        "ambient": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "diffuse": "texture_small",
+        "emission": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "specular": [
+          0.012549,
+          0.012549,
+          0.012549,
+          1
+        ],
+        "shininess": 96.078431,
+        "transparency": 1
+      }
+    }
+  },
+  "meshes": {
+    "mesh_avatar": {
+      "name": "avatar",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": "accessor_position",
+            "NORMAL": "accessor_normal",
+            "TEXCOORD_0": "accessor_uv"
+          },
+          "indices": "accessor_index_0",
+          "material": "material_Head",
+          "mode": 4
+        }
+      ]
+    }
+  },
+  "nodes": {
+    "rootNode": {
+      "children": [],
+      "meshes": [
+        "mesh_avatar"
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "samplers": {
+    "sampler_0": {
+      "magFilter": 9729,
+      "minFilter": 9986,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  },
+  "scene": "scene_avatar",
+  "scenes": {
+    "scene_avatar": {
+      "nodes": [
+        "rootNode"
+      ]
+    }
+  },
+  "textures": {
+    "texture_small": {
+      "format": 6407,
+      "internalFormat": 6407,
+      "sampler": "sampler_0",
+      "source": "small",
+      "target": 3553,
+      "type": 5121
+    }
+  },
+  "extensionsUsed": [],
+  "animations": {},
+  "cameras": {},
+  "techniques": {
+    "technique0": {
+      "attributes": {
+        "a_position": "position",
+        "a_normal": "normal",
+        "a_texcoord_0": "texcoord_0"
+      },
+      "parameters": {
+        "modelViewMatrix": {
+          "semantic": "MODELVIEW",
+          "type": 35676
+        },
+        "projectionMatrix": {
+          "semantic": "PROJECTION",
+          "type": 35676
+        },
+        "normalMatrix": {
+          "semantic": "MODELVIEWINVERSETRANSPOSE",
+          "type": 35675
+        },
+        "ambient": {
+          "type": 35666
+        },
+        "diffuse": {
+          "type": 35678
+        },
+        "emission": {
+          "type": 35666
+        },
+        "specular": {
+          "type": 35666
+        },
+        "shininess": {
+          "type": 5126
+        },
+        "transparency": {
+          "type": 5126
+        },
+        "position": {
+          "semantic": "POSITION",
+          "type": 35665
+        },
+        "normal": {
+          "semantic": "NORMAL",
+          "type": 35665
+        },
+        "texcoord_0": {
+          "semantic": "TEXCOORD_0",
+          "type": 35664
+        }
+      },
+      "program": "program0",
+      "states": {
+        "enable": [
+          2884,
+          2929
+        ]
+      },
+      "uniforms": {
+        "u_modelViewMatrix": "modelViewMatrix",
+        "u_projectionMatrix": "projectionMatrix",
+        "u_normalMatrix": "normalMatrix",
+        "u_ambient": "ambient",
+        "u_diffuse": "diffuse",
+        "u_emission": "emission",
+        "u_specular": "specular",
+        "u_shininess": "shininess",
+        "u_transparency": "transparency"
+      }
+    }
+  },
+  "programs": {
+    "program0": {
+      "attributes": [
+        "a_position",
+        "a_normal",
+        "a_texcoord_0"
+      ],
+      "fragmentShader": "fragmentShader0",
+      "vertexShader": "vertexShader0"
+    }
+  },
+  "shaders": {
+    "vertexShader0": {
+      "type": 35633,
+      "uri": "vertexShader0.glsl"
+    },
+    "fragmentShader0": {
+      "type": 35632,
+      "uri": "fragmentShader0.glsl"
+    }
+  },
+  "skins": {},
+  "extensions": {}
+}
