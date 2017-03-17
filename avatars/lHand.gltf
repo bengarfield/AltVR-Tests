@@ -5,13 +5,13 @@
       "byteOffset": 0,
       "byteStride": 0,
       "componentType": 5123,
-      "count": 3852,
+      "count": 1926,
       "type": "SCALAR",
       "min": [
         0
       ],
       "max": [
-        1739
+        859
       ]
     },
     "accessor_position": {
@@ -19,14 +19,14 @@
       "byteOffset": 0,
       "byteStride": 0,
       "componentType": 5126,
-      "count": 1740,
+      "count": 860,
       "min": [
         -0.16904200613498688,
         -0.020051000639796257,
         -0.05698100104928017
       ],
       "max": [
-        0.16904200613498688,
+        0.0361500009894371,
         0.023419000208377838,
         0.04392499849200249
       ],
@@ -34,28 +34,28 @@
     },
     "accessor_normal": {
       "bufferView": "bufferView_0",
-      "byteOffset": 20880,
+      "byteOffset": 10320,
       "byteStride": 0,
       "componentType": 5126,
-      "count": 1740,
+      "count": 860,
       "type": "VEC3",
       "min": [
-        -0.9986953139305115,
+        -0.999356746673584,
         -0.9998515248298645,
-        -0.9999938607215881
+        -0.9999915361404419
       ],
       "max": [
-        0.999356746673584,
+        0.9986953139305115,
         0.9998794198036194,
-        0.9999801516532898
+        0.9999524354934692
       ]
     },
     "accessor_uv": {
       "bufferView": "bufferView_0",
-      "byteOffset": 41760,
+      "byteOffset": 20640,
       "byteStride": 0,
       "componentType": 5126,
-      "count": 1740,
+      "count": 860,
       "type": "VEC2",
       "min": [
         0.023499999195337296,
@@ -79,21 +79,21 @@
   "buffers": {
     "buffer_0": {
       "type": "arraybuffer",
-      "byteLength": 63384,
+      "byteLength": 31372,
       "uri": "lHand.bin"
     }
   },
   "bufferViews": {
     "bufferView_0": {
       "buffer": "buffer_0",
-      "byteLength": 55680,
+      "byteLength": 27520,
       "byteOffset": 0,
       "target": 34962
     },
     "bufferView_1": {
       "buffer": "buffer_0",
-      "byteLength": 7704,
-      "byteOffset": 55680,
+      "byteLength": 3852,
+      "byteOffset": 27520,
       "target": 34963
     }
   },
