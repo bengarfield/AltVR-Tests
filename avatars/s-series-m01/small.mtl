@@ -5,6 +5,6 @@ illum 7
 
 newmtl Base
 Kd 1.00000000000000 1.00000000000000 1.00000000000000
-map_Kd small.jpg
+map_Kd smallLight.jpg
 illum 7
 
