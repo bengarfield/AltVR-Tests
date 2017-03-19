@@ -1,6 +1,6 @@
 # Blender v2.77 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib lHand.mtl
+mtllib small.mtl
 o HandLeft_Untitled.005
 v -0.040371 -0.007189 0.118807
 v -0.046700 -0.021973 0.096119
@@ -2464,7 +2464,7 @@ vn -0.0817 0.0434 -0.9957
 vn -0.0410 0.0648 -0.9971
 vn -0.0353 0.0678 -0.9971
 vn -0.0876 0.0402 -0.9953
-usemtl PodSSeries02_unlit_combined_mtl
+usemtl Base
 s 1
 f 1/1/1 2/2/2 3/3/3
 f 1/1/1 4/4/4 2/2/2
