@@ -145,5 +145,6 @@ altspace.getThreeJSTrackingSkeleton().then(function(skeleton){
 		  }
 		}
 	  requestAnimationFrame(loop);
+	  }
 	}
 });
