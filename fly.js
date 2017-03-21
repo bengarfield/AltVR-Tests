@@ -24,8 +24,7 @@ altspace.getUser().then(function(user){
         var isFlying = false;
         var handsFound = false;
         var handsEnabled = false;
-
-        var scene = document.querySelector('a-scene');
+        
         var buttons = document.createElement('a-entity');
         buttons.setAttribute('position', '-1.11 0.05 -1.55');
         buttons.setAttribute('rotation', '-25 0 0');
@@ -83,9 +82,19 @@ altspace.getUser().then(function(user){
         push.setAttribute('n-skeleton-parent', 'part: hips');
         push.setAttribute('n-mesh-collider', 'type: environment; convex: false');
 
-        scene.appendChild(buttons);
-        scene.appendChild(elevator);
-        scene.appendChild(push);
+        var scene;
+        if (document.querySelector('a-scene')) {
+          console.log('A-Frame');
+          scene = document.querySelector('a-scene');
+          scene.appendChild(buttons);
+          scene.appendChild(elevator);
+          scene.appendChild(push);
+        } else {
+          console.log('THREE.js')
+          sim.scene.add(buttons.object3D, elevator.object3D, push.object3D);
+        }
+        
+        
 
         up.addEventListener('mousedown', function() {move(1)});
         down.addEventListener('mousedown', function() {move(-1)});
