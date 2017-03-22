@@ -41,6 +41,7 @@
 		function gripState(){
 			if(gamepads[2].buttons[1].value > .5)gp1Grip = true;
 			else gp1Grip = false;
+			if(gamepads[2].buttons[2].value == 1)plane1.position.y = -100;
 			requestAnimationFrame(gripState);
 		};
 		
