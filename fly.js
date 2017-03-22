@@ -61,7 +61,7 @@ altspace.getThreeJSTrackingSkeleton().then(function(skeleton){
 	buttons.appendChild(text);
 
 	var elevator = document.createElement('a-box');
-	elevator.setAttribute('scale', '3000 1 3000');
+	elevator.setAttribute('scale', '1000 1 1000');
 	elevator.setAttribute('position', '0 -.5 0');
 	elevator.setAttribute('n-mesh-collider', 'type: environment; convex: false');
 	elevator.setAttribute('opacity', '0');
