@@ -58,7 +58,7 @@ altspace.getEnclosure().then(function(enclosure){
 				freeze.subVectors(headTrack.position, gamepads[2].position)
 				loop();
 			};
-			if(!gp1Grip )plane1.position.y = -100;
+			//if(!gp1Grip )plane1.position.y = -100;
 			
 			function loop(){
 				inLoop1 = true;
