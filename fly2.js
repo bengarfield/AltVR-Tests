@@ -1,7 +1,4 @@
-var sim = new altspace.utilities.Simulation();
 
-altspace.getEnclosure().then(function(enclosure){
-	enclosure.requestFullspace();
 	altspace.getGamepads();
 	altspace.getThreeJSTrackingSkeleton().then(function(skeleton){
 		headTrack = skeleton.getJoint("Eye");
@@ -78,4 +75,4 @@ altspace.getEnclosure().then(function(enclosure){
 			requestAnimationFrame(gripAction1);
 		};
 	});
-});
+
