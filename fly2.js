@@ -42,7 +42,7 @@ altspace.getEnclosure().then(function(enclosure){
 		};
 		
 		function gripState(){
-			if(gamepads[1].buttons[1].value > .5)gp1Grip = true;
+			if(gamepads[2].buttons[1].value > .5)gp1Grip = true;
 			else gp1Grip = false;
 			requestAnimationFrame(gripState);
 		};
@@ -55,7 +55,7 @@ altspace.getEnclosure().then(function(enclosure){
 			var offset = new THREE.Vector3;
 			
 			if(gp1Grip && !inLoop1){
-				freeze.subVectors(headTrack.position, gamepads[1].position)
+				freeze.subVectors(headTrack.position, gamepads[2].position)
 				loop();
 			};
 			if(!gp1Grip )plane1.position.y = -100;
@@ -69,7 +69,7 @@ altspace.getEnclosure().then(function(enclosure){
 				planePos.copy(headTrack.position);
 				planePos.y -= heightOffset;
 				planePos.add(freeze);
-				offset.subVectors(headTrack.position, gamepads[1].position);
+				offset.subVectors(headTrack.position, gamepads[2].position);
 				planePos.sub(offset);
 				plane1.position.copy(planePos);
 
