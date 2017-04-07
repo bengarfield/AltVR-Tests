@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Portal Map</title>
+    <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
+    <script src="https://cdn.rawgit.com/AltspaceVR/AltspaceSDK/v2.2.0/dist/altspace.min.js"></script>
+    <!-- <script src="https://cdn.rawgit.com/oOblik/AltspaceVR-Native-Components-JS/0.1.2/js/JSNativeComponents.js"></script>
+    <script src="https://jeromeetienne.github.io/threex.dynamictexture/threex.dynamictexture.js"></script> -->
+    
+	</head>
+	<body>
+    <a-scene altspace='fullspace: true' sync-system='app:portals; author:BenG; refUrl: https://cubesync-f70b7.firebaseio.com'>
+      
+      <a-entity position="0 30 -50" scale="80 80 10" n-layout-browser="url: https://video-jukebox.firebaseapp.com/?room=portals"></a-entity>
+      <a-entity position="-3.5 21 30.5" rotation='-25 0 0' scale="1 1 1" n-layout-browser="url: https://video-jukebox.firebaseapp.com/?hud=true&amp;room=portals"></a-entity>
+      
+      <a-entity position="0 21.3 30" rotation='0 0 0' scale="3 3 3" n-layout-browser="url:https://jsbin.com/hiqicu; isEnclosure:true"></a-entity>
+      
+      <a-box id='map' position='0 1.5 -1' width='1' height='1' scale='1.32 1.32 .01' opacity='0'></a-box>
+      
+      <a-box id='map' src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='0 1.5 -1' width='1' height='1' scale='1 1 .01'>
+        <a-box color='black' position='0 0 -1' scale='1.05 1.05 2'></a-box>
+        <a-circle id='h0' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p0' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n0' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h1' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p1' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n1' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h2' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p2' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n2' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h3' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p3' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n3' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h4' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p4' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n4' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h5' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p5' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n5' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h6' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p6' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n6' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h7' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p7' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n7' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h8' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p8' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n8' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h9' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p9' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n9' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h10' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p10' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n10' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h11' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p11' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n11' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h12' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p12' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n12' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h13' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p13' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n13' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h14' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p14' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n14' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h15' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p15' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n15' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h16' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p16' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n16' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h17' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p17' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n17' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h18' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p18' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n18' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h19' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p19' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n19' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h20' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p20' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n20' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h21' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p21' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n21' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h22' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p22' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n22' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h23' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p23' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n23' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h24' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p24' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n24' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h25' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p25' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n25' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h26' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p26' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n26' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h27' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p27' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n27' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h28' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p28' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n28' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+        <a-circle id='h29' position='0 -10 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false'>
+          <a-circle id='p29' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false'></a-circle>
+          <a-entity id='n29' position='0 0.02 0' scale='.015 .015 1' n-text='text: name'></a-entity>
+        </a-circle>
+      </a-box>
+      <a-box id='mapSpawner' src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='-.6 .2 -1.6' rotation='-25 0 0' scale='.2 .2 .05' n-cockpit-parent altspace-cursor-collider='enabled: true'></a-box>
+      <a-entity id='hand'position='1000 0 0'>
+        <a-box id='handMap' src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='.22 -.2 -.25' rotation='45 0 -90' scale='.67 .67 .005' opacity='0' n-skeleton-parent='part: hand; side: left' altspace-cursor-collider='enabled: true'></a-box>
+        <a-box src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='.22 -.2 -.25' rotation='45 0 -90' scale='.5 .5 .005' n-skeleton-parent='part: hand; side: left'>
+          <a-box color='black' position='0 0 -1' scale='1.05 1.05 2' n-skeleton-parent='part: hand; side: left' altspace-cursor-collider='enabled: true'></a-box>
+          <a-circle id='handh0' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp0' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn0' position='0 0.02 0' scale='.015 .015 10' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh1' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp1' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn1' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh2' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp2' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn2' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh3' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp3' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn3' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh4' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp4' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn4' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh5' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp5' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn5' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh6' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp6' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn6' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh7' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp7' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn7' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh8' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp8' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn8' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh9' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp9' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn9' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+		      <a-circle id='handh10' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp10' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn10' position='0 0.02 0' scale='.015 .015 10' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh11' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp11' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn11' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh12' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp12' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn12' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh13' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp13' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn13' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh14' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp14' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn14' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh15' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp15' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn15' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh16' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp16' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn16' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh17' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp17' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn17' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh18' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp18' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn18' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh19' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp19' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn19' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+		      <a-circle id='handh20' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp20' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn20' position='0 0.02 0' scale='.015 .015 10' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh21' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp21' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn21' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh22' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp22' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn22' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh23' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp23' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn23' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh24' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp24' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn24' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh25' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp25' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn25' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh26' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp26' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn26' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh27' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp27' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn27' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh28' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp28' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn28' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+          <a-circle id='handh29' position='0 -1000 0' radius='.01' color='black' sync sync-color sync-transform altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'>
+            <a-circle id='handp29' position='0 0 .001' radius='.007' color='black' sync sync-color altspace-cursor-collider='enabled: false' n-skeleton-parent='part: hand; side: left'></a-circle>
+            <a-entity id='handn29' position='0 0.02 0' scale='.015 .015 1' n-text='text: name' n-skeleton-parent='part: hand; side: left'></a-entity>
+          </a-circle>
+        </a-box>
+      </a-entity>
+      
+      <a-plane src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='0 -.01 0' rotation='-90 0 0' scale='100 100 1'></a-plane>
+      <a-entity id='container'></a-entity>
+      
+      
+      <a-entity id='portal1t' position='0 20 27.5' rotation='0 180 0'>
+        <a-plane position='0 0 -2.5' scale='10 10 10' rotation='-90 0 0' material='color: black; side: double' opacity='.7' n-mesh-collider='type: environment; convex: false'></a-plane>
+      </a-entity>
+      <a-entity id='portal2t' position='0 200 0' rotation='0 180 0'></a-entity>
+      <a-entity id='portal1' scale='1 1 1' rotation='0 0 0' position='-3 0 -5' n-portal='targetEntity: #portal2t'></a-entity>
+      <a-entity id='portal2' position='3 0 -5' n-portal='targetEntity: #portal1t'></a-entity>
+      
+      <a-cylinder radius='.04' height='.04' rotation='90 0 0' open-ended='true' material='side: double; color: brown' n-skeleton-parent='part: hand; side: left'></a-cylinder>
+      <a-cylinder id='button' radius='.03' height='.01' position='0 .04 0' material='color: red' n-skeleton-parent='part: hand; side: left' altspace-cursor-collider='true'></a-cylinder>
+      <a-cylinder id='button2' radius='.02' height='.005' position='0 -.04 0' material='color: yellow' n-skeleton-parent='part: hand; side: left' altspace-cursor-collider='true'></a-cylinder>
+      
+      <!-- <a-entity position='49 0 -49' rotation='0 -45 0' n-portal='targetSpace: campfire-lobby' n-text='fontSize: 5; text: Personal\nStudio\n\n\n\n\n\n\n\n\n\n\n\n'></a-entity>
+      <a-entity id='p' position='0 0 50' rotation='0 180 0' n-portal='' n-text="fontSize: 5; text: Planetarium\n\n\n\n\n\n\n\n\n\n\n\n"></a-entity> -->
+      
+      
+      <!-- experiment -->
+      
+      <!-- <a-plane id=small src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='0 21 30' scale='.03 .03 .03' width='30' height='30' rotation='-90 0 0' opacity='.7' n-mesh-collider='type: hologram; convex: false'>
+        <a-box id='box1' position='0 .5 0'></a-box>
+      </a-plane>
+      
+      <a-plane id='big' src='https://bengarfield.github.io/AltVR-Tests/grid.jpg' position='0 0 100' scale='1 1 1' width='30' height='30' rotation='-90 0 0' opacity='.7' n-mesh-collider='type: environment; convex: false'>
+        <a-box id='box2' position='0 .5 0'></a-box>
+      </a-plane> -->
+      
+    </a-scene>
+    <script>
+      var scene = document.querySelector('a-scene');
+      var skeleton;
+      var pos;
+      var quat;
+      var hand;
+      var handGroup = new THREE.Group();
+      scene.object3D.add(handGroup);
+      
+      var map = new THREE.Mesh(new THREE.BoxGeometry(.5, .5, .005), new THREE.MeshBasicMaterial({transparent: true, opacity: 0}));
+      map.userData.altspace = {collider: {enabled: false}};
+      map.rotation.set(THREE.Math.degToRad(-45), THREE.Math.degToRad(180), THREE.Math.degToRad(90));
+      map.position.set(-.22, -.2, .25);
+      map.addEventListener('cursordown', function(type) {
+        console.log(type);
+        raycaster = new THREE.Raycaster(type.ray.origin, type.ray.direction, 0, 2);
+        console.log(raycaster.intersectObject(map)[0].uv);
+      });
+      handGroup.add(map);
+      
+      altspace.getThreeJSTrackingSkeleton().then(function(s){pos = s.getJoint('Spine').position; quat = s.getJoint('Spine').quaternion; skeleton = s;});
+      document.querySelector('#map').addEventListener('mousedown', function(type) {
+        var v = type.detail.point.sub(type.target.object3D.position);
+        //console.log(v);
+        
+        var target = document.createElement('a-entity');
+        target.setAttribute('id', 'target');
+        target.setAttribute('position', {x: v.x * 100, y: 0, z: v.y * -100});
+        target.setAttribute('rotation', '0 180 0');
+        var portal = document.createElement('a-entity');
+        portal.setAttribute('position', {x: pos.x, y: pos.y, z: pos.z});
+        portal.setAttribute('n-portal', 'targetEntity: #target');
+        
+        document.querySelector('#container').appendChild(target);
+        document.querySelector('#container').appendChild(portal);
+        setTimeout(function() {document.querySelector('#container').innerHTML = '';}, 1000);
+      });
+      document.querySelector('#handMap').addEventListener('mousedown', function(type) {
+        var v = type.detail.point;
+        console.log(type);
+        //v = v.sub(new THREE.Vector3(hand.position.x, hand.position.y, hand.position.z * -1));
+        console.log(hand);
+        
+        raycaster = new THREE.Raycaster(type.detail.ray.origin, type.detail.ray.direction, 0, 2);
+        if (raycaster.intersectObject(map).length > 0) {
+          var c = raycaster.intersectObject(map)[0].uv;
+          console.log(c);
+          c.sub(new THREE.Vector2(.5, .5));
+          c.multiplyScalar(100);
+          
+          var target = document.createElement('a-entity');
+          target.setAttribute('id', 'target');
+          target.setAttribute('position', {x: c.x * -1, y: 0, z: c.y});
+          var portal = document.createElement('a-entity');
+          portal.setAttribute('position', {x: pos.x, y: pos.y, z: pos.z});
+          portal.setAttribute('n-portal', 'targetEntity: #target');
+          
+          document.querySelector('#container').appendChild(target);
+          setTimeout(function() {document.querySelector('#target').object3D.quaternion.set(quat.x,quat.y,quat.z,quat.w);
+                                 document.querySelector('#container').appendChild(portal);}, 10);
+          setTimeout(function() {document.querySelector('#container').innerHTML = '';}, 1000);
+        }
+      });
+      
+      /*document.querySelector('#small').addEventListener('mousedown', function(type) {
+        var v = type.detail.point.sub(type.target.object3D.position);
+        v.z += 60;
+        v.multiplyScalar(33.333);
+        console.log(v);
+                
+        document.querySelector('#box1').setAttribute('position', {x: v.x,y: v.z,z: v.y});
+        document.querySelector('#box2').setAttribute('position', {x: v.x,y: v.z,z: v.y});
+      });*/
+      
+      document.querySelector('#button').addEventListener('mousedown', function() {
+        var portal = document.createElement('a-entity');
+        portal.setAttribute('position', {x: pos.x, y: pos.y, z: pos.z});
+        portal.setAttribute('n-portal', 'targetEntity: #target');
+        
+        document.querySelector('#container').appendChild(portal);
+        setTimeout(function() {document.querySelector('#container').innerHTML = '';}, 1000);
+      });
+      document.querySelector('#button2').addEventListener('mousedown', function() {
+        var target = document.createElement('a-entity');
+        target.setAttribute('id', 'target');
+        target.setAttribute('position', {x: (Math.random() - .5) * 100, y: 0, z: (Math.random() - .5) * 100});
+        target.setAttribute('rotation', {x: 0, y: Math.random() * 360, z: 0});
+        var portal = document.createElement('a-entity');
+        portal.setAttribute('position', {x: pos.x, y: pos.y, z: pos.z});
+        portal.setAttribute('n-portal', 'targetEntity: #target');
+        
+        document.querySelector('#container').appendChild(target);
+        document.querySelector('#container').appendChild(portal);
+        setTimeout(function() {document.querySelector('#container').innerHTML = '';}, 1000);
+      });
+      var attached = false;
+      document.querySelector('#mapSpawner').addEventListener('mousedown', function() {
+        if(attached) {
+          attached = false;
+          document.querySelector('#hand').setAttribute('position', '1000 0 0');
+        } else {
+          attached = true;
+          document.querySelector('#hand').setAttribute('position', '0 0 0');
+        }
+      });
+      
+      var players = [];
+      
+
+      //console.log(scene);
+      scene.addEventListener('connected', function() {
+        var conn = scene.systems['sync-system'].connection;
+        var clientId = scene.systems['sync-system'].clientId;
+        var playerNum = -1;
+        //clientId = '1234'
+        var clients = conn.instance.child('clients');
+        var names = conn.instance.child('names');
+        var handFound = false;
+        clients.on('value', function(data){
+          //console.log(data.val());
+          var i = 0;
+          for (var c in data.val()) {
+            console.log(c, data.val()[c], players.indexOf(data.val()[c]));
+            if (players.indexOf(data.val()[c]) < 0){
+              //console.log('no')
+              players.push(data.val()[c]);
+              console.log(data.val()[c] + ' has joined');
+            }
+            if (data.val()[c] == clientId && playerNum < 0) {
+              //console.log('match');
+              playerNum = i;
+              if(playerNum < 30) {
+                loop();
+              }
+            }
+            i++;
+          }
+          for (var i = 0; i < players.length; i++) {
+            var stillHere = false;
+            for (var c in data.val()) {
+              if (data.val()[c] == players[i]) {
+                stillHere = true;
+              }
+            }
+            if (!stillHere) {
+              //document.querySelector('#h'+i).setAttribute('position', '0 -1 0');
+              console.log(players[i] + ' has left');
+              document.querySelector('#p'+i).components.sync.takeOwnership();
+              document.querySelector('#h'+i).components.sync.takeOwnership();
+              document.querySelector('#handp'+i).components.sync.takeOwnership();
+              document.querySelector('#handh'+i).components.sync.takeOwnership();
+              document.querySelector('#h'+playerNum).setAttribute('position', {x:0,y:-1000,z:0});
+              document.querySelector('#handh'+playerNum).setAttribute('position', {x:0,y:-1000,z:0});
+              players.splice(i, 1);
+            }
+          }
+        });
+        names.on('value', function(data){
+          //console.log(data.val());
+          for (var n in data.val()) {
+            var index = players.indexOf(n);
+            //console.log(index);
+            //console.log(n);
+            if (index > -1) {
+              document.querySelector('#n'+index).setAttribute('n-text', 'text:' + data.val()[n]);
+              document.querySelector('#handn'+index).setAttribute('n-text', 'text:' + data.val()[n]);
+            }
+          }
+        });
+        altspace.getUser().then(function(user){
+          names.child(clientId).set(user.displayName);
+          var dataRequest = (THREE.FileLoader ? new THREE.FileLoader() : new THREE.XHRLoader(/* DEPRECATED: r83 */));
+          dataRequest.setWithCredentials(true);
+          dataRequest.load('https://account.altvr.com/api/v1/users/' + user.userId, onLoaded, undefined, undefined);
+
+          function onLoaded(obj) {
+            //document.querySelector('#text').setAttribute('n-text', 'text: ' + JSON.parse(obj).users[0].email)
+            //console.log(JSON.parse(obj).users[0].email)
+            var avatar = JSON.parse(obj).users[0].user_avatar.config.avatar;
+            //console.log(avatar);
+            var sid = avatar.avatar_sid;
+            if(sid =='a-series-m01' || sid == 'pod-classic' || sid == 's-series-f01' || sid == 's-series-m01' || sid == 'x-series-m02'){
+                var pColor = avatar['primary-color'];
+                var hColor = avatar['highlight-color'];
+                if (pColor[0] == 'white') {
+                  pColor = [255,255,255];
+                } else if (pColor[0] == 'lightgrey') {
+                  pColor = [165,165,165];
+                } else if (pColor[0] == 'grey') {
+                  pColor = [81,81,81];
+                } else if (pColor[0] == 'darkgrey') {
+                  pColor = [47,47,47];
+                } else if (pColor[0] == 'black') {
+                  pColor = [0,0,0];
+                }
+              
+                document.querySelector('#p'+playerNum).components.sync.takeOwnership()
+                document.querySelector('#h'+playerNum).components.sync.takeOwnership()
+                document.querySelector('#p'+playerNum).setAttribute('color', 'rgb('+pColor[0]+', '+pColor[1]+', '+pColor[2]+')');
+                document.querySelector('#h'+playerNum).setAttribute('color', 'rgb('+hColor[0]+', '+hColor[1]+', '+hColor[2]+')');
+              
+                document.querySelector('#handp'+playerNum).components.sync.takeOwnership()
+                document.querySelector('#handh'+playerNum).components.sync.takeOwnership()
+                document.querySelector('#handp'+playerNum).setAttribute('color', 'rgb('+pColor[0]+', '+pColor[1]+', '+pColor[2]+')');
+                document.querySelector('#handh'+playerNum).setAttribute('color', 'rgb('+hColor[0]+', '+hColor[1]+', '+hColor[2]+')');
+
+            }
+            
+            document.querySelector('#p'+playerNum).components.sync.takeOwnership()
+            document.querySelector('#h'+playerNum).components.sync.takeOwnership()
+            document.querySelector('#handp'+playerNum).components.sync.takeOwnership()
+            document.querySelector('#handh'+playerNum).components.sync.takeOwnership()
+
+            
+            //loop();
+          }
+          //scene.systems['sync-system'].instantiate();
+          
+        });
+        console.log(document.querySelector('#h0').components.sync);
+        //scene.systems['sync-system'].instantiate(document.querySelector('#spot'));
+        //console.log(document.querySelector('#spot'));
+      
+        function loop() {
+          var v = new THREE.Vector3().copy(pos);
+          v.multiplyScalar(2);
+          v.round();
+          v.divideScalar(2);
+          document.querySelector('#h'+playerNum).setAttribute('position', {x:v.x / 100,y:(v.z / -100),z:.75});
+          document.querySelector('#handh'+playerNum).setAttribute('position', {x:v.x / 100,y:(v.z / -100),z:.75});
+
+          if (!handFound) {
+            if (skeleton.trackingJoints.LeftHand0 != undefined) {
+              hand = skeleton.trackingJoints.LeftHand0;
+              console.log(hand);
+              handFound = true;
+            }
+          } else {
+            hand = skeleton.trackingJoints.LeftHand0;
+
+            handGroup.position.set(hand.position.x, hand.position.y, hand.position.z);
+            handGroup.quaternion.set(hand.quaternion.x, hand.quaternion.y, hand.quaternion.z, hand.quaternion.w);
+            //console.log(hand.position)
+          }
+          requestAnimationFrame(loop);                
+        }
+      });
+    </script>
+    <!-- <script src="https://bengarfield.github.io/AltVR-Tests/fly2.js"></script> -->
+	</body>
+</html>
