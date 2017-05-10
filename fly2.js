@@ -205,7 +205,7 @@ altspace.getThreeJSTrackingSkeleton().then(function(skeleton){
   if(document.querySelector('a-scene')) {
     console.log('yes');
     document.querySelector('a-scene').object3D.add(flyApp);
-  } else if (scene){
+  } else if (scene != undefined){
     scene.add(flyApp);
   } else {
     sim.scene.add(flyApp);
