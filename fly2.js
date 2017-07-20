@@ -205,9 +205,14 @@ altspace.getThreeJSTrackingSkeleton().then(function(skeleton){
   if(document.querySelector('a-scene')) {
     console.log('yes');
     document.querySelector('a-scene').object3D.add(flyApp);
-  } else if (sim != undefined){
-    sim.scene.add(flyApp);
   } else {
-    scene.add(flyApp);
+    try{sim;}
+    catch(e){
+      if(e.name == "ReferenceError") {
+        scene.add(flyApp);
+      } else {
+        sim.scene.add(flyApp);
+      }
+    }
   }
 });
